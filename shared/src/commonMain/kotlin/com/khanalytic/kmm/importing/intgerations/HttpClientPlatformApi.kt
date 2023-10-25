@@ -17,10 +17,6 @@ abstract class HttpClientPlatformApi(private val httpClient: HttpClient) : Platf
                     domain = cookie.domain
                 )
             }
-
-            contentType(ContentType.Application.Json)
-            contentLength()
-
         }.bodyAsText()
     }
 
