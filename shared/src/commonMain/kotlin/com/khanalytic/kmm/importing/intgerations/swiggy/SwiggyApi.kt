@@ -6,6 +6,7 @@ import com.khanalytic.kmm.http.HttpRequestBuilderExtensions.origin
 import com.khanalytic.kmm.http.HttpRequestBuilderExtensions.referer
 import com.khanalytic.kmm.importing.intgerations.HttpClientPlatformApi
 import com.khanalytic.kmm.importing.intgerations.PlatformResponseParser
+import com.khanalytic.kmm.importing.intgerations.models.SalesSummary
 import com.khanalytic.kmm.importing.intgerations.swiggy.SwiggyConstants.acceptHtml
 import com.khanalytic.kmm.importing.intgerations.swiggy.SwiggyConstants.accessToken
 import com.khanalytic.kmm.importing.intgerations.swiggy.SwiggyConstants.commonHeaders
@@ -47,15 +48,17 @@ class SwiggyApi(
         resId: String,
         startDate: String,
         endDate: String
-    ): String {
-        return httpClient.get(SwiggyConstants.salesSummaryUrl(resId, startDate, endDate)) {
-            commonHeaders()
-            accept(ContentType.Application.Json)
-            accept(ContentType.Text.Plain)
-            accept(ContentType.Any)
-            cookies(cookies)
-            referer(SwiggyConstants.restaurantReferrer(resId))
-        }.bodyAsText()
+    ): SalesSummary {
+        return responseParser.parseSalesSummary(
+            httpClient.get(SwiggyConstants.salesSummaryUrl(resId, startDate, endDate)) {
+                commonHeaders()
+                accept(ContentType.Application.Json)
+                accept(ContentType.Text.Plain)
+                accept(ContentType.Any)
+                cookies(cookies)
+                referer(SwiggyConstants.restaurantReferrer(resId))
+            }.bodyAsText()
+        )
     }
 
     private suspend fun getBrand(resId: String): BrandDetail {

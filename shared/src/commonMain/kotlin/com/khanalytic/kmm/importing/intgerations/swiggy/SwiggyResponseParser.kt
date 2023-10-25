@@ -1,9 +1,8 @@
 package com.khanalytic.kmm.importing.intgerations.swiggy
 
 import com.khanalytic.kmm.importing.intgerations.PlatformResponseParser
-import com.khanalytic.kmm.importing.intgerations.swiggy.responses.BrandDetail
-import com.khanalytic.kmm.importing.intgerations.swiggy.responses.BrandDetailResponse
-import com.khanalytic.kmm.importing.intgerations.swiggy.responses.BrandsResponse
+import com.khanalytic.kmm.importing.intgerations.models.SalesSummary
+import com.khanalytic.kmm.importing.intgerations.swiggy.responses.*
 import kotlinx.serialization.json.Json
 
 class SwiggyResponseParser(private val serializer: Json) : PlatformResponseParser {
@@ -16,4 +15,8 @@ class SwiggyResponseParser(private val serializer: Json) : PlatformResponseParse
 
     @Throws(Exception::class) override fun parseBrand(response: String): BrandDetail =
         serializer.decodeFromString<BrandDetailResponse>(response).data
+
+    @Throws(Exception::class) override fun parseSalesSummary(response: String): SalesSummary =
+        serializer.decodeFromString<SalesSummaryResponse>(response)
+            .data.orderMetricsV4.summary.toSalesSummary()
 }
