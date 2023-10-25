@@ -1,16 +1,27 @@
 package com.khanalytic.kmm.importing.intgerations.swiggy
 
-import com.khanalytic.kmm.importing.intgerations.Cookie.Companion.toCookies
+import com.khanalytic.kmm.http.Cookie.Companion.toCookies
+import com.khanalytic.kmm.http.HttpRequestBuilderExtensions.cookies
+import com.khanalytic.kmm.http.HttpRequestBuilderExtensions.origin
+import com.khanalytic.kmm.http.HttpRequestBuilderExtensions.referer
 import com.khanalytic.kmm.importing.intgerations.HttpClientPlatformApi
 import com.khanalytic.kmm.importing.intgerations.PlatformResponseParser
+import com.khanalytic.kmm.importing.intgerations.swiggy.SwiggyConstants.acceptHtml
+import com.khanalytic.kmm.importing.intgerations.swiggy.SwiggyConstants.accessToken
+import com.khanalytic.kmm.importing.intgerations.swiggy.SwiggyConstants.commonHeaders
+import com.khanalytic.kmm.importing.intgerations.swiggy.SwiggyConstants.requestedBy
+import com.khanalytic.kmm.importing.intgerations.swiggy.SwiggyConstants.userMeta
 import com.khanalytic.kmm.importing.intgerations.swiggy.responses.BrandDetail
 import io.ktor.client.*
+import io.ktor.client.request.*
+import io.ktor.client.statement.*
+import io.ktor.http.*
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 
 class SwiggyApi(
-    httpClient: HttpClient,
+    private val httpClient: HttpClient,
     private val responseParser: PlatformResponseParser,
     cookie: String
 ) : HttpClientPlatformApi(httpClient) {
@@ -20,17 +31,15 @@ class SwiggyApi(
 
     @Throws(Exception::class)
     override suspend fun getBrands(): List<BrandDetail> = coroutineScope {
-        val headers = SwiggyConstants.commonHeaders.plus(mapOf(
-            "Accept" to "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/" +
-                    "webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-        ))
-        return@coroutineScope responseParser.parseBrandIds(get(
-            SwiggyConstants.ordersUrl(),
-            headers,
-            cookies
-        )).map { brandId ->
-            async { getBrand(brandId) }
-        }.awaitAll()
+        val brandIdsResponse = httpClient.get(SwiggyConstants.ordersUrl()) {
+            commonHeaders()
+            acceptHtml()
+            cookies(cookies)
+        }.bodyAsText()
+
+        responseParser.parseBrandIds(brandIdsResponse)
+            .map { brandId -> async { getBrand(brandId) } }
+            .awaitAll()
     }
 
     @Throws(Exception::class)
@@ -39,25 +48,28 @@ class SwiggyApi(
         startDate: String,
         endDate: String
     ): String {
-        val headers = SwiggyConstants.commonHeaders.plus(mapOf(
-            "Accept" to "application/json, text/plain, */*",
-            "Referer" to SwiggyConstants.restaurantReferrer(resId),
-        ))
-        return get(SwiggyConstants.salesSummaryUrl(resId, startDate, endDate), headers, cookies)
+        return httpClient.get(SwiggyConstants.salesSummaryUrl(resId, startDate, endDate)) {
+            commonHeaders()
+            accept(ContentType.Application.Json)
+            accept(ContentType.Text.Plain)
+            accept(ContentType.Any)
+            cookies(cookies)
+            referer(SwiggyConstants.restaurantReferrer(resId))
+        }.bodyAsText()
     }
 
     private suspend fun getBrand(resId: String): BrandDetail {
-        val headers = SwiggyConstants.commonHeaders.plus(mapOf(
-            "Accept" to "*/*",
-            "Accesstoken" to getAccessToken(),
-            "Content-Type" to "application/json",
-            "Origin" to SwiggyConstants.SWIGGY_SELF_CLIENT_HOST,
-            "Referer" to "${SwiggyConstants.SWIGGY_SELF_CLIENT_HOST}/",
-            "Requested_by" to "VENDOR",
-            "User-Meta" to "{\"source\":\"VENDOR\",\"meta\":{\"updated_by\":\"VENDOR\"}}"
-        ))
         return responseParser.parseBrand(
-            get(SwiggyConstants.restaurantDetailsUrl(resId), headers, listOf())
+            httpClient.get(SwiggyConstants.restaurantDetailsUrl(resId)) {
+                commonHeaders()
+                accept(ContentType.Any)
+                referer("${SwiggyConstants.SWIGGY_SELF_CLIENT_HOST}/")
+                origin(SwiggyConstants.SWIGGY_SELF_CLIENT_HOST)
+                contentType(ContentType.Application.Json)
+                accessToken(getAccessToken())
+                requestedBy("VENDOR")
+                userMeta("{\"source\":\"VENDOR\",\"meta\":{\"updated_by\":\"VENDOR\"}}")
+            }.bodyAsText()
         )
     }
 

@@ -1,6 +1,6 @@
 package com.khanalytic.kmm
 
-import com.khanalytic.kmm.importing.intgerations.HttpClientFactory
+import com.khanalytic.kmm.http.HttpClientFactory
 import com.khanalytic.kmm.importing.intgerations.swiggy.SwiggyApi
 import com.khanalytic.kmm.importing.intgerations.swiggy.SwiggyResponseParser
 import kotlinx.serialization.json.Json

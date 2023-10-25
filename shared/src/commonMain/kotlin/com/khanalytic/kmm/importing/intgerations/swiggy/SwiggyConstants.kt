@@ -1,21 +1,11 @@
 package com.khanalytic.kmm.importing.intgerations.swiggy
 
+import io.ktor.client.request.*
+
 object SwiggyConstants {
     const val SWIGGY_API_HOST = "https://partner.swiggy.com"
     const val SWIGGY_RMS_HOST = "https://rms.swiggy.com"
     const val SWIGGY_SELF_CLIENT_HOST = "https://partner-self-client.swiggy.com"
-
-    val commonHeaders = mapOf(
-        "Accept-Encoding" to "gzip, deflate, br",
-        "Accept-Language" to "en-US,en;q=0.9",
-        "Sec-Ch-Ua" to "\"Chromium\";v=\"118\", \"Google Chrome\";v=\"118\", \"Not=A?Brand\";v=\"99\"",
-        "Sec-Ch-Ua-Mobile" to "?0",
-        "Sec-Ch-Ua-Platform" to "\"macOS\"",
-        "Sec-Fetch-Dest" to "empty",
-        "Sec-Fetch-Mode" to "cors",
-        "Sec-Fetch-Site" to "same-origin",
-        "User-Agent" to "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36"
-    )
 
     fun salesSummaryUrl(
         resId: String,
@@ -31,4 +21,33 @@ object SwiggyConstants {
 
     fun restaurantReferrer(resId: String): String =
         "https://partner.swiggy.com/business-metrics/revenue/restaurant/$resId"
+
+    fun HttpRequestBuilder.commonHeaders() {
+        header("Accept-Encoding", "gzip, deflate, br")
+        header("Accept-Language", "en-US,en;q=0.9")
+        header("Sec-Ch-Ua", "\"Chromium\";v=\"118\", \"Google Chrome\";v=\"118\", \"Not=A?Brand\";v=\"99\"")
+        header("Sec-Ch-Ua-Mobile", "?0")
+        header("Sec-Ch-Ua-Platform", "\"macOS\"")
+        header("Sec-Fetch-Dest", "empty")
+        header("Sec-Fetch-Mode", "cors")
+        header("Sec-Fetch-Site", "same-origin")
+        header("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36")
+    }
+
+    fun HttpRequestBuilder.acceptHtml() {
+        header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/" +
+                "webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7")
+    }
+
+    fun HttpRequestBuilder.accessToken(value: String) {
+        header("Accesstoken", value)
+    }
+
+    fun HttpRequestBuilder.requestedBy(value: String) {
+        header("Requested_by", value)
+    }
+
+    fun HttpRequestBuilder.userMeta(value: String) {
+        header("User-Meta", value)
+    }
 }

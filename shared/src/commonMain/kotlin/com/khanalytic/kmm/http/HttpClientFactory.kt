@@ -1,4 +1,4 @@
-package com.khanalytic.kmm.importing.intgerations
+package com.khanalytic.kmm.http
 
 import io.ktor.client.*
 import io.ktor.client.plugins.compression.*

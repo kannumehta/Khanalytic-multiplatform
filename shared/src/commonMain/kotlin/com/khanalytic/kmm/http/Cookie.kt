@@ -1,4 +1,4 @@
-package com.khanalytic.kmm.importing.intgerations
+package com.khanalytic.kmm.http
 
 data class Cookie(val key: String, val value: String, val domain: String) {
     companion object {
