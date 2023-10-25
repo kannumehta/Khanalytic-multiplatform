@@ -42,4 +42,8 @@ dependencies {
     implementation("androidx.compose.foundation:foundation:1.5.4")
     implementation("androidx.compose.material:material:1.5.4")
     implementation("androidx.activity:activity-compose:1.8.0")
+
+    val flogger_version = "0.7.4"
+    implementation("com.google.flogger:flogger:$flogger_version")
+    implementation("com.google.flogger:flogger-system-backend:$flogger_version")
 }
