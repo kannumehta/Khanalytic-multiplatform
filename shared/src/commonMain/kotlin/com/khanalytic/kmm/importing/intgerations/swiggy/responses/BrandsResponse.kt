@@ -10,5 +10,5 @@ data class BrandsResponse(
 
 @Serializable
 data class Outlet(
-    @SerialName("rest_rid") val resId: Int
+    @SerialName("rest_rid") val resId: Long
 )

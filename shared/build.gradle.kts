@@ -44,6 +44,7 @@ kotlin {
                 implementation("io.ktor:ktor-client-encoding:$ktorVersion")
                 implementation("com.squareup.sqldelight:runtime:$sqlDelightVersion")
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:$dateTimeVersion")
+                implementation("io.github.aakira:napier:2.4.0")
             }
         }
         val commonTest by getting

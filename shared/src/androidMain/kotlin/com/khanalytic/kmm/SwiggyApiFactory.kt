@@ -6,7 +6,10 @@ import com.khanalytic.kmm.importing.intgerations.swiggy.SwiggyResponseParser
 import kotlinx.serialization.json.Json
 
 class SwiggyApiFactory {
-    private val serializer = Json { ignoreUnknownKeys = true }
+    private val serializer = Json {
+        ignoreUnknownKeys = true
+        encodeDefaults = true
+    }
 
     fun create(cookie: String): SwiggyApi {
         val httpClient = HttpClientFactory().create()

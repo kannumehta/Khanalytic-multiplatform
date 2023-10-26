@@ -18,6 +18,8 @@ object SwiggyConstants {
     fun pastOrdersUrl(resId: String): String = "$SWIGGY_API_HOST/orders/past/restaurant/$resId"
     fun restaurantDetailsUrl(resId: String) =
         "$SWIGGY_RMS_HOST/api/cms/menu-revision/v1/restaurantDetails/$resId?"
+    fun menuUrl(resId: String): String =
+        "$SWIGGY_RMS_HOST/api/cms/menu-revision/v1/restaurant-menu/$resId?disabled=true&item_holiday_slots=true&type=REGULAR_MENU"
 
     fun restaurantReferrer(resId: String): String =
         "https://partner.swiggy.com/business-metrics/revenue/restaurant/$resId"
