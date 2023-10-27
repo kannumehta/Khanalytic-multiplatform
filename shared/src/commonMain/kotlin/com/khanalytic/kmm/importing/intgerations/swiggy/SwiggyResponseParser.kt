@@ -4,6 +4,7 @@ import com.khanalytic.kmm.importing.intgerations.PlatformResponseParser
 import com.khanalytic.kmm.importing.intgerations.models.Menu
 import com.khanalytic.kmm.importing.intgerations.models.MenuOrder
 import com.khanalytic.kmm.importing.intgerations.models.SalesSummary
+import com.khanalytic.kmm.importing.intgerations.responses.MenuOrdersBatch
 import com.khanalytic.kmm.importing.intgerations.swiggy.responses.*
 import kotlinx.serialization.json.Json
 
@@ -28,5 +29,6 @@ class SwiggyResponseParser(private val serializer: Json) : PlatformResponseParse
     @Throws(Exception::class) override fun parseOrders(
         response: String,
         menu: Menu
-    ): List<MenuOrder> = serializer.decodeFromString<MenuOrderResponse>(response).toOrders(menu)
+    ): MenuOrdersBatch =
+        serializer.decodeFromString<MenuOrderResponse>(response).toMenuOrdersBatch(menu)
 }

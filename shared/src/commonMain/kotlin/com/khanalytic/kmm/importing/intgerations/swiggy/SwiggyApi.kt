@@ -10,6 +10,7 @@ import com.khanalytic.kmm.importing.intgerations.PlatformResponseParser
 import com.khanalytic.kmm.importing.intgerations.models.Menu
 import com.khanalytic.kmm.importing.intgerations.models.MenuOrder
 import com.khanalytic.kmm.importing.intgerations.models.SalesSummary
+import com.khanalytic.kmm.importing.intgerations.responses.MenuOrdersBatch
 import com.khanalytic.kmm.importing.intgerations.swiggy.SwiggyConstants.acceptHtml
 import com.khanalytic.kmm.importing.intgerations.swiggy.SwiggyConstants.accessToken
 import com.khanalytic.kmm.importing.intgerations.swiggy.SwiggyConstants.commonHeaders
@@ -96,12 +97,11 @@ class SwiggyApi(
         val orders = mutableListOf<MenuOrder>()
         while (true) {
             val ordersBatch = ordersBatch(resId, startDate, endDate, menu, page)
-            orders.addAll(ordersBatch)
-            if (ordersBatch.size < page.limit) { break }
-            val newOffset = page.offset + page.limit
+            orders.addAll(ordersBatch.batch)
+            if (ordersBatch.nextRequestData == null) { break }
+            val newOffset = page.offset + minOf(ordersBatch.batch.size, page.limit)
             page = Page(newOffset, page.limit)
         }
-        Napier.v("fetched total orders: ${orders.size}")
         return orders
     }
 
@@ -119,7 +119,7 @@ class SwiggyApi(
         endDate: String,
         menu: Menu,
         page: Page,
-    ): List<MenuOrder> {
+    ): MenuOrdersBatch {
         val url = SwiggyConstants.pastOrdersUrl(resId, startDate, endDate, page)
         return responseParser.parseOrders(httpClient.get(url) {
             rmsHostHeaders()

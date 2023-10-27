@@ -1,13 +1,26 @@
 package com.khanalytic.kmm.importing.intgerations.swiggy.responses
 
 import com.khanalytic.kmm.importing.intgerations.models.*
+import com.khanalytic.kmm.importing.intgerations.responses.MenuOrdersBatch
+import com.khanalytic.kmm.importing.intgerations.swiggy.DataParseException
+import com.khanalytic.kmm.importing.intgerations.swiggy.SwiggySerialization
 import io.ktor.util.*
+import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.descriptors.SerialDescriptor
+import kotlinx.serialization.encoding.Decoder
+import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.json.JsonElement
 
 @Serializable
+data class MenuOrderResponseData(
+    @SerialName("data") val data: List<JsonElement>
+)
+
+@Serializable(with = MenuResponseDeSerializer::class)
 data class MenuOrderResponse(
-    @SerialName("data") val outerDataList: List<OrdersOuterData>
+    @SerialName("data") val outerData: OrdersOuterData
 )
 
 @Serializable
@@ -17,7 +30,13 @@ data class OrdersOuterData(
 
 @Serializable
 data class OrdersInnerData(
+    val meta: OrdersMetaData,
     @SerialName("objects") val orders: List<Order>
+)
+
+@Serializable
+data class OrdersMetaData(
+    val next: String? = null
 )
 
 @Serializable
@@ -72,11 +91,34 @@ data class CartItemVariant(
     val name: String
 )
 
+fun MenuOrderResponse.toMenuOrdersBatch(menu: Menu): MenuOrdersBatch =
+    MenuOrdersBatch(
+        toOrders(menu),
+        outerData.innerData.meta.next
+    )
+
 fun MenuOrderResponse.toOrders(menu: Menu): List<MenuOrder> {
     val addonNameMap = menu.items.filter { it.isAddOn  }.associateBy { it.name }
     val itemIdMap = menu.items.filterNot { it.isAddOn  }.associateBy { it.remoteItemId }
-    return outerDataList.flatMap { it.innerData.orders }.map {
+    return outerData.innerData.orders.map {
         it.toMenuOrder(addonNameMap, itemIdMap)
+    }
+}
+
+private class MenuResponseDeSerializer: KSerializer<MenuOrderResponse> {
+    private val serializer = SwiggySerialization.serializer
+    override val descriptor: SerialDescriptor = MenuOrderResponseData.serializer().descriptor
+    override fun serialize(encoder: Encoder, value: MenuOrderResponse) {
+        throw NotImplementedError("serialization of menu order response should not be needed")
+    }
+
+    override fun deserialize(decoder: Decoder): MenuOrderResponse {
+        val menuResponseData = decoder.decodeSerializableValue(MenuOrderResponseData.serializer())
+        val dataList = menuResponseData.data
+        if (dataList.isEmpty()) {
+            throw DataParseException("could not extract data from orders history response")
+        }
+        return MenuOrderResponse(serializer.decodeFromString(dataList[0].toString()))
     }
 }
 
