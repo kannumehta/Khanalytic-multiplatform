@@ -35,7 +35,9 @@ data class SubcategoryItem(val id: Long)
 
 @Serializable
 data class ItemData(
-    val item: Item
+    val item: Item,
+    @SerialName("variant_groups_vo") val variantGroups: List<VariantGroup> = listOf(),
+    @SerialName("addon_groups_vo") val addonGroups: List<ItemAddonGroup> = listOf(),
 )
 
 @Serializable
@@ -46,14 +48,17 @@ data class Item(
     @SerialName("is_veg") val isVeg: Int,
     @SerialName("is_spicy") val isSpicy: Int,
     val price: Float,
-    @SerialName("image_url") val imageUrl: String? = null,
-    @SerialName("variant_groups_vo") val variantGroups: List<VariantGroup> = listOf(),
-    @SerialName("addon_groups_vo") val addonGroups: List<ItemAddonGroup> = listOf(),
+    @SerialName("image_url") val imageUrl: String? = null
 )
 
 @Serializable
 data class VariantGroup(
-    @SerialName("variants_vo") val variants: List<Variant>
+    @SerialName("variants_vo") val variants: List<VariantData>
+)
+
+@Serializable
+data class VariantData(
+    val variant: Variant
 )
 
 @Serializable
@@ -66,7 +71,12 @@ data class Variant(
 
 @Serializable
 data class ItemAddonGroup(
-    @SerialName("addons_vo") val addons: List<ItemAddon>
+    @SerialName("addons_vo") val addons: List<ItemAddonData>
+)
+
+@Serializable
+data class ItemAddonData(
+    val addon: ItemAddon
 )
 
 @Serializable
@@ -85,7 +95,7 @@ data class Addon(
 
 fun MenuResponse.toMenu(): Menu {
     val categories = data.categories.map { it.toMenuCategory() }
-    val items = data.items.map { it.item.toMenuItem() }.plus(
+    val items = data.items.map { it.toMenuItem() }.plus(
         data.addons.map { it.toMenuItem() }
     )
     val finalCategories = if (data.addons.isEmpty()) { categories }
@@ -124,6 +134,20 @@ fun SubcategoryItem.toMenuSubcategoryItem(): MenuSubcategoryItem = MenuSubcatego
     remoteItemId = id.toString()
 )
 
+fun ItemData.toMenuItem(): MenuItem = MenuItem(
+    remoteItemId = item.id.toString(),
+    name = item.name,
+    description = item.description,
+    isVeg = item.isVeg > 0,
+    isSpicy = item.isSpicy > 0,
+    price = item.price,
+    order = 0,
+    isAddOn = false,
+    imageUrls = item.imageUrl?.let { listOf(it) } ?: listOf(),
+    variants = menuItemVariants(),
+    addons = menuItemAddons()
+)
+
 fun Item.toMenuItem(): MenuItem = MenuItem(
     remoteItemId = id.toString(),
     name = name,
@@ -134,12 +158,12 @@ fun Item.toMenuItem(): MenuItem = MenuItem(
     order = 0,
     isAddOn = false,
     imageUrls = imageUrl?.let { listOf(it) } ?: listOf(),
-    variants = menuItemVariants(),
-    addons = menuItemAddons()
+    variants = listOf(),
+    addons = listOf()
 )
 
-fun Item.menuItemVariants(): List<MenuItemVariant> =
-    variantGroups.flatMap { it.variants }.map { it.toMenuItemVariant() }
+fun ItemData.menuItemVariants(): List<MenuItemVariant> =
+    variantGroups.flatMap { it.variants }.map { it.variant.toMenuItemVariant() }
 
 fun Variant.toMenuItemVariant(): MenuItemVariant = MenuItemVariant(
     remoteVariantId = id.toString(),
@@ -148,8 +172,8 @@ fun Variant.toMenuItemVariant(): MenuItemVariant = MenuItemVariant(
     active = active
 )
 
-fun Item.menuItemAddons(): List<MenuItemAddon> =
-    addonGroups.flatMap { it.addons }.map { it.toMenuItemAddon() }
+fun ItemData.menuItemAddons(): List<MenuItemAddon> =
+    addonGroups.flatMap { it.addons }.map { it.addon.toMenuItemAddon() }
 
 fun ItemAddon.toMenuItemAddon(): MenuItemAddon = MenuItemAddon(
     remoteAddonId = id.toString(),

@@ -1,5 +1,6 @@
 package com.khanalytic.kmm.importing.intgerations.swiggy
 
+import com.khanalytic.kmm.importing.intgerations.Page
 import io.ktor.client.request.*
 
 object SwiggyConstants {
@@ -15,11 +16,13 @@ object SwiggyConstants {
             "&restaurantId=$resId&startDate=$startDate"
 
     fun ordersUrl(): String = "$SWIGGY_API_HOST/orders"
-    fun pastOrdersUrl(resId: String): String = "$SWIGGY_API_HOST/orders/past/restaurant/$resId"
     fun restaurantDetailsUrl(resId: String) =
         "$SWIGGY_RMS_HOST/api/cms/menu-revision/v1/restaurantDetails/$resId?"
     fun menuUrl(resId: String): String =
         "$SWIGGY_RMS_HOST/api/cms/menu-revision/v1/restaurant-menu/$resId?disabled=true&item_holiday_slots=true&type=REGULAR_MENU"
+    fun pastOrdersUrl( resId: String, startDate: String, endDate: String, page: Page) =
+        "$SWIGGY_RMS_HOST/orders/v1/history?limit=${page.limit}&offset=${page.offset}" +
+                "&ordered_time__gte=$startDate&ordered_time__lte=$endDate&restaurant_id=$resId"
 
     fun restaurantReferrer(resId: String): String =
         "https://partner.swiggy.com/business-metrics/revenue/restaurant/$resId"
