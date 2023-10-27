@@ -93,7 +93,16 @@ class SwiggyApi(
         menu: Menu
     ): List<MenuOrder> {
         var page = Page(0, 20)
-        return ordersBatch(resId, startDate, endDate, menu, page)
+        val orders = mutableListOf<MenuOrder>()
+        while (true) {
+            val ordersBatch = ordersBatch(resId, startDate, endDate, menu, page)
+            orders.addAll(ordersBatch)
+            if (ordersBatch.size < page.limit) { break }
+            val newOffset = page.offset + page.limit
+            page = Page(newOffset, page.limit)
+        }
+        Napier.v("fetched total orders: ${orders.size}")
+        return orders
     }
 
     private suspend fun getBrand(resId: String): BrandDetail {
