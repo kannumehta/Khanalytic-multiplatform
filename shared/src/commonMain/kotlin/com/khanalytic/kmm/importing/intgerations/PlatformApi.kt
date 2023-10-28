@@ -1,5 +1,6 @@
 package com.khanalytic.kmm.importing.intgerations
 
+import com.khanalytic.kmm.importing.intgerations.models.Complaint
 import com.khanalytic.kmm.importing.intgerations.models.Menu
 import com.khanalytic.kmm.importing.intgerations.models.MenuOrder
 import com.khanalytic.kmm.importing.intgerations.models.SalesSummary
@@ -24,4 +25,7 @@ interface PlatformApi {
         endDate: String,
         menu: Menu
     ): List<MenuOrder>
+
+    @Throws(Exception::class)
+    suspend fun getComplaints(resId: String, startDate: String, endDate: String): List<Complaint>
 }

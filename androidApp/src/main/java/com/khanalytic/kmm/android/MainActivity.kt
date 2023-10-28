@@ -79,8 +79,9 @@ class MainActivity : ComponentActivity() {
         lifecycleScope.launch {
             val swiggyApi = SwiggyApiFactory().create(cookie)
             val menu = swiggyApi.getMenu("42076")
-             logger.atInfo().log("fetched revenue: %s", swiggyApi.getOrders("42076", "2023-10-17", "2023-10-18", menu))
+//             logger.atInfo().log("fetched revenue: %s", swiggyApi.getOrders("42076", "2023-10-17", "2023-10-18", menu))
             // logger.atInfo().log("fetched revenue: %s", swiggyApi.getSalesSummary("42076", "2023-10-17", "2023-10-18"))
+             logger.atInfo().log("fetched revenue: %s", swiggyApi.getComplaints("42076", "2023-10-01", "2023-10-18"))
             // logger.atInfo().log("fetched revenue: %s", swiggyApi.getBrands())
 //            logger.atInfo().log("fetched revenue: %s", swiggyApi.getMenu("42076"))
         }

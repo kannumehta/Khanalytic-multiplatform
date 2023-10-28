@@ -2,14 +2,17 @@ package com.khanalytic.kmm.http
 
 import io.ktor.client.*
 import io.ktor.client.plugins.compression.*
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.logging.*
+import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
 class HttpClientFactory {
 
-    private val serializer = Json { ignoreUnknownKeys = true }
-
-    fun create(loggerImpl: Logger = Logger.SIMPLE, logLevel: LogLevel = LogLevel.ALL): HttpClient =
+    fun create(
+        loggerImpl: Logger = Logger.SIMPLE,
+        logLevel: LogLevel = LogLevel.ALL
+    ): HttpClient =
         HttpClient {
             install(Logging) {
                 logger = loggerImpl

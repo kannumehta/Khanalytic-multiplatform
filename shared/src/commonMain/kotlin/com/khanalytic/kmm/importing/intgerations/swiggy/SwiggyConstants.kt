@@ -4,25 +4,30 @@ import com.khanalytic.kmm.importing.intgerations.Page
 import io.ktor.client.request.*
 
 object SwiggyConstants {
-    const val SWIGGY_API_HOST = "https://partner.swiggy.com"
-    const val SWIGGY_RMS_HOST = "https://rms.swiggy.com"
-    const val SWIGGY_SELF_CLIENT_HOST = "https://partner-self-client.swiggy.com"
+    const val API_HOST = "https://partner.swiggy.com"
+    const val RMS_HOST = "https://rms.swiggy.com"
+    const val SELF_CLIENT_HOST = "https://partner-self-client.swiggy.com"
+    const val VHC_HOST = "https://vhc-composer.swiggy.com"
 
     fun salesSummaryUrl(
         resId: String,
         startDate: String,
         endDate: String
-    ): String = "$SWIGGY_API_HOST/insights/v1/revenue/?endDate=$endDate&groupBy=day" +
+    ): String = "$API_HOST/insights/v1/revenue/?endDate=$endDate&groupBy=day" +
             "&restaurantId=$resId&startDate=$startDate"
 
-    fun ordersUrl(): String = "$SWIGGY_API_HOST/orders"
+    fun ordersUrl(): String = "$API_HOST/orders"
     fun restaurantDetailsUrl(resId: String) =
-        "$SWIGGY_RMS_HOST/api/cms/menu-revision/v1/restaurantDetails/$resId?"
+        "$RMS_HOST/api/cms/menu-revision/v1/restaurantDetails/$resId?"
     fun menuUrl(resId: String): String =
-        "$SWIGGY_RMS_HOST/api/cms/menu-revision/v1/restaurant-menu/$resId?disabled=true&item_holiday_slots=true&type=REGULAR_MENU"
+        "$RMS_HOST/api/cms/menu-revision/v1/restaurant-menu/$resId?disabled=true&item_holiday_slots=true&type=REGULAR_MENU"
     fun pastOrdersUrl( resId: String, startDate: String, endDate: String, page: Page) =
-        "$SWIGGY_RMS_HOST/orders/v1/history?limit=${page.limit}&offset=${page.offset}" +
+        "$RMS_HOST/orders/v1/history?limit=${page.limit}&offset=${page.offset}" +
                 "&ordered_time__gte=$startDate&ordered_time__lte=$endDate&restaurant_id=$resId"
+
+    fun complaintIdsUrl(): String = "$VHC_HOST/query?query=Complaints"
+
+    fun complaintUrl(): String = "$VHC_HOST/query?query=Complaints"
 
     fun restaurantReferrer(resId: String): String =
         "https://partner.swiggy.com/business-metrics/revenue/restaurant/$resId"
@@ -44,8 +49,12 @@ object SwiggyConstants {
                 "webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7")
     }
 
-    fun HttpRequestBuilder.accessToken(value: String) {
+    fun HttpRequestBuilder.rmsAccessToken(value: String) {
         header("Accesstoken", value)
+    }
+
+    fun HttpRequestBuilder.vhcAccessToken(value: String) {
+        header("Access_token", value)
     }
 
     fun HttpRequestBuilder.requestedBy(value: String) {

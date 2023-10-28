@@ -1,9 +1,10 @@
 package com.khanalytic.kmm.importing.intgerations.swiggy
 
 import com.khanalytic.kmm.importing.intgerations.PlatformResponseParser
+import com.khanalytic.kmm.importing.intgerations.models.Complaint
 import com.khanalytic.kmm.importing.intgerations.models.Menu
-import com.khanalytic.kmm.importing.intgerations.models.MenuOrder
 import com.khanalytic.kmm.importing.intgerations.models.SalesSummary
+import com.khanalytic.kmm.importing.intgerations.responses.ComplaintIdsBatch
 import com.khanalytic.kmm.importing.intgerations.responses.MenuOrdersBatch
 import com.khanalytic.kmm.importing.intgerations.swiggy.responses.*
 import kotlinx.serialization.json.Json
@@ -31,4 +32,10 @@ class SwiggyResponseParser(private val serializer: Json) : PlatformResponseParse
         menu: Menu
     ): MenuOrdersBatch =
         serializer.decodeFromString<MenuOrderResponse>(response).toMenuOrdersBatch(menu)
+
+    @Throws(Exception::class) override fun parseComplaintIdsBatch(response: String): ComplaintIdsBatch =
+        serializer.decodeFromString<ComplaintsIdResponse>(response).toComplaintIdsBatch()
+
+    @Throws(Exception::class) override fun parseComplaint(response: String): Complaint =
+        serializer.decodeFromString<ComplaintResponse>(response).toComplaint()
 }

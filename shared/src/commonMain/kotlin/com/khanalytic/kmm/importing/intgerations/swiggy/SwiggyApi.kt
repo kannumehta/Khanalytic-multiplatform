@@ -7,15 +7,20 @@ import com.khanalytic.kmm.http.HttpRequestBuilderExtensions.referer
 import com.khanalytic.kmm.importing.intgerations.HttpClientPlatformApi
 import com.khanalytic.kmm.importing.intgerations.Page
 import com.khanalytic.kmm.importing.intgerations.PlatformResponseParser
+import com.khanalytic.kmm.importing.intgerations.models.Complaint
 import com.khanalytic.kmm.importing.intgerations.models.Menu
 import com.khanalytic.kmm.importing.intgerations.models.MenuOrder
 import com.khanalytic.kmm.importing.intgerations.models.SalesSummary
+import com.khanalytic.kmm.importing.intgerations.responses.ComplaintIdsBatch
 import com.khanalytic.kmm.importing.intgerations.responses.MenuOrdersBatch
 import com.khanalytic.kmm.importing.intgerations.swiggy.SwiggyConstants.acceptHtml
-import com.khanalytic.kmm.importing.intgerations.swiggy.SwiggyConstants.accessToken
+import com.khanalytic.kmm.importing.intgerations.swiggy.SwiggyConstants.rmsAccessToken
 import com.khanalytic.kmm.importing.intgerations.swiggy.SwiggyConstants.commonHeaders
 import com.khanalytic.kmm.importing.intgerations.swiggy.SwiggyConstants.requestedBy
 import com.khanalytic.kmm.importing.intgerations.swiggy.SwiggyConstants.userMeta
+import com.khanalytic.kmm.importing.intgerations.swiggy.SwiggyConstants.vhcAccessToken
+import com.khanalytic.kmm.importing.intgerations.swiggy.requests.complaintIdsRequestBody
+import com.khanalytic.kmm.importing.intgerations.swiggy.requests.complaintRequestBody
 import com.khanalytic.kmm.importing.intgerations.swiggy.responses.BrandDetail
 import io.github.aakira.napier.DebugAntilog
 import io.github.aakira.napier.Napier
@@ -30,23 +35,17 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
 class SwiggyApi(
+    private val serializer: Json,
     private val httpClient: HttpClient,
     private val responseParser: PlatformResponseParser,
     cookie: String
 ) : HttpClientPlatformApi(httpClient) {
-
-    // TODO(kannumehta@): This should be removed.
-    private val serializer = Json {
-        ignoreUnknownKeys = true
-        encodeDefaults = true
-    }
-
     init {
         Napier.base(DebugAntilog())
     }
 
     // TODO(kannumehta@): This should be moved to a common place.
-    private val cookies = cookie.toCookies(SwiggyConstants.SWIGGY_API_HOST)
+    private val cookies = cookie.toCookies(SwiggyConstants.API_HOST)
 
     @Throws(Exception::class)
     override suspend fun getBrands(): List<BrandDetail> = coroutineScope {
@@ -105,6 +104,23 @@ class SwiggyApi(
         return orders
     }
 
+    @Throws(Exception::class)
+    override suspend fun getComplaints(
+        resId: String,
+        startDate: String,
+        endDate: String
+    ): List<Complaint> = coroutineScope {
+        var nextToken: String? = null
+        val complaintIds = mutableListOf<String>()
+        while (true) {
+            val batch = complaintsBatch(resId, startDate, endDate, nextToken)
+            complaintIds.addAll(batch.ids)
+            nextToken = batch.nextRequestData
+            if (nextToken == null) { break }
+        }
+        complaintIds.map { async { getComplaint(it) } }.awaitAll()
+    }
+
     private suspend fun getBrand(resId: String): BrandDetail {
         return responseParser.parseBrand(
             httpClient.get(SwiggyConstants.restaurantDetailsUrl(resId)) {
@@ -126,15 +142,49 @@ class SwiggyApi(
         }.bodyAsText(), menu)
     }
 
+    private suspend fun complaintsBatch(
+        resId: String,
+        startDate: String,
+        endDate: String,
+        nextToken: String?,
+    ): ComplaintIdsBatch {
+        val requestBody = complaintIdsRequestBody(resId, startDate, endDate, nextToken)
+        return responseParser.parseComplaintIdsBatch(
+            httpClient.post(SwiggyConstants.complaintIdsUrl()) {
+                vhcHostHeaders()
+                setBody(serializer.encodeToString(requestBody))
+            }.bodyAsText()
+        )
+    }
+
+    private suspend fun getComplaint(complaintId: String): Complaint {
+        val requestBody = complaintRequestBody(complaintId)
+        return responseParser.parseComplaint(
+            httpClient.post(SwiggyConstants.complaintUrl()) {
+                vhcHostHeaders()
+                setBody(serializer.encodeToString(requestBody))
+            }.bodyAsText()
+        )
+    }
+
     private fun HttpRequestBuilder.rmsHostHeaders() {
         commonHeaders()
         accept(ContentType.Any)
-        referer("${SwiggyConstants.SWIGGY_SELF_CLIENT_HOST}/")
-        origin(SwiggyConstants.SWIGGY_SELF_CLIENT_HOST)
+        referer("${SwiggyConstants.SELF_CLIENT_HOST}/")
+        origin(SwiggyConstants.SELF_CLIENT_HOST)
         contentType(ContentType.Application.Json)
-        accessToken(getAccessToken())
+        rmsAccessToken(getAccessToken())
         requestedBy("VENDOR")
         userMeta("{\"source\":\"VENDOR\",\"meta\":{\"updated_by\":\"VENDOR\"}}")
+    }
+
+    private fun HttpRequestBuilder.vhcHostHeaders() {
+        commonHeaders()
+        accept(ContentType.Any)
+        referer("${SwiggyConstants.API_HOST}/")
+        origin(SwiggyConstants.API_HOST)
+        contentType(ContentType.Application.Json)
+        vhcAccessToken(getAccessToken())
     }
 
     private fun getAccessToken(): String {

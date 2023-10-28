@@ -3,7 +3,7 @@ package com.khanalytic.kmm.importing.intgerations.swiggy.responses
 import com.khanalytic.kmm.importing.intgerations.models.*
 import com.khanalytic.kmm.importing.intgerations.responses.MenuOrdersBatch
 import com.khanalytic.kmm.importing.intgerations.swiggy.DataParseException
-import com.khanalytic.kmm.importing.intgerations.swiggy.SwiggySerialization
+import com.khanalytic.kmm.importing.intgerations.Serialization
 import io.ktor.util.*
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerialName
@@ -106,7 +106,7 @@ fun MenuOrderResponse.toOrders(menu: Menu): List<MenuOrder> {
 }
 
 private class MenuResponseDeSerializer: KSerializer<MenuOrderResponse> {
-    private val serializer = SwiggySerialization.serializer
+    private val serializer = Serialization.serializer
     override val descriptor: SerialDescriptor = MenuOrderResponseData.serializer().descriptor
     override fun serialize(encoder: Encoder, value: MenuOrderResponse) {
         throw NotImplementedError("serialization of menu order response should not be needed")
