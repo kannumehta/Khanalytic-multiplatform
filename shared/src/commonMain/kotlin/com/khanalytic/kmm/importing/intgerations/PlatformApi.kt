@@ -28,4 +28,7 @@ interface PlatformApi {
 
     @Throws(Exception::class)
     suspend fun getComplaints(resId: String, startDate: String, endDate: String): List<Complaint>
+
+    @Throws(Exception::class)
+    suspend fun sendEmailReport(resId: String, startDate: String, endDate: String, email: String)
 }

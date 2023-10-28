@@ -29,6 +29,8 @@ object SwiggyConstants {
 
     fun complaintUrl(): String = "$VHC_HOST/query?query=Complaints"
 
+    fun sendEmailReportUrl(): String = "$VHC_HOST/query?query=DownloadFinanceReport"
+
     fun restaurantReferrer(resId: String): String =
         "https://partner.swiggy.com/business-metrics/revenue/restaurant/$resId"
 

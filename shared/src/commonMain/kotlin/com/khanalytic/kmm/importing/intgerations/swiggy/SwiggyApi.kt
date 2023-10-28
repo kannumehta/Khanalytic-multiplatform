@@ -21,6 +21,7 @@ import com.khanalytic.kmm.importing.intgerations.swiggy.SwiggyConstants.userMeta
 import com.khanalytic.kmm.importing.intgerations.swiggy.SwiggyConstants.vhcAccessToken
 import com.khanalytic.kmm.importing.intgerations.swiggy.requests.complaintIdsRequestBody
 import com.khanalytic.kmm.importing.intgerations.swiggy.requests.complaintRequestBody
+import com.khanalytic.kmm.importing.intgerations.swiggy.requests.sendEmailReportRequestBody
 import com.khanalytic.kmm.importing.intgerations.swiggy.responses.BrandDetail
 import io.github.aakira.napier.DebugAntilog
 import io.github.aakira.napier.Napier
@@ -119,6 +120,20 @@ class SwiggyApi(
             if (nextToken == null) { break }
         }
         complaintIds.map { async { getComplaint(it) } }.awaitAll()
+    }
+
+    @Throws(Exception::class)
+    override suspend fun sendEmailReport(
+        resId: String,
+        startDate: String,
+        endDate: String,
+        email: String
+    ) {
+        val requestBody = sendEmailReportRequestBody(resId, startDate, endDate, email)
+        val unused = httpClient.post(SwiggyConstants.sendEmailReportUrl()) {
+            vhcHostHeaders()
+            setBody(serializer.encodeToString(requestBody))
+        }.bodyAsText()
     }
 
     private suspend fun getBrand(resId: String): BrandDetail {
