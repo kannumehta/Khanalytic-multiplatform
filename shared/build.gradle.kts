@@ -91,9 +91,9 @@ kotlin {
 
 android {
     namespace = "com.khanalytic.kmm"
-    compileSdk = 32
+    compileSdk = 34
     defaultConfig {
-        minSdk = 23
-        targetSdk = 32
+        minSdk = 24
+        targetSdk = 34
     }
 }
