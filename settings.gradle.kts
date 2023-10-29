@@ -33,3 +33,4 @@ dependencyResolutionManagement {
 rootProject.name = "Khanalytic"
 include(":androidApp")
 include(":shared")
+include(":integrations")
