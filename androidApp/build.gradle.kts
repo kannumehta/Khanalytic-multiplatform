@@ -21,13 +21,13 @@ android {
         kotlinCompilerExtensionVersion = "1.5.3"
     }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-    kotlin {
-        jvmToolchain(17)
-    }
+//    compileOptions {
+//        sourceCompatibility = JavaVersion.VERSION_17
+//        targetCompatibility = JavaVersion.VERSION_17
+//    }
+//    kotlin {
+//        jvmToolchain(17)
+//    }
 //    kotlinOptions {
 //        jvmTarget = "1.9.10"
 //    }
