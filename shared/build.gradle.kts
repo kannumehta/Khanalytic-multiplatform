@@ -46,6 +46,7 @@ kotlin {
                 implementation("com.squareup.sqldelight:runtime:$sqlDelightVersion")
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:$dateTimeVersion")
                 implementation("io.github.aakira:napier:2.4.0")
+                api("io.github.kevinnzou:compose-webview-multiplatform:1.6.0")
 
                 implementation(compose.runtime)
                 implementation(compose.foundation)

@@ -41,9 +41,6 @@ class SwiggyApi(
     private val responseParser: PlatformResponseParser,
     cookie: String
 ) : HttpClientPlatformApi(httpClient) {
-    init {
-        Napier.base(DebugAntilog())
-    }
 
     // TODO(kannumehta@): This should be moved to a common place.
     private val cookies = cookie.toCookies(SwiggyConstants.API_HOST)
