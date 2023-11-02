@@ -32,6 +32,8 @@ kotlin {
     val ktorVersion = "2.3.2"
     val sqlDelightVersion = "1.5.5"
     val dateTimeVersion = "0.4.0"
+    val koinVersion = "3.2.0"
+    
 
     sourceSets {
         val commonMain by getting {
@@ -47,6 +49,7 @@ kotlin {
                 implementation("com.squareup.sqldelight:runtime:$sqlDelightVersion")
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:$dateTimeVersion")
                 implementation("io.github.aakira:napier:2.4.0")
+                implementation("io.insert-koin:koin-core:$koinVersion")
                 api("io.github.kevinnzou:compose-webview-multiplatform:1.6.0")
 
                 implementation(compose.runtime)
