@@ -33,6 +33,7 @@ kotlin {
     val sqlDelightVersion = "1.5.5"
     val dateTimeVersion = "0.4.0"
     val koinVersion = "3.2.0"
+    val voyagerVersion = "1.0.0-rc05"
     
 
     sourceSets {
@@ -51,6 +52,10 @@ kotlin {
                 implementation("io.github.aakira:napier:2.4.0")
                 implementation("io.insert-koin:koin-core:$koinVersion")
                 api("io.github.kevinnzou:compose-webview-multiplatform:1.6.0")
+                implementation("cafe.adriel.voyager:voyager-navigator:$voyagerVersion")
+                implementation("cafe.adriel.voyager:voyager-bottom-sheet-navigator:$voyagerVersion")
+                implementation("cafe.adriel.voyager:voyager-tab-navigator:$voyagerVersion")
+                implementation("cafe.adriel.voyager:voyager-transitions:$voyagerVersion")
 
                 implementation(compose.runtime)
                 implementation(compose.foundation)

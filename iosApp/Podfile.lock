@@ -1,16 +1,21 @@
 PODS:
+  - integrations (1.0)
   - shared (1.0)
 
 DEPENDENCIES:
+  - integrations (from `../integrations`)
   - shared (from `../shared`)
 
 EXTERNAL SOURCES:
+  integrations:
+    :path: "../integrations"
   shared:
     :path: "../shared"
 
 SPEC CHECKSUMS:
+  integrations: ea2cbcb2de105f158a005622f4683de1988c8460
   shared: 127df190ceb5435a70bd50987bdedc2dc0030f7b
 
-PODFILE CHECKSUM: f282da88f39e69507b0a255187c8a6b644477756
+PODFILE CHECKSUM: 46a0b4f623fa9c314007b2baed9e519c8ebe4821
 
 COCOAPODS: 1.13.0
