@@ -29,6 +29,7 @@ kotlin {
     val coroutinesVersion = "1.7.1"
     val ktorVersion = "2.3.2"
     val dateTimeVersion = "0.4.0"
+    val koinVersion = "3.2.0"
 
     sourceSets {
         val commonMain by getting {
@@ -42,6 +43,7 @@ kotlin {
                 implementation("io.ktor:ktor-client-logging:$ktorVersion")
                 implementation("io.ktor:ktor-client-encoding:$ktorVersion")
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:$dateTimeVersion")
+                implementation("io.insert-koin:koin-core:$koinVersion")
                 implementation("io.github.aakira:napier:2.4.0")
             }
         }
@@ -49,6 +51,7 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation("io.ktor:ktor-client-android:$ktorVersion")
+                implementation("io.insert-koin:koin-android:$koinVersion")
             }
         }
         val androidUnitTest by getting

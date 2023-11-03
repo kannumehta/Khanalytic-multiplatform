@@ -33,7 +33,6 @@ kotlin {
     val sqlDelightVersion = "1.5.5"
     val dateTimeVersion = "0.4.0"
     val koinVersion = "3.2.0"
-    val voyagerVersion = "1.0.0-rc05"
 
 
     sourceSets {
@@ -59,6 +58,7 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation("com.squareup.sqldelight:android-driver:$sqlDelightVersion")
+                implementation("io.insert-koin:koin-android:$koinVersion")
             }
         }
         val androidUnitTest by getting

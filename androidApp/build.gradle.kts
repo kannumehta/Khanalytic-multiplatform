@@ -43,6 +43,7 @@ android {
     }
 }
 
+val koinVersion = "3.2.0"
 dependencies {
     implementation(project(":shared"))
     implementation(project(":integrations"))
@@ -58,4 +59,6 @@ dependencies {
     val flogger_version = "0.7.4"
     implementation("com.google.flogger:flogger:$flogger_version")
     implementation("com.google.flogger:flogger-system-backend:$flogger_version")
+    implementation("io.insert-koin:koin-android:$koinVersion")
+
 }
