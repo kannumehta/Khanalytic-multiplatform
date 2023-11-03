@@ -1,12 +1,12 @@
 package com.khanalytic.integrations.swiggy.responses
 
-import com.khanalytic.integrations.models.Menu
-import com.khanalytic.integrations.models.MenuCategory
-import com.khanalytic.integrations.models.MenuItem
-import com.khanalytic.integrations.models.MenuItemAddon
-import com.khanalytic.integrations.models.MenuItemVariant
-import com.khanalytic.integrations.models.MenuSubcategory
-import com.khanalytic.integrations.models.MenuSubcategoryItem
+import com.khanalytic.models.Menu
+import com.khanalytic.models.MenuCategory
+import com.khanalytic.models.MenuItem
+import com.khanalytic.models.MenuItemAddon
+import com.khanalytic.models.MenuItemVariant
+import com.khanalytic.models.MenuSubcategory
+import com.khanalytic.models.MenuSubcategoryItem
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

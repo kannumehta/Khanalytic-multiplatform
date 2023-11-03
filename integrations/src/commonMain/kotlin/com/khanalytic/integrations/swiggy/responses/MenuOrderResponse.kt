@@ -1,12 +1,12 @@
 package com.khanalytic.integrations.swiggy.responses
 
-import com.khanalytic.integrations.models.Menu
-import com.khanalytic.integrations.models.MenuItem
-import com.khanalytic.integrations.models.MenuItemVariant
-import com.khanalytic.integrations.models.MenuOrder
-import com.khanalytic.integrations.models.MenuOrderItem
-import com.khanalytic.integrations.models.MenuOrderItemAddon
-import com.khanalytic.integrations.models.MenuOrderItemVariant
+import com.khanalytic.models.Menu
+import com.khanalytic.models.MenuItem
+import com.khanalytic.models.MenuItemVariant
+import com.khanalytic.models.MenuOrder
+import com.khanalytic.models.MenuOrderItem
+import com.khanalytic.models.MenuOrderItemAddon
+import com.khanalytic.models.MenuOrderItemVariant
 import com.khanalytic.integrations.responses.MenuOrdersBatch
 import com.khanalytic.integrations.swiggy.DataParseException
 import com.khanalytic.integrations.Serialization

@@ -16,13 +16,13 @@ kotlin {
     iosSimulatorArm64()
 
     cocoapods {
-        summary = "Integrations module which allows integrations with food delvery platforms"
+        summary = "Models module"
         homepage = "com.khanalytic"
         version = "1.0"
         ios.deploymentTarget = "14.1"
         podfile = project.file("../iosApp/Podfile")
         framework {
-            baseName = "integrations"
+            baseName = "models"
         }
     }
 
@@ -34,13 +34,9 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(kotlin("test"))
-                implementation(project(":models"))
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
-                implementation("io.ktor:ktor-client-core:$ktorVersion")
-                implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
                 implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
                 implementation("io.ktor:ktor-client-logging:$ktorVersion")
-                implementation("io.ktor:ktor-client-encoding:$ktorVersion")
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:$dateTimeVersion")
                 implementation("io.github.aakira:napier:2.4.0")
             }
@@ -48,7 +44,6 @@ kotlin {
         val commonTest by getting
         val androidMain by getting {
             dependencies {
-                implementation("io.ktor:ktor-client-android:$ktorVersion")
             }
         }
         val androidUnitTest by getting
@@ -61,7 +56,6 @@ kotlin {
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
             dependencies {
-                implementation("io.ktor:ktor-client-darwin:$ktorVersion")
             }
         }
 
@@ -78,7 +72,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.khanalytic.integrations"
+    namespace = "com.khanalytic.models"
     compileSdk = 34
     defaultConfig {
         minSdk = 24

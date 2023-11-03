@@ -40,7 +40,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(kotlin("test"))
-                implementation(project(":integrations"))
+                implementation(project(":models"))
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
                 implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
                 implementation("com.squareup.sqldelight:runtime:$sqlDelightVersion")

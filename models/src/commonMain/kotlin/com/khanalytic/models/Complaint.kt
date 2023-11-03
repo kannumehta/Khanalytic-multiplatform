@@ -1,4 +1,4 @@
-package com.khanalytic.integrations.models
+package com.khanalytic.models
 
 import kotlinx.serialization.Serializable
 

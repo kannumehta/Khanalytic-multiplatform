@@ -47,6 +47,7 @@ dependencies {
     implementation(project(":shared"))
     implementation(project(":integrations"))
     implementation(project(":database"))
+    implementation(project(":models"))
     implementation("androidx.compose.ui:ui:1.5.4")
     implementation("androidx.compose.ui:ui-tooling:1.5.4")
     implementation("androidx.compose.ui:ui-tooling-preview:1.5.4")

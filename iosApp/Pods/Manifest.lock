@@ -1,21 +1,31 @@
 PODS:
+  - database (1.0)
   - integrations (1.0)
+  - models (1.0)
   - shared (1.0)
 
 DEPENDENCIES:
+  - database (from `../database`)
   - integrations (from `../integrations`)
+  - models (from `../models`)
   - shared (from `../shared`)
 
 EXTERNAL SOURCES:
+  database:
+    :path: "../database"
   integrations:
     :path: "../integrations"
+  models:
+    :path: "../models"
   shared:
     :path: "../shared"
 
 SPEC CHECKSUMS:
+  database: 4486610a37d040b99d1d0c5715fb1214ecbf4a71
   integrations: ea2cbcb2de105f158a005622f4683de1988c8460
+  models: c95499ecb96d221cb41bab90dc9f46fc9c93f140
   shared: 127df190ceb5435a70bd50987bdedc2dc0030f7b
 
-PODFILE CHECKSUM: 46a0b4f623fa9c314007b2baed9e519c8ebe4821
+PODFILE CHECKSUM: 15023be1025a856f7c4e9127f63a1df9f1ab1a7d
 
 COCOAPODS: 1.13.0

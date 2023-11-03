@@ -1,6 +1,6 @@
 package com.khanalytic.integrations.swiggy.responses
 
-import com.khanalytic.integrations.models.SalesSummary
+import com.khanalytic.models.SalesSummary
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

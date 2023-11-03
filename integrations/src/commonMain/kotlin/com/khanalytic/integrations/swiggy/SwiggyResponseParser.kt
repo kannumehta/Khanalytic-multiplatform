@@ -1,9 +1,9 @@
 package com.khanalytic.integrations.swiggy
 
 import com.khanalytic.integrations.PlatformResponseParser
-import com.khanalytic.integrations.models.Complaint
-import com.khanalytic.integrations.models.Menu
-import com.khanalytic.integrations.models.SalesSummary
+import com.khanalytic.models.Complaint
+import com.khanalytic.models.Menu
+import com.khanalytic.models.SalesSummary
 import com.khanalytic.integrations.responses.ComplaintIdsBatch
 import com.khanalytic.integrations.responses.MenuOrdersBatch
 import com.khanalytic.integrations.swiggy.responses.BrandDetail

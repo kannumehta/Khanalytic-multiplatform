@@ -1,7 +1,7 @@
 package com.khanalytic.integrations.swiggy.responses
 
-import com.khanalytic.integrations.models.Complaint
-import com.khanalytic.integrations.models.ComplaintItem
+import com.khanalytic.models.Complaint
+import com.khanalytic.models.ComplaintItem
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

@@ -1,7 +1,8 @@
 target 'iosApp' do
   use_frameworks!
   platform :ios, '14.1'
-  pod 'shared', :path => '../shared'
+  pod 'models', :path => '../models'
   pod 'integrations', :path => '../integrations'
   pod 'database', :path => '../database'
+  pod 'shared', :path => '../shared'
 end

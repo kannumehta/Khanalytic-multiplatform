@@ -7,10 +7,10 @@ import com.khanalytic.integrations.http.HttpRequestBuilderExtensions.referer
 import com.khanalytic.integrations.HttpClientPlatformApi
 import com.khanalytic.integrations.Page
 import com.khanalytic.integrations.PlatformResponseParser
-import com.khanalytic.integrations.models.Complaint
-import com.khanalytic.integrations.models.Menu
-import com.khanalytic.integrations.models.MenuOrder
-import com.khanalytic.integrations.models.SalesSummary
+import com.khanalytic.models.Complaint
+import com.khanalytic.models.Menu
+import com.khanalytic.models.MenuOrder
+import com.khanalytic.models.SalesSummary
 import com.khanalytic.integrations.responses.ComplaintIdsBatch
 import com.khanalytic.integrations.responses.MenuOrdersBatch
 import com.khanalytic.integrations.swiggy.SwiggyConstants.acceptHtml

@@ -1,6 +1,6 @@
 package com.khanalytic.integrations.responses
 
-import com.khanalytic.integrations.models.MenuOrder
+import com.khanalytic.models.MenuOrder
 
 data class MenuOrdersBatch(
     val batch: List<MenuOrder>,
