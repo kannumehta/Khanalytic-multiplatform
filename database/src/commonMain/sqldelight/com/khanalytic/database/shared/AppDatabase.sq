@@ -1,0 +1,14 @@
+CREATE TABLE User (
+    email TEXT NOT NULL,
+    authToken TEXT NOT NULL,
+    isConfirmed INTEGER AS Boolean DEFAULT NULL
+);
+
+insertUser:
+INSERT INTO User(email, authToken, isConfirmed) VALUES(?, ?, ?);
+
+deleteAllUsers:
+DELETE FROM User;
+
+selectFirstUser:
+SELECT User.* FROM User LIMIT 1;

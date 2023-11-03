@@ -20,9 +20,10 @@
 		};
 		D9B825AA59DD834C983FE5A7806C65CC /* integrations */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 0D339EEEB7F645A2F925E28F2F878470 /* Build configuration list for PBXAggregateTarget "integrations" */;
+			buildConfigurationList = 6340886374A66CD9923F73F3606E62C4 /* Build configuration list for PBXAggregateTarget "integrations" */;
 			buildPhases = (
-				F20E12CD21F66754D15F737617ECF829 /* [CP-User] Build integrations */,
+				6F178385B06301FDFC71A46AFBA72454 /* [CP-User] Build integrations */,
+				BB5395EC840D559FD63A204982C6EC66 /* [CP] Copy dSYMs */,
 			);
 			dependencies = (
 			);
@@ -37,19 +38,19 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		983C2A477F0FF90E22557697866349A9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8777C9F6889E59EFFD631D80AEE9048B;
+			remoteInfo = shared;
+		};
 		C8EB882B39D19B1385998C16F98A6BB3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = D9B825AA59DD834C983FE5A7806C65CC;
 			remoteInfo = integrations;
-		};
-		CA698CBDF6B51F66A55E8EFD805A1177 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8777C9F6889E59EFFD631D80AEE9048B;
-			remoteInfo = shared;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -60,23 +61,24 @@
 		20E0A05213E2442293C503151380C0BE /* shared-copy-dsyms.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "shared-copy-dsyms.sh"; sourceTree = "<group>"; };
 		244FC2DAA936A0B07ACEFDC74E2D54B8 /* Pods-iosApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-iosApp.release.xcconfig"; sourceTree = "<group>"; };
 		378275EEDC14279E89FEA6A03DFE658B /* compose-resources */ = {isa = PBXFileReference; includeInIndex = 1; name = "compose-resources"; path = "build/compose/ios/shared/compose-resources"; sourceTree = "<group>"; };
-		5384515B247516817C9C55A59941F827 /* integrations.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = integrations.release.xcconfig; sourceTree = "<group>"; };
+		3D6C4F35559BE1C22ADAAF82DD6C89F8 /* integrations-copy-dsyms.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "integrations-copy-dsyms.sh"; sourceTree = "<group>"; };
 		55ABB06C8A1800962A74E007E7733796 /* Pods-iosApp-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-iosApp-frameworks.sh"; sourceTree = "<group>"; };
-		59843A1A85E99B1201DE786F0A97B727 /* integrations.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = integrations.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		6205D4B42B8656FA27EBFBA9CF5EE821 /* integrations.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = integrations.framework; path = build/cocoapods/framework/integrations.framework; sourceTree = "<group>"; };
 		6F3B5FED07117E377CFAC3D49B490F17 /* Pods-iosApp-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-iosApp-resources.sh"; sourceTree = "<group>"; };
 		72625C6C41A40445355D6C8462090FA9 /* shared.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = shared.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		72AD4C16F7F1498D157AF6208363B4A8 /* integrations.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = integrations.debug.xcconfig; sourceTree = "<group>"; };
 		73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		76A263267985B0185D85E24D40FCEE9A /* Pods-iosApp-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-iosApp-Info.plist"; sourceTree = "<group>"; };
 		76D28488EA8CF5C697DFF07967A9960E /* Pods-iosApp-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-iosApp-acknowledgements.plist"; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		A7DACF486A6B7A060686F9A3B3157984 /* integrations.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = integrations.release.xcconfig; sourceTree = "<group>"; };
 		B097DD7534E741D5C41838011D755842 /* Pods-iosApp */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-iosApp"; path = Pods_iosApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B57B893556F3E9CC9421FA632CBD9DF8 /* shared.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = shared.debug.xcconfig; sourceTree = "<group>"; };
+		DC8BCCEBFAE7EAFBED13E9DCDC500EA5 /* integrations.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = integrations.framework; path = build/cocoapods/framework/integrations.framework; sourceTree = "<group>"; };
 		E462E23B3674BF94EAB1504D506F2803 /* Pods-iosApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-iosApp.debug.xcconfig"; sourceTree = "<group>"; };
 		E4C923318724794E3CC670804C2D6A6B /* Pods-iosApp-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-iosApp-acknowledgements.markdown"; sourceTree = "<group>"; };
 		E6DB2A5F5DADA1DDE45F36B1A2D6AC16 /* Pods-iosApp-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-iosApp-dummy.m"; sourceTree = "<group>"; };
+		F4042B995491B0C5E9AE32D91DA29D6C /* integrations.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = integrations.debug.xcconfig; sourceTree = "<group>"; };
 		FCC9A36A07F5216E975DE1FA02B8C1BB /* shared.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = shared.framework; path = build/cocoapods/framework/shared.framework; sourceTree = "<group>"; };
+		FD3B1BCFCAE9F6D96D2BDC7FB27C0762 /* integrations.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = integrations.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,10 +101,10 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		18D620FD86EF82AA86380D894D29E8F1 /* Frameworks */ = {
+		170F6E2EFC93E84A9AB9791779989D89 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6205D4B42B8656FA27EBFBA9CF5EE821 /* integrations.framework */,
+				DC8BCCEBFAE7EAFBED13E9DCDC500EA5 /* integrations.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -113,16 +115,6 @@
 				B097DD7534E741D5C41838011D755842 /* Pods-iosApp */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		439BA0DE537963E74E2A4584D3A3BB3C /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				72AD4C16F7F1498D157AF6208363B4A8 /* integrations.debug.xcconfig */,
-				5384515B247516817C9C55A59941F827 /* integrations.release.xcconfig */,
-			);
-			name = "Support Files";
-			path = "../iosApp/Pods/Target Support Files/integrations";
 			sourceTree = "<group>";
 		};
 		578452D2E740E91742655AC8F1636D1F /* iOS */ = {
@@ -144,12 +136,23 @@
 			path = "../iosApp/Pods/Target Support Files/shared";
 			sourceTree = "<group>";
 		};
-		906593591CB2435938383DBCF6B8EF82 /* Pod */ = {
+		94DAF82270616744B7F382191C91CF5D /* Pod */ = {
 			isa = PBXGroup;
 			children = (
-				59843A1A85E99B1201DE786F0A97B727 /* integrations.podspec */,
+				FD3B1BCFCAE9F6D96D2BDC7FB27C0762 /* integrations.podspec */,
 			);
 			name = Pod;
+			sourceTree = "<group>";
+		};
+		AD9A589C51D8B6D84E297D81FBF9ABC0 /* integrations */ = {
+			isa = PBXGroup;
+			children = (
+				170F6E2EFC93E84A9AB9791779989D89 /* Frameworks */,
+				94DAF82270616744B7F382191C91CF5D /* Pod */,
+				FBAD0B2A26E50B92D66EC0973A26C71B /* Support Files */,
+			);
+			name = integrations;
+			path = ../../integrations;
 			sourceTree = "<group>";
 		};
 		BA6B7BC2729F657E9D3682E55CA6E980 /* Pods-iosApp */ = {
@@ -208,7 +211,7 @@
 		E7F0C94B4C282D2DE3F261224FE8A276 /* Development Pods */ = {
 			isa = PBXGroup;
 			children = (
-				FBB887FFD3DF4EFE4568F1B8BF34A1F2 /* integrations */,
+				AD9A589C51D8B6D84E297D81FBF9ABC0 /* integrations */,
 				F338C76863EEAA46196CA1F8165B4FEE /* shared */,
 			);
 			name = "Development Pods";
@@ -226,15 +229,15 @@
 			path = ../../shared;
 			sourceTree = "<group>";
 		};
-		FBB887FFD3DF4EFE4568F1B8BF34A1F2 /* integrations */ = {
+		FBAD0B2A26E50B92D66EC0973A26C71B /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				18D620FD86EF82AA86380D894D29E8F1 /* Frameworks */,
-				906593591CB2435938383DBCF6B8EF82 /* Pod */,
-				439BA0DE537963E74E2A4584D3A3BB3C /* Support Files */,
+				3D6C4F35559BE1C22ADAAF82DD6C89F8 /* integrations-copy-dsyms.sh */,
+				F4042B995491B0C5E9AE32D91DA29D6C /* integrations.debug.xcconfig */,
+				A7DACF486A6B7A060686F9A3B3157984 /* integrations.release.xcconfig */,
 			);
-			name = integrations;
-			path = ../../integrations;
+			name = "Support Files";
+			path = "../iosApp/Pods/Target Support Files/integrations";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -264,7 +267,7 @@
 			);
 			dependencies = (
 				E107368CE3122DA96DE83D92A4235F3F /* PBXTargetDependency */,
-				FB6C535E627308E7CC409F4905C340A3 /* PBXTargetDependency */,
+				7172223754164D95F5F6748AB60E43D5 /* PBXTargetDependency */,
 			);
 			name = "Pods-iosApp";
 			productName = Pods_iosApp;
@@ -338,7 +341,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/shared/shared-copy-dsyms.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F20E12CD21F66754D15F737617ECF829 /* [CP-User] Build integrations */ = {
+		6F178385B06301FDFC71A46AFBA72454 /* [CP-User] Build integrations */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -347,6 +350,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "                if [ \"YES\" = \"$OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED\" ]; then\n                  echo \"Skipping Gradle build task invocation due to OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED environment variable set to \"YES\"\"\n                  exit 0\n                fi\n                set -ev\n                REPO_ROOT=\"$PODS_TARGET_SRCROOT\"\n                \"$REPO_ROOT/../gradlew\" -p \"$REPO_ROOT\" $KOTLIN_PROJECT_PATH:syncFramework                     -Pkotlin.native.cocoapods.platform=$PLATFORM_NAME                     -Pkotlin.native.cocoapods.archs=\"$ARCHS\"                     -Pkotlin.native.cocoapods.configuration=\"$CONFIGURATION\"\n";
+		};
+		BB5395EC840D559FD63A204982C6EC66 /* [CP] Copy dSYMs */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/integrations/integrations-copy-dsyms-input-files.xcfilelist",
+			);
+			name = "[CP] Copy dSYMs";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/integrations/integrations-copy-dsyms-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/integrations/integrations-copy-dsyms.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -362,39 +382,21 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		7172223754164D95F5F6748AB60E43D5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = shared;
+			target = 8777C9F6889E59EFFD631D80AEE9048B /* shared */;
+			targetProxy = 983C2A477F0FF90E22557697866349A9 /* PBXContainerItemProxy */;
+		};
 		E107368CE3122DA96DE83D92A4235F3F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = integrations;
 			target = D9B825AA59DD834C983FE5A7806C65CC /* integrations */;
 			targetProxy = C8EB882B39D19B1385998C16F98A6BB3 /* PBXContainerItemProxy */;
 		};
-		FB6C535E627308E7CC409F4905C340A3 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = shared;
-			target = 8777C9F6889E59EFFD631D80AEE9048B /* shared */;
-			targetProxy = CA698CBDF6B51F66A55E8EFD805A1177 /* PBXContainerItemProxy */;
-		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		181626900397363875FC075BF64AFDB3 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5384515B247516817C9C55A59941F827 /* integrations.release.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
 		2BBA1DABF3F9E4FAC6BBD6AB68B8F99F /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 244FC2DAA936A0B07ACEFDC74E2D54B8 /* Pods-iosApp.release.xcconfig */;
@@ -495,6 +497,23 @@
 			};
 			name = Release;
 		};
+		5B0C50858F5F08FA6E1311FBE6AC1650 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F4042B995491B0C5E9AE32D91DA29D6C /* integrations.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
 		760F64760D7A958E9102D3E6F4614CCD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E462E23B3674BF94EAB1504D506F2803 /* Pods-iosApp.debug.xcconfig */;
@@ -549,9 +568,9 @@
 			};
 			name = Debug;
 		};
-		9A38D80332734F95F823668CCAB62840 /* Debug */ = {
+		9F563270136EF69C5877C266991F2FF3 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 72AD4C16F7F1498D157AF6208363B4A8 /* integrations.debug.xcconfig */;
+			baseConfigurationReference = A7DACF486A6B7A060686F9A3B3157984 /* integrations.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -563,8 +582,9 @@
 				);
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 			};
-			name = Debug;
+			name = Release;
 		};
 		A0374B8CF9A7D6A45F6D116D698D1C19 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -653,15 +673,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0D339EEEB7F645A2F925E28F2F878470 /* Build configuration list for PBXAggregateTarget "integrations" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				9A38D80332734F95F823668CCAB62840 /* Debug */,
-				181626900397363875FC075BF64AFDB3 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		32C259597898497B09788F5EE1AA6C8C /* Build configuration list for PBXNativeTarget "Pods-iosApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -676,6 +687,15 @@
 			buildConfigurations = (
 				A0374B8CF9A7D6A45F6D116D698D1C19 /* Debug */,
 				593F10BFFA94DAC7D6E17FB8A7F32D72 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6340886374A66CD9923F73F3606E62C4 /* Build configuration list for PBXAggregateTarget "integrations" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5B0C50858F5F08FA6E1311FBE6AC1650 /* Debug */,
+				9F563270136EF69C5877C266991F2FF3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

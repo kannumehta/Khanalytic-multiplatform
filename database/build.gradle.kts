@@ -18,13 +18,13 @@ kotlin {
     iosSimulatorArm64()
 
     cocoapods {
-        summary = "Some description for the Shared Module"
-        homepage = "Link to the Shared Module homepage"
+        summary = "Database related utilities"
+        homepage = "Database related utilities homepage"
         version = "1.0"
         ios.deploymentTarget = "14.1"
         podfile = project.file("../iosApp/Podfile")
         framework {
-            baseName = "shared"
+            baseName = "database"
         }
     }
 
@@ -34,29 +34,19 @@ kotlin {
     val dateTimeVersion = "0.4.0"
     val koinVersion = "3.2.0"
     val voyagerVersion = "1.0.0-rc05"
-    
+
 
     sourceSets {
         val commonMain by getting {
             dependencies {
                 implementation(kotlin("test"))
                 implementation(project(":integrations"))
-                implementation(project(":database"))
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
-                implementation("io.ktor:ktor-client-core:$ktorVersion")
-                implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
                 implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
-                implementation("io.ktor:ktor-client-logging:$ktorVersion")
-                implementation("io.ktor:ktor-client-encoding:$ktorVersion")
                 implementation("com.squareup.sqldelight:runtime:$sqlDelightVersion")
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:$dateTimeVersion")
                 implementation("io.github.aakira:napier:2.4.0")
                 implementation("io.insert-koin:koin-core:$koinVersion")
-                api("io.github.kevinnzou:compose-webview-multiplatform:1.6.0")
-                implementation("cafe.adriel.voyager:voyager-navigator:$voyagerVersion")
-                implementation("cafe.adriel.voyager:voyager-bottom-sheet-navigator:$voyagerVersion")
-                implementation("cafe.adriel.voyager:voyager-tab-navigator:$voyagerVersion")
-                implementation("cafe.adriel.voyager:voyager-transitions:$voyagerVersion")
 
                 implementation(compose.runtime)
                 implementation(compose.foundation)
@@ -68,7 +58,6 @@ kotlin {
         val commonTest by getting
         val androidMain by getting {
             dependencies {
-                implementation("io.ktor:ktor-client-android:$ktorVersion")
                 implementation("com.squareup.sqldelight:android-driver:$sqlDelightVersion")
             }
         }
@@ -82,7 +71,6 @@ kotlin {
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
             dependencies {
-                implementation("io.ktor:ktor-client-darwin:$ktorVersion")
                 implementation("com.squareup.sqldelight:native-driver:$sqlDelightVersion")
             }
         }
@@ -100,10 +88,16 @@ kotlin {
 }
 
 android {
-    namespace = "com.khanalytic.kmm"
+    namespace = "com.khanalytic.database"
     compileSdk = 34
     defaultConfig {
         minSdk = 24
         targetSdk = 34
+    }
+}
+
+sqldelight {
+    database("AppDatabase") {
+        packageName = "com.khanalytic.database.shared"
     }
 }

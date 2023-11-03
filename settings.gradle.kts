@@ -34,3 +34,4 @@ rootProject.name = "Khanalytic"
 include(":androidApp")
 include(":shared")
 include(":integrations")
+include(":database")
