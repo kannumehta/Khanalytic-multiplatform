@@ -10,6 +10,7 @@ import kotlinx.serialization.json.Json
 class HttpClientFactory {
 
     fun create(
+        // TODo(kannumehta@): This logger should be removed.
         loggerImpl: Logger = Logger.SIMPLE,
         logLevel: LogLevel = LogLevel.ALL
     ): HttpClient =

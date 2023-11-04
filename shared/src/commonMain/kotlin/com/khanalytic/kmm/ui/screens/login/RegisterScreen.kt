@@ -9,8 +9,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.koin.getScreenModel
 import com.khanalytic.kmm.ui.common.DefaultButton
 import com.khanalytic.kmm.ui.common.DefaultHeading
 import com.khanalytic.kmm.ui.common.DefaultSpacer
@@ -26,7 +26,7 @@ object RegisterScreen: Screen {
 
     @Composable
     override fun Content() {
-        val model = rememberScreenModel { RegisterScreenModel() }
+        val model = getScreenModel<RegisterScreenModel>()
         val registerType = model.registerTypeFlow.collectAsStateMultiplatform().value
         Column (modifier = Modifier.fillMaxSize().padding(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally,

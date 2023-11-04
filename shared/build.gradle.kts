@@ -32,8 +32,8 @@ kotlin {
     val ktorVersion = "2.3.2"
     val sqlDelightVersion = "1.5.5"
     val dateTimeVersion = "0.4.0"
-    val koinVersion = "3.2.0"
-    val voyagerVersion = "1.0.0-rc05"
+    val koinVersion = "3.2.2"
+    val voyagerVersion = "1.0.0-rc08"
     
 
     sourceSets {
@@ -57,6 +57,7 @@ kotlin {
                 implementation("cafe.adriel.voyager:voyager-bottom-sheet-navigator:$voyagerVersion")
                 implementation("cafe.adriel.voyager:voyager-tab-navigator:$voyagerVersion")
                 implementation("cafe.adriel.voyager:voyager-transitions:$voyagerVersion")
+                implementation("cafe.adriel.voyager:voyager-koin:$voyagerVersion")
 
                 implementation(compose.runtime)
                 implementation(compose.foundation)

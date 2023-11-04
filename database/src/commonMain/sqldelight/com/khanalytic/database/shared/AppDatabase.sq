@@ -1,11 +1,14 @@
 CREATE TABLE User (
+    id INTEGER NOT NULL PRIMARY KEY,
     email TEXT NOT NULL,
+    name TEXT NOT NULL,
     authToken TEXT NOT NULL,
     isConfirmed INTEGER AS Boolean DEFAULT NULL
 );
 
 insertUser:
-INSERT INTO User(email, authToken, isConfirmed) VALUES(?, ?, ?);
+INSERT INTO User(id, email, name, authToken, isConfirmed)
+ VALUES(?, ?, ?, ?, ?);
 
 deleteAllUsers:
 DELETE FROM User;

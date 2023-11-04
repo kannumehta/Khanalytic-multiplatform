@@ -9,10 +9,9 @@
 /* Begin PBXAggregateTarget section */
 		8777C9F6889E59EFFD631D80AEE9048B /* shared */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = B999BD58A146737F72CA68509B0BCE77 /* Build configuration list for PBXAggregateTarget "shared" */;
+			buildConfigurationList = 8349D8E2EC974421A14EF8ABFF6AD6DC /* Build configuration list for PBXAggregateTarget "shared" */;
 			buildPhases = (
-				11F372A9E68C08375C21A8D47B3CDB02 /* [CP-User] Build shared */,
-				35C7D8836447FEC746DA683E14000153 /* [CP] Copy dSYMs */,
+				BEA8885189D408D600647BDC228A6A20 /* [CP-User] Build shared */,
 			);
 			dependencies = (
 			);
@@ -20,10 +19,9 @@
 		};
 		ABB7F9C3F15219869BB0A8DF2F4F7799 /* models */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 36E52D0E4387A3C36469A603CB44733A /* Build configuration list for PBXAggregateTarget "models" */;
+			buildConfigurationList = 90C7C8C5708C4A92129A39CCD548B71F /* Build configuration list for PBXAggregateTarget "models" */;
 			buildPhases = (
-				0AAEB6ECD5E0597F60AFB544CD8E5137 /* [CP-User] Build models */,
-				33A2B33A39F7769379CA2D96B5D8C69D /* [CP] Copy dSYMs */,
+				1F16FB5756902CF5A37B84407DB09D05 /* [CP-User] Build models */,
 			);
 			dependencies = (
 			);
@@ -31,10 +29,9 @@
 		};
 		C7EEF1D4E511B00561F370E51643330F /* database */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = A0E9B06FD72EB117535D8C98B012CC0E /* Build configuration list for PBXAggregateTarget "database" */;
+			buildConfigurationList = AABF1B2AFB3BB06B6A5CA705E7A2CED5 /* Build configuration list for PBXAggregateTarget "database" */;
 			buildPhases = (
-				3F09244F096D1CD74BB35141DE779FC2 /* [CP-User] Build database */,
-				91CD298F7C5CF2D3CF306AE1076095B8 /* [CP] Copy dSYMs */,
+				E3C81384299050DC78C8034B86A38FBA /* [CP-User] Build database */,
 			);
 			dependencies = (
 			);
@@ -42,10 +39,9 @@
 		};
 		D9B825AA59DD834C983FE5A7806C65CC /* integrations */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 6340886374A66CD9923F73F3606E62C4 /* Build configuration list for PBXAggregateTarget "integrations" */;
+			buildConfigurationList = 0D339EEEB7F645A2F925E28F2F878470 /* Build configuration list for PBXAggregateTarget "integrations" */;
 			buildPhases = (
-				6F178385B06301FDFC71A46AFBA72454 /* [CP-User] Build integrations */,
-				BB5395EC840D559FD63A204982C6EC66 /* [CP] Copy dSYMs */,
+				F20E12CD21F66754D15F737617ECF829 /* [CP-User] Build integrations */,
 			);
 			dependencies = (
 			);
@@ -60,19 +56,19 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		0DAF705CE87A8312D7048E0A5777005C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8777C9F6889E59EFFD631D80AEE9048B;
-			remoteInfo = shared;
-		};
-		7200ED40A35FF48B779EDB963D90A2EF /* PBXContainerItemProxy */ = {
+		4B4783773993F94F4D45A61AFA66FB71 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = ABB7F9C3F15219869BB0A8DF2F4F7799;
 			remoteInfo = models;
+		};
+		76A82BFCBA0AF961FED507FD774166D2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8777C9F6889E59EFFD631D80AEE9048B;
+			remoteInfo = shared;
 		};
 		92DE7AC7CA9EE716204A48E50212E06A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -81,7 +77,7 @@
 			remoteGlobalIDString = C7EEF1D4E511B00561F370E51643330F;
 			remoteInfo = database;
 		};
-		A39FDF74D45A461866922623AFD0BF65 /* PBXContainerItemProxy */ = {
+		AB324A35BEC44A385EDD2C44C4CE9396 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
@@ -92,40 +88,36 @@
 
 /* Begin PBXFileReference section */
 		015E0D7EA7331961AB63E5AFECA86BB5 /* Pods-iosApp-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-iosApp-umbrella.h"; sourceTree = "<group>"; };
-		0D788DF8FB6AB9D1E22AB29CC7C08B22 /* models-copy-dsyms.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "models-copy-dsyms.sh"; sourceTree = "<group>"; };
+		10406928993F4454AD6CBCF32998EDF8 /* database.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = database.release.xcconfig; sourceTree = "<group>"; };
 		11C9B998CE0869936AE6BE69270DAAC9 /* Pods-iosApp.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-iosApp.modulemap"; sourceTree = "<group>"; };
-		14E117AABDCED8FAD9BE000510A8A0D3 /* models.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = models.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		18E04D2E14CE84CA3E3B6F54C8872995 /* models.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = models.framework; path = build/cocoapods/framework/models.framework; sourceTree = "<group>"; };
-		2156596FF15BE443A1806EF82DA33EF4 /* shared.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = shared.framework; path = build/cocoapods/framework/shared.framework; sourceTree = "<group>"; };
 		244FC2DAA936A0B07ACEFDC74E2D54B8 /* Pods-iosApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-iosApp.release.xcconfig"; sourceTree = "<group>"; };
-		333F27F2DA57CF3A6384A319037063E3 /* integrations.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = integrations.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		5239429F8DD0B76E65754FF0FE896A0C /* database.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = database.release.xcconfig; sourceTree = "<group>"; };
-		524DF270C8D23506A1C840B6151B6963 /* database-copy-dsyms.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "database-copy-dsyms.sh"; sourceTree = "<group>"; };
+		2B751FA788DA280923BF7424CF28F530 /* integrations.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = integrations.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		31B03DDE61FB3093B6097230E9764FEE /* models.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = models.release.xcconfig; sourceTree = "<group>"; };
+		35189AFBD1BDCE367996544920AD8113 /* models.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = models.framework; path = build/cocoapods/framework/models.framework; sourceTree = "<group>"; };
 		55ABB06C8A1800962A74E007E7733796 /* Pods-iosApp-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-iosApp-frameworks.sh"; sourceTree = "<group>"; };
-		6C90844194C251C581B4F2649F30110F /* compose-resources */ = {isa = PBXFileReference; includeInIndex = 1; name = "compose-resources"; path = "build/compose/ios/database/compose-resources"; sourceTree = "<group>"; };
+		5B7E87A51F3BD9E25B441B77004DEECF /* integrations.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = integrations.release.xcconfig; sourceTree = "<group>"; };
+		6C8679C292E09D2E745171935DC54683 /* integrations.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = integrations.framework; path = build/cocoapods/framework/integrations.framework; sourceTree = "<group>"; };
+		6E903CFF9AFE3715B6C4BF3FF7326490 /* shared.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = shared.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		6F3B5FED07117E377CFAC3D49B490F17 /* Pods-iosApp-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-iosApp-resources.sh"; sourceTree = "<group>"; };
+		72DEC2B734EB49143607A69AB3B61085 /* shared.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = shared.release.xcconfig; sourceTree = "<group>"; };
 		73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		76A263267985B0185D85E24D40FCEE9A /* Pods-iosApp-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-iosApp-Info.plist"; sourceTree = "<group>"; };
 		76D28488EA8CF5C697DFF07967A9960E /* Pods-iosApp-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-iosApp-acknowledgements.plist"; sourceTree = "<group>"; };
-		7D96A0B8EC09B7FFB1C097651C292596 /* shared.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = shared.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		7DA03C4FEC6BEAEBCBE2BD789223BF27 /* models.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = models.release.xcconfig; sourceTree = "<group>"; };
-		8460898A209FDF008CD3F933AD29BD6E /* integrations-copy-dsyms.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "integrations-copy-dsyms.sh"; sourceTree = "<group>"; };
-		91FC2C09C84FFD6003DA5DCD378A144A /* database.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = database.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		7BC60C7B0D7D2551E8D5B5B6147C49C8 /* integrations.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = integrations.debug.xcconfig; sourceTree = "<group>"; };
+		88D19156BEFC3542F80FEEB51E324386 /* compose-resources */ = {isa = PBXFileReference; includeInIndex = 1; name = "compose-resources"; path = "build/compose/ios/shared/compose-resources"; sourceTree = "<group>"; };
+		8AFB10515D38D3E1DF37033991A5183D /* compose-resources */ = {isa = PBXFileReference; includeInIndex = 1; name = "compose-resources"; path = "build/compose/ios/database/compose-resources"; sourceTree = "<group>"; };
+		8BF48993AAF197D4AFBAE3F52A22C2F0 /* database.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = database.debug.xcconfig; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		A40841881BD59F35E52568EF4B80939F /* shared.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = shared.release.xcconfig; sourceTree = "<group>"; };
-		A989C74C580826D7623C0E901EAE1558 /* integrations.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = integrations.framework; path = build/cocoapods/framework/integrations.framework; sourceTree = "<group>"; };
-		ABA40EDBD7F840FDEC70FD8A634EDC72 /* compose-resources */ = {isa = PBXFileReference; includeInIndex = 1; name = "compose-resources"; path = "build/compose/ios/shared/compose-resources"; sourceTree = "<group>"; };
-		AC3277DE55EBAB3E3B98873BAFCC43D4 /* integrations.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = integrations.debug.xcconfig; sourceTree = "<group>"; };
-		AD654BF6031F465841846C224C726531 /* shared.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = shared.debug.xcconfig; sourceTree = "<group>"; };
-		B05AC02268C2456C43534BE37F2D3EFD /* models.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = models.debug.xcconfig; sourceTree = "<group>"; };
+		A2F97E6BCE528332ADDF1E7E145A9D3C /* shared.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = shared.debug.xcconfig; sourceTree = "<group>"; };
 		B097DD7534E741D5C41838011D755842 /* Pods-iosApp */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-iosApp"; path = Pods_iosApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B1C2B1B58E89A18C3780B729F63DB362 /* database.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = database.debug.xcconfig; sourceTree = "<group>"; };
-		BBAAF794EA13EF00C4783FA1E3E118EC /* shared-copy-dsyms.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "shared-copy-dsyms.sh"; sourceTree = "<group>"; };
-		C3C987CABF83B0DB96DC22530E302957 /* integrations.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = integrations.release.xcconfig; sourceTree = "<group>"; };
-		D4434418846902E8BEE6AA2C1E32E794 /* database.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = database.framework; path = build/cocoapods/framework/database.framework; sourceTree = "<group>"; };
+		B9DF53ADECB56A84502928CFE21C15A3 /* database.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = database.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		BA04ECCE40469535E3D248863A43C63D /* database.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = database.framework; path = build/cocoapods/framework/database.framework; sourceTree = "<group>"; };
+		BE0CEEF11723CBC33136D63E14FCA56B /* models.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = models.debug.xcconfig; sourceTree = "<group>"; };
+		D10676E89DD3CFDBBFD5BC716485D19E /* shared.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = shared.framework; path = build/cocoapods/framework/shared.framework; sourceTree = "<group>"; };
 		E462E23B3674BF94EAB1504D506F2803 /* Pods-iosApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-iosApp.debug.xcconfig"; sourceTree = "<group>"; };
 		E4C923318724794E3CC670804C2D6A6B /* Pods-iosApp-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-iosApp-acknowledgements.markdown"; sourceTree = "<group>"; };
 		E6DB2A5F5DADA1DDE45F36B1A2D6AC16 /* Pods-iosApp-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-iosApp-dummy.m"; sourceTree = "<group>"; };
+		EA36BFA0C4E98B5C08528D5A1CF61998 /* models.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = models.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +132,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		158AAE8CDF1528A23F5BD5889E98E2A0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6C8679C292E09D2E745171935DC54683 /* integrations.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		1F86AA6785DF34AFD5A71790761717DE /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -148,48 +148,72 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2B6EA3B1C6A49D1C105EF3575E750A77 /* Support Files */ = {
+		2C71806DCA835BA4AEE69BF87DE3D70D /* models */ = {
 			isa = PBXGroup;
 			children = (
-				0D788DF8FB6AB9D1E22AB29CC7C08B22 /* models-copy-dsyms.sh */,
-				B05AC02268C2456C43534BE37F2D3EFD /* models.debug.xcconfig */,
-				7DA03C4FEC6BEAEBCBE2BD789223BF27 /* models.release.xcconfig */,
+				30C9B576F81D6C1A120E3EF3636FFE0F /* Frameworks */,
+				A43BDEF504FAE661A07CB7D2F919A5D6 /* Pod */,
+				DE4752CD57F8766D0DA0C912CB6F328F /* Support Files */,
+			);
+			name = models;
+			path = ../../models;
+			sourceTree = "<group>";
+		};
+		30C9B576F81D6C1A120E3EF3636FFE0F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				35189AFBD1BDCE367996544920AD8113 /* models.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3B042CEEE041BAA32E750877AEC32BFA /* database */ = {
+			isa = PBXGroup;
+			children = (
+				8AFB10515D38D3E1DF37033991A5183D /* compose-resources */,
+				5C222656BA8DF6EB3960ADE6CAC6D79A /* Frameworks */,
+				495D1819725FA33DAB35A12B0668059D /* Pod */,
+				401E1A512CD8246A45C5E2DD599A80DF /* Support Files */,
+			);
+			name = database;
+			path = ../../database;
+			sourceTree = "<group>";
+		};
+		3CE0AE1EC1DA550DFFE576AF6A53E446 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				7BC60C7B0D7D2551E8D5B5B6147C49C8 /* integrations.debug.xcconfig */,
+				5B7E87A51F3BD9E25B441B77004DEECF /* integrations.release.xcconfig */,
 			);
 			name = "Support Files";
-			path = "../iosApp/Pods/Target Support Files/models";
+			path = "../iosApp/Pods/Target Support Files/integrations";
 			sourceTree = "<group>";
 		};
-		39053496E66EF6E95F7A9D41E9CFF2AA /* Pod */ = {
+		401E1A512CD8246A45C5E2DD599A80DF /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				91FC2C09C84FFD6003DA5DCD378A144A /* database.podspec */,
+				8BF48993AAF197D4AFBAE3F52A22C2F0 /* database.debug.xcconfig */,
+				10406928993F4454AD6CBCF32998EDF8 /* database.release.xcconfig */,
 			);
-			name = Pod;
+			name = "Support Files";
+			path = "../iosApp/Pods/Target Support Files/database";
 			sourceTree = "<group>";
 		};
-		42D57F209EFA948C84629936C9218D05 /* integrations */ = {
+		444AEE1F8B4427C50D94BF8C1C2E8C9A /* integrations */ = {
 			isa = PBXGroup;
 			children = (
-				457DC14901D905BC2197C0348413338A /* Frameworks */,
-				6D94A560600FC438402BAB106E20B808 /* Pod */,
-				AECEDF10BCAA9F810DD3D662DF51457F /* Support Files */,
+				158AAE8CDF1528A23F5BD5889E98E2A0 /* Frameworks */,
+				ECA3542F0A154E02C76548FEEF8263D4 /* Pod */,
+				3CE0AE1EC1DA550DFFE576AF6A53E446 /* Support Files */,
 			);
 			name = integrations;
 			path = ../../integrations;
 			sourceTree = "<group>";
 		};
-		457DC14901D905BC2197C0348413338A /* Frameworks */ = {
+		495D1819725FA33DAB35A12B0668059D /* Pod */ = {
 			isa = PBXGroup;
 			children = (
-				A989C74C580826D7623C0E901EAE1558 /* integrations.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		522212F47E9C9AF230D2C162248D8AE9 /* Pod */ = {
-			isa = PBXGroup;
-			children = (
-				14E117AABDCED8FAD9BE000510A8A0D3 /* models.podspec */,
+				B9DF53ADECB56A84502928CFE21C15A3 /* database.podspec */,
 			);
 			name = Pod;
 			sourceTree = "<group>";
@@ -202,78 +226,58 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
-		6391BEBA8305881B025A1D53B4DEFB8C /* Frameworks */ = {
+		5C222656BA8DF6EB3960ADE6CAC6D79A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D4434418846902E8BEE6AA2C1E32E794 /* database.framework */,
+				BA04ECCE40469535E3D248863A43C63D /* database.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		6D9411ED24BD7DB4194EC3F399763FC4 /* Support Files */ = {
+		6CFF3CA94419EFC9D99A2FDD41CEC0BA /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				524DF270C8D23506A1C840B6151B6963 /* database-copy-dsyms.sh */,
-				B1C2B1B58E89A18C3780B729F63DB362 /* database.debug.xcconfig */,
-				5239429F8DD0B76E65754FF0FE896A0C /* database.release.xcconfig */,
+				A2F97E6BCE528332ADDF1E7E145A9D3C /* shared.debug.xcconfig */,
+				72DEC2B734EB49143607A69AB3B61085 /* shared.release.xcconfig */,
 			);
 			name = "Support Files";
-			path = "../iosApp/Pods/Target Support Files/database";
+			path = "../iosApp/Pods/Target Support Files/shared";
 			sourceTree = "<group>";
 		};
-		6D94A560600FC438402BAB106E20B808 /* Pod */ = {
+		A43BDEF504FAE661A07CB7D2F919A5D6 /* Pod */ = {
 			isa = PBXGroup;
 			children = (
-				333F27F2DA57CF3A6384A319037063E3 /* integrations.podspec */,
+				EA36BFA0C4E98B5C08528D5A1CF61998 /* models.podspec */,
 			);
 			name = Pod;
 			sourceTree = "<group>";
 		};
-		8802E2093E230457E1278EF83D4B00BB /* shared */ = {
+		A790969687F1238A03E8FAA3E870017C /* Pod */ = {
 			isa = PBXGroup;
 			children = (
-				ABA40EDBD7F840FDEC70FD8A634EDC72 /* compose-resources */,
-				B2E4826E4AB26E92AD1BBC52D60A48F1 /* Frameworks */,
-				ADE908D2AC4BBD4E6F0642B89FFCC061 /* Pod */,
-				D21411C64D0B6763A0F575CC71685CF5 /* Support Files */,
+				6E903CFF9AFE3715B6C4BF3FF7326490 /* shared.podspec */,
+			);
+			name = Pod;
+			sourceTree = "<group>";
+		};
+		A8B5927CEA0C35589F57F9C4C067C424 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D10676E89DD3CFDBBFD5BC716485D19E /* shared.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B8D8C147C9473E41DA545FD6BBCCEFBE /* shared */ = {
+			isa = PBXGroup;
+			children = (
+				88D19156BEFC3542F80FEEB51E324386 /* compose-resources */,
+				A8B5927CEA0C35589F57F9C4C067C424 /* Frameworks */,
+				A790969687F1238A03E8FAA3E870017C /* Pod */,
+				6CFF3CA94419EFC9D99A2FDD41CEC0BA /* Support Files */,
 			);
 			name = shared;
 			path = ../../shared;
-			sourceTree = "<group>";
-		};
-		9E4A8855869B2E3442BF546C22D9DF46 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				18E04D2E14CE84CA3E3B6F54C8872995 /* models.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		ADE908D2AC4BBD4E6F0642B89FFCC061 /* Pod */ = {
-			isa = PBXGroup;
-			children = (
-				7D96A0B8EC09B7FFB1C097651C292596 /* shared.podspec */,
-			);
-			name = Pod;
-			sourceTree = "<group>";
-		};
-		AECEDF10BCAA9F810DD3D662DF51457F /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				8460898A209FDF008CD3F933AD29BD6E /* integrations-copy-dsyms.sh */,
-				AC3277DE55EBAB3E3B98873BAFCC43D4 /* integrations.debug.xcconfig */,
-				C3C987CABF83B0DB96DC22530E302957 /* integrations.release.xcconfig */,
-			);
-			name = "Support Files";
-			path = "../iosApp/Pods/Target Support Files/integrations";
-			sourceTree = "<group>";
-		};
-		B2E4826E4AB26E92AD1BBC52D60A48F1 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				2156596FF15BE443A1806EF82DA33EF4 /* shared.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		BA6B7BC2729F657E9D3682E55CA6E980 /* Pods-iosApp */ = {
@@ -292,17 +296,6 @@
 			);
 			name = "Pods-iosApp";
 			path = "Target Support Files/Pods-iosApp";
-			sourceTree = "<group>";
-		};
-		CE2BB76B7B4512DD35CA99F0D70CDA6F /* models */ = {
-			isa = PBXGroup;
-			children = (
-				9E4A8855869B2E3442BF546C22D9DF46 /* Frameworks */,
-				522212F47E9C9AF230D2C162248D8AE9 /* Pod */,
-				2B6EA3B1C6A49D1C105EF3575E750A77 /* Support Files */,
-			);
-			name = models;
-			path = ../../models;
 			sourceTree = "<group>";
 		};
 		CF1408CF629C7361332E53B88F7BD30C = {
@@ -324,17 +317,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		D21411C64D0B6763A0F575CC71685CF5 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				BBAAF794EA13EF00C4783FA1E3E118EC /* shared-copy-dsyms.sh */,
-				AD654BF6031F465841846C224C726531 /* shared.debug.xcconfig */,
-				A40841881BD59F35E52568EF4B80939F /* shared.release.xcconfig */,
-			);
-			name = "Support Files";
-			path = "../iosApp/Pods/Target Support Files/shared";
-			sourceTree = "<group>";
-		};
 		D456857FB6E5BC3266BEC21401D60DB5 /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -343,27 +325,33 @@
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		DB592C09893DFBE6AF8DE797C4201E5C /* database */ = {
-			isa = PBXGroup;
-			children = (
-				6C90844194C251C581B4F2649F30110F /* compose-resources */,
-				6391BEBA8305881B025A1D53B4DEFB8C /* Frameworks */,
-				39053496E66EF6E95F7A9D41E9CFF2AA /* Pod */,
-				6D9411ED24BD7DB4194EC3F399763FC4 /* Support Files */,
-			);
-			name = database;
-			path = ../../database;
-			sourceTree = "<group>";
-		};
 		DDF6263C44B5A288F8BF1B29165212A4 /* Development Pods */ = {
 			isa = PBXGroup;
 			children = (
-				DB592C09893DFBE6AF8DE797C4201E5C /* database */,
-				42D57F209EFA948C84629936C9218D05 /* integrations */,
-				CE2BB76B7B4512DD35CA99F0D70CDA6F /* models */,
-				8802E2093E230457E1278EF83D4B00BB /* shared */,
+				3B042CEEE041BAA32E750877AEC32BFA /* database */,
+				444AEE1F8B4427C50D94BF8C1C2E8C9A /* integrations */,
+				2C71806DCA835BA4AEE69BF87DE3D70D /* models */,
+				B8D8C147C9473E41DA545FD6BBCCEFBE /* shared */,
 			);
 			name = "Development Pods";
+			sourceTree = "<group>";
+		};
+		DE4752CD57F8766D0DA0C912CB6F328F /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				BE0CEEF11723CBC33136D63E14FCA56B /* models.debug.xcconfig */,
+				31B03DDE61FB3093B6097230E9764FEE /* models.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../iosApp/Pods/Target Support Files/models";
+			sourceTree = "<group>";
+		};
+		ECA3542F0A154E02C76548FEEF8263D4 /* Pod */ = {
+			isa = PBXGroup;
+			children = (
+				2B751FA788DA280923BF7424CF28F530 /* integrations.podspec */,
+			);
+			name = Pod;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -393,9 +381,9 @@
 			);
 			dependencies = (
 				69A5F61DA625A9B65D1EBA70D608F8A6 /* PBXTargetDependency */,
-				67F1C59A636483AB9237CCD60D65E420 /* PBXTargetDependency */,
-				39BB59991B6AAFEB153029F219FD6767 /* PBXTargetDependency */,
-				E685DE23AF6FA00B64EC84DB1B8B5C93 /* PBXTargetDependency */,
+				C774F02410D19B042F3CA418CD0B35E7 /* PBXTargetDependency */,
+				D82F3CFB3074CAE766A9EF3D99024F1F /* PBXTargetDependency */,
+				4BDB14F94979AE8977BC60D9061BFD13 /* PBXTargetDependency */,
 			);
 			name = "Pods-iosApp";
 			productName = Pods_iosApp;
@@ -444,7 +432,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0AAEB6ECD5E0597F60AFB544CD8E5137 /* [CP-User] Build models */ = {
+		1F16FB5756902CF5A37B84407DB09D05 /* [CP-User] Build models */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -454,7 +442,7 @@
 			shellPath = /bin/sh;
 			shellScript = "                if [ \"YES\" = \"$OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED\" ]; then\n                  echo \"Skipping Gradle build task invocation due to OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED environment variable set to \"YES\"\"\n                  exit 0\n                fi\n                set -ev\n                REPO_ROOT=\"$PODS_TARGET_SRCROOT\"\n                \"$REPO_ROOT/../gradlew\" -p \"$REPO_ROOT\" $KOTLIN_PROJECT_PATH:syncFramework                     -Pkotlin.native.cocoapods.platform=$PLATFORM_NAME                     -Pkotlin.native.cocoapods.archs=\"$ARCHS\"                     -Pkotlin.native.cocoapods.configuration=\"$CONFIGURATION\"\n";
 		};
-		11F372A9E68C08375C21A8D47B3CDB02 /* [CP-User] Build shared */ = {
+		BEA8885189D408D600647BDC228A6A20 /* [CP-User] Build shared */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -464,41 +452,7 @@
 			shellPath = /bin/sh;
 			shellScript = "                if [ \"YES\" = \"$OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED\" ]; then\n                  echo \"Skipping Gradle build task invocation due to OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED environment variable set to \"YES\"\"\n                  exit 0\n                fi\n                set -ev\n                REPO_ROOT=\"$PODS_TARGET_SRCROOT\"\n                \"$REPO_ROOT/../gradlew\" -p \"$REPO_ROOT\" $KOTLIN_PROJECT_PATH:syncFramework                     -Pkotlin.native.cocoapods.platform=$PLATFORM_NAME                     -Pkotlin.native.cocoapods.archs=\"$ARCHS\"                     -Pkotlin.native.cocoapods.configuration=\"$CONFIGURATION\"\n";
 		};
-		33A2B33A39F7769379CA2D96B5D8C69D /* [CP] Copy dSYMs */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/models/models-copy-dsyms-input-files.xcfilelist",
-			);
-			name = "[CP] Copy dSYMs";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/models/models-copy-dsyms-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/models/models-copy-dsyms.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		35C7D8836447FEC746DA683E14000153 /* [CP] Copy dSYMs */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/shared/shared-copy-dsyms-input-files.xcfilelist",
-			);
-			name = "[CP] Copy dSYMs";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/shared/shared-copy-dsyms-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/shared/shared-copy-dsyms.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		3F09244F096D1CD74BB35141DE779FC2 /* [CP-User] Build database */ = {
+		E3C81384299050DC78C8034B86A38FBA /* [CP-User] Build database */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -508,7 +462,7 @@
 			shellPath = /bin/sh;
 			shellScript = "                if [ \"YES\" = \"$OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED\" ]; then\n                  echo \"Skipping Gradle build task invocation due to OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED environment variable set to \"YES\"\"\n                  exit 0\n                fi\n                set -ev\n                REPO_ROOT=\"$PODS_TARGET_SRCROOT\"\n                \"$REPO_ROOT/../gradlew\" -p \"$REPO_ROOT\" $KOTLIN_PROJECT_PATH:syncFramework                     -Pkotlin.native.cocoapods.platform=$PLATFORM_NAME                     -Pkotlin.native.cocoapods.archs=\"$ARCHS\"                     -Pkotlin.native.cocoapods.configuration=\"$CONFIGURATION\"\n";
 		};
-		6F178385B06301FDFC71A46AFBA72454 /* [CP-User] Build integrations */ = {
+		F20E12CD21F66754D15F737617ECF829 /* [CP-User] Build integrations */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -517,40 +471,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "                if [ \"YES\" = \"$OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED\" ]; then\n                  echo \"Skipping Gradle build task invocation due to OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED environment variable set to \"YES\"\"\n                  exit 0\n                fi\n                set -ev\n                REPO_ROOT=\"$PODS_TARGET_SRCROOT\"\n                \"$REPO_ROOT/../gradlew\" -p \"$REPO_ROOT\" $KOTLIN_PROJECT_PATH:syncFramework                     -Pkotlin.native.cocoapods.platform=$PLATFORM_NAME                     -Pkotlin.native.cocoapods.archs=\"$ARCHS\"                     -Pkotlin.native.cocoapods.configuration=\"$CONFIGURATION\"\n";
-		};
-		91CD298F7C5CF2D3CF306AE1076095B8 /* [CP] Copy dSYMs */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/database/database-copy-dsyms-input-files.xcfilelist",
-			);
-			name = "[CP] Copy dSYMs";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/database/database-copy-dsyms-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/database/database-copy-dsyms.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		BB5395EC840D559FD63A204982C6EC66 /* [CP] Copy dSYMs */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/integrations/integrations-copy-dsyms-input-files.xcfilelist",
-			);
-			name = "[CP] Copy dSYMs";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/integrations/integrations-copy-dsyms-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/integrations/integrations-copy-dsyms.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -566,17 +486,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		39BB59991B6AAFEB153029F219FD6767 /* PBXTargetDependency */ = {
+		4BDB14F94979AE8977BC60D9061BFD13 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = models;
-			target = ABB7F9C3F15219869BB0A8DF2F4F7799 /* models */;
-			targetProxy = 7200ED40A35FF48B779EDB963D90A2EF /* PBXContainerItemProxy */;
-		};
-		67F1C59A636483AB9237CCD60D65E420 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = integrations;
-			target = D9B825AA59DD834C983FE5A7806C65CC /* integrations */;
-			targetProxy = A39FDF74D45A461866922623AFD0BF65 /* PBXContainerItemProxy */;
+			name = shared;
+			target = 8777C9F6889E59EFFD631D80AEE9048B /* shared */;
+			targetProxy = 76A82BFCBA0AF961FED507FD774166D2 /* PBXContainerItemProxy */;
 		};
 		69A5F61DA625A9B65D1EBA70D608F8A6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -584,15 +498,39 @@
 			target = C7EEF1D4E511B00561F370E51643330F /* database */;
 			targetProxy = 92DE7AC7CA9EE716204A48E50212E06A /* PBXContainerItemProxy */;
 		};
-		E685DE23AF6FA00B64EC84DB1B8B5C93 /* PBXTargetDependency */ = {
+		C774F02410D19B042F3CA418CD0B35E7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = shared;
-			target = 8777C9F6889E59EFFD631D80AEE9048B /* shared */;
-			targetProxy = 0DAF705CE87A8312D7048E0A5777005C /* PBXContainerItemProxy */;
+			name = integrations;
+			target = D9B825AA59DD834C983FE5A7806C65CC /* integrations */;
+			targetProxy = AB324A35BEC44A385EDD2C44C4CE9396 /* PBXContainerItemProxy */;
+		};
+		D82F3CFB3074CAE766A9EF3D99024F1F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = models;
+			target = ABB7F9C3F15219869BB0A8DF2F4F7799 /* models */;
+			targetProxy = 4B4783773993F94F4D45A61AFA66FB71 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		181626900397363875FC075BF64AFDB3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5B7E87A51F3BD9E25B441B77004DEECF /* integrations.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		2622D82496F1938D9F9EC086201CC2D4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E462E23B3674BF94EAB1504D506F2803 /* Pods-iosApp.debug.xcconfig */;
@@ -629,6 +567,24 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
+		};
+		4B38916367375DCE83DEE784CC10409B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 31B03DDE61FB3093B6097230E9764FEE /* models.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
 		};
 		593F10BFFA94DAC7D6E17FB8A7F32D72 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -692,43 +648,9 @@
 			};
 			name = Release;
 		};
-		5B0C50858F5F08FA6E1311FBE6AC1650 /* Debug */ = {
+		908D2F847655814EE2BFFB2E5316C212 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AC3277DE55EBAB3E3B98873BAFCC43D4 /* integrations.debug.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		8E1767EF3E210BC4C8DDA6D5A57FC3C6 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = AD654BF6031F465841846C224C726531 /* shared.debug.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		9F563270136EF69C5877C266991F2FF3 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = C3C987CABF83B0DB96DC22530E302957 /* integrations.release.xcconfig */;
+			baseConfigurationReference = 10406928993F4454AD6CBCF32998EDF8 /* database.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -743,6 +665,23 @@
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
+		};
+		9A38D80332734F95F823668CCAB62840 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7BC60C7B0D7D2551E8D5B5B6147C49C8 /* integrations.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
 		};
 		A0374B8CF9A7D6A45F6D116D698D1C19 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -810,9 +749,26 @@
 			};
 			name = Debug;
 		};
-		B325EF0C619296F51CF749C8E142F6F5 /* Release */ = {
+		A7B4967B71249851CABD6EC29251E481 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7DA03C4FEC6BEAEBCBE2BD789223BF27 /* models.release.xcconfig */;
+			baseConfigurationReference = A2F97E6BCE528332ADDF1E7E145A9D3C /* shared.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A96D4527F178BD8C0DEB7EE72B9AAE09 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 72DEC2B734EB49143607A69AB3B61085 /* shared.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -827,6 +783,23 @@
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
+		};
+		BD47BE1ED1A0994CD3A4E9EA3CFA4171 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BE0CEEF11723CBC33136D63E14FCA56B /* models.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
 		};
 		C6844E698194218B433EBC6B77C280B7 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -866,62 +839,9 @@
 			};
 			name = Release;
 		};
-		CC85D36E355D78F37B9BFBF577279761 /* Release */ = {
+		F9A71A9F2776A594DC6D0655458BBA88 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5239429F8DD0B76E65754FF0FE896A0C /* database.release.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		DD1BC921E7DD07CD106892703550051F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = B05AC02268C2456C43534BE37F2D3EFD /* models.debug.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		E387420B1FEC2EAB6CA01993F647E86F /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = A40841881BD59F35E52568EF4B80939F /* shared.release.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		FB1675F6D0D318B3D9FFB1E6D07654C9 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = B1C2B1B58E89A18C3780B729F63DB362 /* database.debug.xcconfig */;
+			baseConfigurationReference = 8BF48993AAF197D4AFBAE3F52A22C2F0 /* database.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -939,11 +859,11 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		36E52D0E4387A3C36469A603CB44733A /* Build configuration list for PBXAggregateTarget "models" */ = {
+		0D339EEEB7F645A2F925E28F2F878470 /* Build configuration list for PBXAggregateTarget "integrations" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				DD1BC921E7DD07CD106892703550051F /* Debug */,
-				B325EF0C619296F51CF749C8E142F6F5 /* Release */,
+				9A38D80332734F95F823668CCAB62840 /* Debug */,
+				181626900397363875FC075BF64AFDB3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -966,29 +886,29 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6340886374A66CD9923F73F3606E62C4 /* Build configuration list for PBXAggregateTarget "integrations" */ = {
+		8349D8E2EC974421A14EF8ABFF6AD6DC /* Build configuration list for PBXAggregateTarget "shared" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				5B0C50858F5F08FA6E1311FBE6AC1650 /* Debug */,
-				9F563270136EF69C5877C266991F2FF3 /* Release */,
+				A7B4967B71249851CABD6EC29251E481 /* Debug */,
+				A96D4527F178BD8C0DEB7EE72B9AAE09 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A0E9B06FD72EB117535D8C98B012CC0E /* Build configuration list for PBXAggregateTarget "database" */ = {
+		90C7C8C5708C4A92129A39CCD548B71F /* Build configuration list for PBXAggregateTarget "models" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				FB1675F6D0D318B3D9FFB1E6D07654C9 /* Debug */,
-				CC85D36E355D78F37B9BFBF577279761 /* Release */,
+				BD47BE1ED1A0994CD3A4E9EA3CFA4171 /* Debug */,
+				4B38916367375DCE83DEE784CC10409B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B999BD58A146737F72CA68509B0BCE77 /* Build configuration list for PBXAggregateTarget "shared" */ = {
+		AABF1B2AFB3BB06B6A5CA705E7A2CED5 /* Build configuration list for PBXAggregateTarget "database" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				8E1767EF3E210BC4C8DDA6D5A57FC3C6 /* Debug */,
-				E387420B1FEC2EAB6CA01993F647E86F /* Release */,
+				F9A71A9F2776A594DC6D0655458BBA88 /* Debug */,
+				908D2F847655814EE2BFFB2E5316C212 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
