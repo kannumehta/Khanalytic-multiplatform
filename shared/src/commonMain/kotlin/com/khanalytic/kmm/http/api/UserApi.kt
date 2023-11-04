@@ -2,6 +2,7 @@ package com.khanalytic.kmm.http.api
 
 import com.khanalytic.kmm.http.requests.SignInRequest
 import com.khanalytic.kmm.http.requests.SignUpRequest
+import com.khanalytic.kmm.http.responses.UserResponse
 import com.khanalytic.models.User
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -16,12 +17,12 @@ class UserApi: KoinComponent {
     suspend fun signUp(request: SignUpRequest): User {
         return httpClient.post(Utils.appUrl("user/sign_up")) {
             setBody(request)
-        }.body()
+        }.body<UserResponse>().user
     }
 
     suspend fun signIn(request: SignInRequest): User {
-        return httpClient.post(Utils.appUrl("user/sign_in")) {
+        return httpClient.post(Utils.appUrl("user/login")) {
             setBody(request)
-        }.body()
+        }.body<UserResponse>().user
     }
 }

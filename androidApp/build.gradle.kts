@@ -43,7 +43,7 @@ android {
     }
 }
 
-val koinVersion = "3.2.0"
+val koinVersion = "3.3.2"
 dependencies {
     implementation(project(":shared"))
     implementation(project(":integrations"))

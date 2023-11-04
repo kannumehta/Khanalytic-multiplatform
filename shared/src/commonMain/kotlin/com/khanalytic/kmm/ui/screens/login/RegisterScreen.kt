@@ -21,8 +21,6 @@ import com.khanalytic.kmm.ui.common.PasswordTextField
 import com.khanalytic.kmm.ui.common.collectAsStateMultiplatform
 
 object RegisterScreen: Screen {
-
-
     private val commonModifier = Modifier.fillMaxWidth()
 
     @Composable
@@ -35,6 +33,7 @@ object RegisterScreen: Screen {
         val isEmailInValid = model.isEmailInvalidFlow.collectAsStateMultiplatform().value
         val isNameInValid = model.isNameInvalidFlow.collectAsStateMultiplatform().value
         val isPasswordInvalid = model.isPasswordInValidFlow.collectAsStateMultiplatform().value
+
         Column (modifier = Modifier.fillMaxSize().padding(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center) {
@@ -48,7 +47,12 @@ object RegisterScreen: Screen {
             DefaultSpacer()
             PasswordTextField(password, commonModifier, isPasswordInvalid) { model.setPassword(it) }
             DefaultSpacer()
-            DefaultButton(registerType.primaryButtonTitle, commonModifier) {  }
+            DefaultButton(registerType.primaryButtonTitle, commonModifier) {
+                when (registerType) {
+                    RegisterType.SignUp -> model.signUpWithValidation()
+                    RegisterType.SignIn -> model.signInWithValidation()
+                }
+            }
             DefaultSpacer()
             DefaultTextButton(registerType.secondaryButtonTitle, commonModifier) {
                 model.toggleRegisterTypeFlow()

@@ -8,5 +8,5 @@ data class User(
     val name: String,
     val email: String,
     val authToken: String,
-    val isConfirmed: Boolean
+    val isVerified: Boolean
 )

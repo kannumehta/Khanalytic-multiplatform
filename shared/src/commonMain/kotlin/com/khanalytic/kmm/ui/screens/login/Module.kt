@@ -2,6 +2,6 @@ package com.khanalytic.kmm.ui.screens.login
 
 import org.koin.dsl.module
 
-val registerModule = module {
+val registerScreenModule = module {
     factory { RegisterScreenModel() }
 }

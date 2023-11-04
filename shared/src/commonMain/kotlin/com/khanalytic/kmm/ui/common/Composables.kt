@@ -76,6 +76,7 @@ fun EmailTextField(
         label = emailText,
         placeholder = emailText,
         leadingIcon = emailIcon,
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
         supportingText = if (showSupportingText) { invalidEmailErrorText } else { {} }
 
     )

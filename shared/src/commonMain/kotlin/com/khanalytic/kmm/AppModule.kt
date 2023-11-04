@@ -3,7 +3,8 @@ package com.khanalytic.kmm
 import com.khanalytic.database.shared.databaseModule
 import com.khanalytic.kmm.http.httpModule
 import com.khanalytic.kmm.repositories.repositoryModule
-import com.khanalytic.kmm.ui.screens.login.registerModule
+import com.khanalytic.kmm.ui.screens.login.registerScreenModule
+import com.khanalytic.kmm.ui.screens.main.mainScreenModule
 import org.koin.core.module.Module
 
 fun appModule(): List<Module> = platformAppModules()
@@ -13,5 +14,6 @@ private val commonModules = listOf(
     databaseModule,
     httpModule,
     repositoryModule,
-    registerModule,
+    mainScreenModule,
+    registerScreenModule,
 )

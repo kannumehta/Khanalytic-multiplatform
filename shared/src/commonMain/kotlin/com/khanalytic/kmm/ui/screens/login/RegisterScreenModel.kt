@@ -3,6 +3,7 @@ package com.khanalytic.kmm.ui.screens.login
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.coroutineScope
 import cafe.adriel.voyager.core.model.screenModelScope
+import com.khanalytic.kmm.http.requests.SignInRequest
 import com.khanalytic.kmm.http.requests.SignUpRequest
 import com.khanalytic.kmm.repositories.UserRepository
 import com.khanalytic.kmm.ui.common.EmailUtils
@@ -47,7 +48,19 @@ class RegisterScreenModel : ScreenModel, KoinComponent {
 
     fun signUpWithValidation() {
         validateName(); validateEmail(); validatePassword()
-        signUp()
+        if (nameTextFlow.value.isNotEmpty() &&
+            emailTextFlow.value.isNotEmpty() &&
+            passWordTextFlow.value.isNotEmpty()) {
+            signUp()
+        }
+    }
+
+    fun signInWithValidation() {
+        validateEmail(); validatePassword()
+        if (emailTextFlow.value.isNotEmpty() &&
+            passWordTextFlow.value.isNotEmpty()) {
+            signIn()
+        }
     }
 
     private fun signUp() {
@@ -57,6 +70,17 @@ class RegisterScreenModel : ScreenModel, KoinComponent {
                 name = nameTextFlow.value,
                 password = passWordTextFlow.value,
             )
+            userRepository.signUp(request)
+        }
+    }
+
+    private fun signIn() {
+        screenModelScope.launch {
+            val request = SignInRequest(
+                email = emailTextFlow.value,
+                password = passWordTextFlow.value,
+            )
+            userRepository.signIn(request)
         }
     }
 

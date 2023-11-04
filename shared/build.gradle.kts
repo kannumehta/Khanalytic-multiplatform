@@ -32,7 +32,7 @@ kotlin {
     val ktorVersion = "2.3.2"
     val sqlDelightVersion = "1.5.5"
     val dateTimeVersion = "0.4.0"
-    val koinVersion = "3.2.0"
+    val koinVersion = "3.3.2"
     val voyagerVersion = "1.0.0-rc08"
     
 

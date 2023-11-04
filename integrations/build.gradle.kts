@@ -29,7 +29,7 @@ kotlin {
     val coroutinesVersion = "1.7.1"
     val ktorVersion = "2.3.2"
     val dateTimeVersion = "0.4.0"
-    val koinVersion = "3.2.0"
+    val koinVersion = "3.3.2"
 
     sourceSets {
         val commonMain by getting {

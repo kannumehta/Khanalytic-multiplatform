@@ -20,7 +20,7 @@ class UserDao : KoinComponent {
             email = user.email,
             name = user.name,
             authToken = user.authToken,
-            isConfirmed = user.isConfirmed
+            isVerified = user.isVerified
         )
     }
 
@@ -40,7 +40,7 @@ class UserDao : KoinComponent {
             email = email,
             name = name,
             authToken = authToken,
-            isConfirmed = isConfirmed == true
+            isVerified = isVerified == true
         )
     }
 }
