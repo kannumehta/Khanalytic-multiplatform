@@ -73,6 +73,7 @@ kotlin {
             iosSimulatorArm64Main.dependsOn(this)
             dependencies {
                 implementation("com.squareup.sqldelight:native-driver:$sqlDelightVersion")
+                implementation("io.insert-koin:koin-core:$koinVersion")
             }
         }
 

@@ -32,7 +32,7 @@ kotlin {
     val ktorVersion = "2.3.2"
     val sqlDelightVersion = "1.5.5"
     val dateTimeVersion = "0.4.0"
-    val koinVersion = "3.2.2"
+    val koinVersion = "3.2.0"
     val voyagerVersion = "1.0.0-rc08"
     
 
@@ -84,6 +84,7 @@ kotlin {
             iosSimulatorArm64Main.dependsOn(this)
             dependencies {
                 implementation("io.ktor:ktor-client-darwin:$ktorVersion")
+                implementation("io.insert-koin:koin-core:$koinVersion")
             }
         }
 

@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.AccountCircle
 import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material3.Button
@@ -25,7 +26,7 @@ import androidx.compose.ui.unit.sp
 import com.khanalytic.kmm.md_theme_dark_onSurface
 import com.khanalytic.kmm.md_theme_light_onSurface
 
-@Composable fun DefaultSpacer() { Spacer(modifier = Modifier.size(24.dp)) }
+@Composable fun DefaultSpacer() { Spacer(modifier = Modifier.size(16.dp)) }
 
 @Composable
 fun DefaultButton(text: String, modifier: Modifier, onClick: () -> Unit) {
@@ -62,14 +63,21 @@ fun DefaultHeading(text: String, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun EmailTextField(text: String, modifier: Modifier, onValueChange: (String) -> Unit) {
+fun EmailTextField(
+    text: String,
+    modifier: Modifier,
+    showSupportingText: Boolean,
+    onValueChange: (String) -> Unit
+) {
     OutlinedTextField(
         value = text,
         onValueChange = { value: String -> onValueChange(value) },
         modifier = modifier,
         label = emailText,
         placeholder = emailText,
-        leadingIcon = emailIcon
+        leadingIcon = emailIcon,
+        supportingText = if (showSupportingText) { invalidEmailErrorText } else { {} }
+
     )
 }
 
@@ -89,7 +97,25 @@ fun PasswordTextField(
         leadingIcon = passwordIcon,
         visualTransformation = PasswordVisualTransformation(),
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-        supportingText = if (showSupportingText) { invalidPasswordErrorText} else { {} }
+        supportingText = if (showSupportingText) { invalidPasswordErrorText } else { {} }
+    )
+}
+
+@Composable
+fun NameTextField(
+    text: String,
+    modifier: Modifier,
+    showSupportingText: Boolean,
+    onValueChange: (String) -> Unit
+) {
+    OutlinedTextField(
+        value = text,
+        onValueChange = { value: String -> onValueChange(value) },
+        modifier = modifier,
+        label = nameText,
+        placeholder = nameText,
+        leadingIcon = nameIcon,
+        supportingText = if (showSupportingText) { invalidNameErrorText } else { {} }
     )
 }
 
@@ -104,12 +130,20 @@ private fun textColor(): Color =
 
 val emailText: @Composable () -> Unit = { Text(text = "Email") }
 val passwordText: @Composable () -> Unit = { Text(text = "Password") }
+val nameText: @Composable () -> Unit = { Text(text = "Full Name") }
+val invalidEmailErrorText: @Composable () -> Unit = {
+    Text(text = "Use a valid email", color = Color.Red)
+}
+val invalidNameErrorText: @Composable () -> Unit = {
+    Text(text = "Use a valid name", color = Color.Red)
+}
 val invalidPasswordErrorText: @Composable () -> Unit = {
     Text(text = "Use at least 8 characters", color = Color.Red)
 }
 
 val emailIcon: @Composable () -> Unit = { Icon(imageVector = Icons.Outlined.Email, contentDescription = null) }
 val passwordIcon: @Composable () -> Unit = { Icon(imageVector = Icons.Outlined.Lock, contentDescription = null) }
+val nameIcon: @Composable () -> Unit = { Icon(imageVector = Icons.Outlined.AccountCircle, contentDescription = null) }
 
 private val buttonPaddingValues = PaddingValues(16.dp)
 

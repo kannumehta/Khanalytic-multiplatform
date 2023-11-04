@@ -6,5 +6,5 @@ import org.koin.dsl.module
 
 val httpModule = module {
     single { HttpClientFactory().create() }
-    singleOf(::UserApi)
+    single { UserApi() }
 }

@@ -9,8 +9,11 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
-class UserDao(private val database: Database) {
+class UserDao : KoinComponent {
+    private val database: Database by inject()
     suspend fun insert(user: ModelUser): Unit = withContext(Dispatchers.IO) {
         database.dbQuery.insertUser(
             id = user.id,

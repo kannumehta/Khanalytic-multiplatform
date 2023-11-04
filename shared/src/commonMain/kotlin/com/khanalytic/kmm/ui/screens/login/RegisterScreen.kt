@@ -16,6 +16,7 @@ import com.khanalytic.kmm.ui.common.DefaultHeading
 import com.khanalytic.kmm.ui.common.DefaultSpacer
 import com.khanalytic.kmm.ui.common.DefaultTextButton
 import com.khanalytic.kmm.ui.common.EmailTextField
+import com.khanalytic.kmm.ui.common.NameTextField
 import com.khanalytic.kmm.ui.common.PasswordTextField
 import com.khanalytic.kmm.ui.common.collectAsStateMultiplatform
 
@@ -28,20 +29,24 @@ object RegisterScreen: Screen {
     override fun Content() {
         val model = getScreenModel<RegisterScreenModel>()
         val registerType = model.registerTypeFlow.collectAsStateMultiplatform().value
+        val email = model.emailTextFlow.collectAsStateMultiplatform().value
+        val name = model.nameTextFlow.collectAsStateMultiplatform().value
+        val password = model.passWordTextFlow.collectAsStateMultiplatform().value
+        val isEmailInValid = model.isEmailInvalidFlow.collectAsStateMultiplatform().value
+        val isNameInValid = model.isNameInvalidFlow.collectAsStateMultiplatform().value
+        val isPasswordInvalid = model.isPasswordInValidFlow.collectAsStateMultiplatform().value
         Column (modifier = Modifier.fillMaxSize().padding(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center) {
             DefaultHeading(registerType.heading)
             DefaultSpacer()
-            EmailTextField(model.emailTextFlow.collectAsStateMultiplatform().value, commonModifier){
-                model.setEmail(it)
+            if (registerType == RegisterType.SignUp) {
+                NameTextField(name, commonModifier, isNameInValid){ model.setName(it) }
+                DefaultSpacer()
             }
+            EmailTextField(email, commonModifier, isEmailInValid){ model.setEmail(it) }
             DefaultSpacer()
-            PasswordTextField(
-                model.passWordTextFlow.collectAsStateMultiplatform().value,
-                commonModifier,
-                model.isPasswordInValidFlow.collectAsStateMultiplatform().value
-            ) { model.setPassword(it) }
+            PasswordTextField(password, commonModifier, isPasswordInvalid) { model.setPassword(it) }
             DefaultSpacer()
             DefaultButton(registerType.primaryButtonTitle, commonModifier) {  }
             DefaultSpacer()

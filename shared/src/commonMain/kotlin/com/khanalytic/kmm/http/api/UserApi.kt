@@ -7,8 +7,12 @@ import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
-class UserApi(private val httpClient: HttpClient) {
+class UserApi: KoinComponent {
+    private val httpClient: HttpClient by inject()
+
     suspend fun signUp(request: SignUpRequest): User {
         return httpClient.post(Utils.appUrl("user/sign_up")) {
             setBody(request)
