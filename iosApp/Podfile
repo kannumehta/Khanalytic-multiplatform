@@ -5,4 +5,8 @@ target 'iosApp' do
   pod 'integrations', :path => '../integrations'
   pod 'database', :path => '../database'
   pod 'shared', :path => '../shared'
+
+  pre_install do |installer|
+    FileUtils.mkdir_p(installer.sandbox.root.to_s + '/../../shared/build/generated/libres/apple/libres-bundles')
+  end
 end

@@ -98,11 +98,11 @@ EOM
 }
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "${PODS_ROOT}/../../database/build/compose/ios/database/compose-resources"
-  install_resource "${PODS_ROOT}/../../shared/build/compose/ios/shared/compose-resources"
+  install_resource "${PODS_ROOT}/../../shared/build/generated/libres/apple/libres-bundles"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "${PODS_ROOT}/../../database/build/compose/ios/database/compose-resources"
-  install_resource "${PODS_ROOT}/../../shared/build/compose/ios/shared/compose-resources"
+  install_resource "${PODS_ROOT}/../../shared/build/generated/libres/apple/libres-bundles"
 fi
 
 mkdir -p "${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"

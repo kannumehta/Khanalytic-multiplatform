@@ -5,6 +5,7 @@ plugins {
     kotlin("plugin.serialization")
     id("com.squareup.sqldelight")
     id("org.jetbrains.compose") version "1.5.10-rc02"
+    id("io.github.skeptick.libres")
 }
 
 repositories {
@@ -58,6 +59,7 @@ kotlin {
                 implementation("cafe.adriel.voyager:voyager-tab-navigator:$voyagerVersion")
                 implementation("cafe.adriel.voyager:voyager-transitions:$voyagerVersion")
                 implementation("cafe.adriel.voyager:voyager-koin:$voyagerVersion")
+                implementation("io.github.skeptick.libres:libres-compose:1.2.0")
 
                 implementation(compose.runtime)
                 implementation(compose.foundation)
@@ -107,4 +109,11 @@ android {
         minSdk = 24
         targetSdk = 34
     }
+}
+
+libres {
+    generatedClassName = "MainRes" // "Res" by default
+    generateNamedArguments = true // false by default
+    baseLocaleLanguageCode = "en" // "en" by default
+    camelCaseNamesForAppleFramework = false // false by default
 }
