@@ -9,9 +9,9 @@ import io.ktor.client.plugins.cookies.HttpCookies
 import io.ktor.client.plugins.logging.*
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
+import org.koin.core.component.KoinComponent
 
-class HttpClientFactory {
-
+class HttpClientFactory: KoinComponent {
     fun create(
         // TODo(kannumehta@): This logger should be removed.
         cookiesStorage: CookiesStorage,

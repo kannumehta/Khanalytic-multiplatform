@@ -29,13 +29,17 @@ data class PlatformLoginScreen(
     @Composable
     override fun Content() {
         val model = getScreenModel<PlatformLoginScreenModel>()
-        val isLoggedIn = model.isLoggedInFlow.collectAsStateMultiplatform().value
+        val userPlatformCookie = model.userPlatformCookieFlow.collectAsStateMultiplatform().value
         val webViewState = rememberWebViewState(loginUrl)
 
         Column(modifier = Modifier.fillMaxSize().background(surfaceColor())) {
-            if (isLoggedIn) {
+            if (userPlatformCookie != null) {
                 val navigator = LocalNavigator.currentOrThrow
-                navigator.replace(SyncPlatformDataScreen)
+                navigator.replace(SyncPlatformDataScreen(
+                    userPlatformCookie.userId,
+                    userPlatformCookie.platformId,
+                    userPlatformCookie.id
+                ))
             } else {
                 val loadedUrl = webViewState.lastLoadedUrl
                 webViewState.webSettings.apply {

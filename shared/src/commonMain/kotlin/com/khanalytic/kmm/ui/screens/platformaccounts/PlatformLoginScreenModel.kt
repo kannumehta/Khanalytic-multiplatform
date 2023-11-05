@@ -14,7 +14,7 @@ import org.koin.core.component.inject
 
 class PlatformLoginScreenModel: ScreenModel, KoinComponent {
     private val userPlatformCookieDao by inject<UserPlatformCookieDao>()
-    val isLoggedInFlow = MutableStateFlow(false)
+    val userPlatformCookieFlow = MutableStateFlow<UserPlatformCookie?>(null)
 
     fun saveCookies(
         userId: Long,
@@ -25,9 +25,9 @@ class PlatformLoginScreenModel: ScreenModel, KoinComponent {
     ) {
         screenModelScope.launch {
             val cookies = cookieManager.getCookies(url).map { it.toModelCookie() }
-            upsertCookies(userId, platformId, cookies, userPlatformCookieId)
             cookieManager.removeCookies(url)
-            isLoggedInFlow.value = true
+            userPlatformCookieFlow.value =
+                upsertCookies(userId, platformId, cookies, userPlatformCookieId)
         }
     }
 
@@ -36,14 +36,14 @@ class PlatformLoginScreenModel: ScreenModel, KoinComponent {
         platformId: Long,
         cookies: List<ModelCookie>,
         userPlatformCookieId: Long? = null
-    ) {
+    ): UserPlatformCookie {
         val record = UserPlatformCookie(
             id = userPlatformCookieId ?: 0L,
             userId = userId,
             platformId = platformId,
             cookies = cookies
         )
-        val unused = userPlatformCookieDao.upsert(record)
+        return userPlatformCookieDao.upsert(record)
     }
 
     companion object {

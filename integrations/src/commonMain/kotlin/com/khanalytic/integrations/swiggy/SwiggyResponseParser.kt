@@ -1,6 +1,7 @@
 package com.khanalytic.integrations.swiggy
 
 import com.khanalytic.integrations.PlatformResponseParser
+import com.khanalytic.integrations.Serialization
 import com.khanalytic.models.Complaint
 import com.khanalytic.models.Menu
 import com.khanalytic.models.SalesSummary
@@ -20,8 +21,13 @@ import com.khanalytic.integrations.swiggy.responses.toMenu
 import com.khanalytic.integrations.swiggy.responses.toMenuOrdersBatch
 import com.khanalytic.integrations.swiggy.responses.toSalesSummary
 import kotlinx.serialization.json.Json
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
-class SwiggyResponseParser(private val serializer: Json) : PlatformResponseParser {
+class SwiggyResponseParser : PlatformResponseParser, KoinComponent {
+
+    private val serializer = Serialization.serializer
+
     override fun parseBrandIds(response: String): List<String> {
         val regex = Regex(".*globals.userInfoDataParam\\s*=\\s*(.*?);.*")
         return regex.find(response)?.groups?.get(1)?.value?.let { json: String ->

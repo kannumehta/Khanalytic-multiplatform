@@ -1,12 +1,10 @@
 package com.khanalytic.integrations.swiggy
 
-import com.khanalytic.integrations.http.Cookie.Companion.toCookies
-import com.khanalytic.integrations.http.HttpRequestBuilderExtensions.cookies
 import com.khanalytic.integrations.http.HttpRequestBuilderExtensions.origin
 import com.khanalytic.integrations.http.HttpRequestBuilderExtensions.referer
-import com.khanalytic.integrations.HttpClientPlatformApi
 import com.khanalytic.integrations.Page
-import com.khanalytic.integrations.PlatformResponseParser
+import com.khanalytic.integrations.PlatformApi
+import com.khanalytic.integrations.Serialization
 import com.khanalytic.models.Complaint
 import com.khanalytic.models.Menu
 import com.khanalytic.models.MenuOrder
@@ -24,6 +22,7 @@ import com.khanalytic.integrations.swiggy.requests.complaintRequestBody
 import com.khanalytic.integrations.swiggy.requests.sendEmailReportRequestBody
 import com.khanalytic.integrations.swiggy.responses.BrandDetail
 import io.ktor.client.*
+import io.ktor.client.plugins.cookies.cookies
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
@@ -31,24 +30,18 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 
 class SwiggyApi(
-    private val serializer: Json,
     private val httpClient: HttpClient,
-    private val responseParser: PlatformResponseParser,
-    cookie: String
-) : HttpClientPlatformApi(httpClient) {
-
-    // TODO(kannumehta@): This should be moved to a common place.
-    private val cookies = cookie.toCookies(SwiggyConstants.API_HOST)
+    private val responseParser: SwiggyResponseParser
+) : PlatformApi {
+    private val serializer = Serialization.serializer
 
     @Throws(Exception::class)
     override suspend fun getBrands(): List<BrandDetail> = coroutineScope {
         val brandIdsResponse = httpClient.get(SwiggyConstants.ordersUrl()) {
             commonHeaders()
             acceptHtml()
-            cookies(cookies)
         }.bodyAsText()
 
         responseParser.parseBrandIds(brandIdsResponse)
@@ -68,7 +61,6 @@ class SwiggyApi(
                 accept(ContentType.Application.Json)
                 accept(ContentType.Text.Plain)
                 accept(ContentType.Any)
-                cookies(cookies)
                 referer(SwiggyConstants.restaurantReferrer(resId))
             }.bodyAsText()
         )
@@ -177,7 +169,7 @@ class SwiggyApi(
         )
     }
 
-    private fun HttpRequestBuilder.rmsHostHeaders() {
+    private suspend fun HttpRequestBuilder.rmsHostHeaders() {
         commonHeaders()
         accept(ContentType.Any)
         referer("${SwiggyConstants.SELF_CLIENT_HOST}/")
@@ -188,7 +180,7 @@ class SwiggyApi(
         userMeta("{\"source\":\"VENDOR\",\"meta\":{\"updated_by\":\"VENDOR\"}}")
     }
 
-    private fun HttpRequestBuilder.vhcHostHeaders() {
+    private suspend fun HttpRequestBuilder.vhcHostHeaders() {
         commonHeaders()
         accept(ContentType.Any)
         referer("${SwiggyConstants.API_HOST}/")
@@ -197,8 +189,9 @@ class SwiggyApi(
         vhcAccessToken(getAccessToken())
     }
 
-    private fun getAccessToken(): String {
-        return cookies.find { it.key == "Swiggy_Session-alpha" }?.value
-            ?: throw DataParseException("unable to find access token from cookies")
+    private suspend fun getAccessToken(): String {
+        return httpClient.cookies("").find {
+            it.name == "Swiggy_Session-alpha"
+        }?.value ?: throw DataParseException("unable to find access token from cookies")
     }
 }

@@ -28,10 +28,15 @@ object MainScreen : Screen {
         Column (modifier = modifier) {
             if (state is MainScreenModel.State.UserData) {
                 if (state.user != null) {
-                    val hasUserPlatformCookies =
-                        model.hasUserPlatformCookiesFlow.collectAsStateMultiplatform().value
-                    if (hasUserPlatformCookies) {
-                        Navigator(SyncPlatformDataScreen)
+                    val userPlatformCookies =
+                        model.userPlatformCookiesFlow.collectAsStateMultiplatform().value
+                    if (userPlatformCookies.isNotEmpty()) {
+                        val userPlatformCookie = userPlatformCookies.first()
+                        Navigator(SyncPlatformDataScreen(
+                            userPlatformCookie.userId,
+                            userPlatformCookie.platformId,
+                            userPlatformCookie.id
+                        ))
                     } else {
                         Navigator(AddPlatformAccountScreen(state.user.id))
                     }

@@ -1,6 +1,7 @@
 package com.khanalytic.kmm
 
 import com.khanalytic.database.shared.databaseModule
+import com.khanalytic.integrations.integrationModules
 import com.khanalytic.kmm.http.httpModule
 import com.khanalytic.kmm.repositories.repositoryModule
 import com.khanalytic.kmm.ui.screens.login.registerScreenModule
@@ -15,4 +16,4 @@ private val commonModules = listOf(
     databaseModule,
     httpModule,
     repositoryModule
-).plus(screenModules)
+).plus(screenModules).plus(integrationModules)

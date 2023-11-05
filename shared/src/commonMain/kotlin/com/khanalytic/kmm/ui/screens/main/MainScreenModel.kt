@@ -6,6 +6,7 @@ import com.khanalytic.database.shared.UserPlatformCookieDao
 import com.khanalytic.kmm.repositories.PlatformRepository
 import com.khanalytic.kmm.repositories.UserRepository
 import com.khanalytic.models.User
+import com.khanalytic.models.UserPlatformCookie
 import io.github.aakira.napier.DebugAntilog
 import io.github.aakira.napier.Napier
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,7 +20,7 @@ class MainScreenModel: ScreenModel, KoinComponent {
     private val platformRepository: PlatformRepository by inject()
 
     val state = MutableStateFlow<State>(State.Loading)
-    val hasUserPlatformCookiesFlow = MutableStateFlow(false)
+    val userPlatformCookiesFlow = MutableStateFlow(listOf<UserPlatformCookie>())
 
     init {
         Napier.base(DebugAntilog())
@@ -38,11 +39,11 @@ class MainScreenModel: ScreenModel, KoinComponent {
         if (user != null) {
             screenModelScope.launch {
                 userPlatformCookieDao.getFlowByUserId(user.id).collect {
-                    hasUserPlatformCookiesFlow.value = it.isNotEmpty()
+                    userPlatformCookiesFlow.value = it
                 }
             }
         } else {
-            hasUserPlatformCookiesFlow.value = false
+            userPlatformCookiesFlow.value = listOf()
         }
     }
 
