@@ -7,4 +7,5 @@ val databaseModule = module {
     single { DatabaseDriverFactory() }
     single { Database() }
     single { UserDao() }
+    single { PlatformDao() }
 }

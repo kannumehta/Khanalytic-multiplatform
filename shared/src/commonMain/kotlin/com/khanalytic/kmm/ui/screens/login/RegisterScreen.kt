@@ -37,7 +37,7 @@ object RegisterScreen: Screen {
         Column (modifier = Modifier.fillMaxSize().padding(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center) {
-            DefaultHeading(registerType.heading)
+            DefaultHeading(registerType.heading, commonModifier)
             DefaultSpacer()
             if (registerType == RegisterType.SignUp) {
                 NameTextField(name, commonModifier, isNameInValid){ model.setName(it) }

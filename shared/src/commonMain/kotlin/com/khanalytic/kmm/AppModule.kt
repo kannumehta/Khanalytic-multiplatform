@@ -5,6 +5,7 @@ import com.khanalytic.kmm.http.httpModule
 import com.khanalytic.kmm.repositories.repositoryModule
 import com.khanalytic.kmm.ui.screens.login.registerScreenModule
 import com.khanalytic.kmm.ui.screens.main.mainScreenModule
+import com.khanalytic.kmm.ui.screens.screenModules
 import org.koin.core.module.Module
 
 fun appModule(): List<Module> = platformAppModules()
@@ -13,7 +14,5 @@ fun appModule(): List<Module> = platformAppModules()
 private val commonModules = listOf(
     databaseModule,
     httpModule,
-    repositoryModule,
-    mainScreenModule,
-    registerScreenModule,
-)
+    repositoryModule
+).plus(screenModules)

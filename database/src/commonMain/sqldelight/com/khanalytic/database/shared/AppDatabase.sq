@@ -15,3 +15,25 @@ DELETE FROM User;
 
 selectFirstUser:
 SELECT User.* FROM User LIMIT 1;
+
+
+CREATE TABLE Platform (
+    id INTEGER NOT NULL PRIMARY KEY,
+    name TEXT NOT NULL,
+    createdAt TEXT NOT NULL,
+    updatedAt TEXT NOT NULL
+);
+
+upsertPlatform:
+INSERT OR REPLACE INTO Platform (
+    id,
+    name,
+    createdAt,
+    updatedAt
+) VALUES (?,?,?,?);
+
+selectAllPlatforms:
+SELECT Platform.* FROM Platform;
+
+lastSycnedPlatform:
+SELECT * FROM Platform ORDER BY DATETIME(updatedAt) DESC, id DESC LIMIT 1;
