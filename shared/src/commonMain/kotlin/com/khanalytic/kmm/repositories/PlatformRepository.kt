@@ -4,7 +4,6 @@ import com.khanalytic.database.shared.PlatformDao
 import com.khanalytic.kmm.http.api.PlatformApi
 import com.khanalytic.kmm.http.requests.SyncRequest
 import com.khanalytic.models.Platform
-import io.github.aakira.napier.Napier
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers

@@ -8,4 +8,5 @@ val databaseModule = module {
     single { Database() }
     single { UserDao() }
     single { PlatformDao() }
+    single { UserPlatformCookieDao() }
 }

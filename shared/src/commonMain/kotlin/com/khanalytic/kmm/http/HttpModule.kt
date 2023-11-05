@@ -7,6 +7,7 @@ import org.koin.dsl.module
 
 val httpModule = module {
     single { HttpClientFactory().create() }
+    single { HttpUserPlatformCookieStorageFactory() }
     single { UserApi() }
     single { PlatformApi() }
 }

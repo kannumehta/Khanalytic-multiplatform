@@ -20,6 +20,7 @@ SELECT User.* FROM User LIMIT 1;
 CREATE TABLE Platform (
     id INTEGER NOT NULL PRIMARY KEY,
     name TEXT NOT NULL,
+    loginUrl TEXT,
     createdAt TEXT NOT NULL,
     updatedAt TEXT NOT NULL
 );
@@ -28,12 +29,41 @@ upsertPlatform:
 INSERT OR REPLACE INTO Platform (
     id,
     name,
+    loginUrl,
     createdAt,
     updatedAt
-) VALUES (?,?,?,?);
+) VALUES (?,?,?,?, ?);
 
 selectAllPlatforms:
 SELECT Platform.* FROM Platform;
 
 lastSycnedPlatform:
 SELECT * FROM Platform ORDER BY DATETIME(updatedAt) DESC, id DESC LIMIT 1;
+
+CREATE TABLE UserPlatformCookie (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    userId INTEGER NOT NULL,
+    platformId INTEGER NOT NULL,
+    cookiesJson TEXT NOT NULL
+);
+
+insertUserPlatformCookie:
+INSERT INTO UserPlatformCookie (
+    userId,
+    platformId,
+    cookiesJson
+) VALUES (?,?,?);
+
+selectLastUserPlatform:
+SELECT id FROM UserPlatformCookie ORDER BY id DESC LIMIT 1;
+
+updateUserPlatformCookie:
+UPDATE UserPlatformCookie
+SET userId = :userId, platformId = :platformId, cookiesJson = :cookiesJson
+WHERE id = :id;
+
+selectUserPlatformCookieById:
+SELECT UserPlatformCookie.* FROM UserPlatformCookie WHERE id = :id LIMIT 1;
+
+selectUserPlatformCookiesByUser:
+SELECT UserPlatformCookie.* FROM UserPlatformCookie WHERE userId = :userId;

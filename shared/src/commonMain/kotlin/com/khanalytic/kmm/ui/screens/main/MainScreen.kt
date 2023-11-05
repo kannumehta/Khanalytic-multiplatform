@@ -12,6 +12,7 @@ import com.khanalytic.kmm.primaryColor
 import com.khanalytic.kmm.ui.common.collectAsStateMultiplatform
 import com.khanalytic.kmm.ui.screens.login.RegisterScreen
 import com.khanalytic.kmm.ui.screens.platformaccounts.AddPlatformAccountScreen
+import com.khanalytic.kmm.ui.screens.sync.SyncPlatformDataScreen
 
 object MainScreen : Screen {
     @Composable
@@ -27,7 +28,13 @@ object MainScreen : Screen {
         Column (modifier = modifier) {
             if (state is MainScreenModel.State.UserData) {
                 if (state.user != null) {
-                    Navigator(AddPlatformAccountScreen)
+                    val hasUserPlatformCookies =
+                        model.hasUserPlatformCookiesFlow.collectAsStateMultiplatform().value
+                    if (hasUserPlatformCookies) {
+                        Navigator(SyncPlatformDataScreen)
+                    } else {
+                        Navigator(AddPlatformAccountScreen(state.user.id))
+                    }
                 } else {
                     Navigator(RegisterScreen)
                 }

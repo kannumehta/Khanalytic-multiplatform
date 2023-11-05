@@ -72,4 +72,9 @@ fun primaryColor(): Color =
     if (!isSystemInDarkTheme()) { md_theme_light_primary }
     else { md_theme_dark_primary }
 
+@Composable
+fun surfaceColor(): Color =
+    if (!isSystemInDarkTheme()) { md_theme_light_surface }
+    else { md_theme_dark_surface }
+
 

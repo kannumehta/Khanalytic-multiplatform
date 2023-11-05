@@ -1,6 +1,5 @@
 package com.khanalytic.database.shared
 
-import com.khanalytic.models.InstantUtils.toLocalDateTimeUtc
 import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToList
 import kotlinx.coroutines.Dispatchers
@@ -38,6 +37,7 @@ class PlatformDao: KoinComponent {
     private fun upsert(platform: ModelPlatform) = database.dbQuery.upsertPlatform(
         id = platform.id,
         name = platform.name,
+        loginUrl = platform.loginUrl,
         createdAt = platform.createdAt.toString(),
         updatedAt = platform.updatedAt.toString()
     )
@@ -47,6 +47,7 @@ class PlatformDao: KoinComponent {
             ModelPlatform(
                 id = id,
                 name = name,
+                loginUrl = loginUrl,
                 createdAt = Instant.parse(createdAt),
                 updatedAt = Instant.parse(updatedAt)
             )
