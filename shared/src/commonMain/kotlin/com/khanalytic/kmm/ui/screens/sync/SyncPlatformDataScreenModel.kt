@@ -5,7 +5,6 @@ import cafe.adriel.voyager.core.model.screenModelScope
 import com.khanalytic.integrations.http.HttpClientFactory
 import com.khanalytic.integrations.swiggy.SwiggyApiFactory
 import com.khanalytic.kmm.http.HttpUserPlatformCookieStorageFactory
-import com.khanalytic.models.Menu
 import io.github.aakira.napier.Napier
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
