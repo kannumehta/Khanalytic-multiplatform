@@ -2,10 +2,11 @@ package com.khanalytic.kmm.ui.screens.sync
 
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
-import com.khanalytic.integrations.http.HttpClientFactory
-import com.khanalytic.integrations.swiggy.SwiggyApiFactory
-import com.khanalytic.kmm.http.HttpUserPlatformCookieStorageFactory
-import io.github.aakira.napier.Napier
+import com.khanalytic.kmm.partnersync.SyncJob
+import com.khanalytic.kmm.partnersync.SyncService
+import com.khanalytic.models.UserPlatformCookie
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -13,9 +14,9 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 class SyncPlatformDataScreenModel: ScreenModel, KoinComponent {
-    private val httpUserPlatformCookieStorageFactory: HttpUserPlatformCookieStorageFactory by inject()
-    private val httpClientFactory: HttpClientFactory by inject()
-    private val swiggyApiFactory: SwiggyApiFactory by inject()
+    private val syncService: SyncService by inject()
+
+    val syncJobsFlow = MutableStateFlow<List<SyncJob>>(listOf())
 
     private var syncStarted = false
     private val mutex = Mutex()
@@ -26,18 +27,16 @@ class SyncPlatformDataScreenModel: ScreenModel, KoinComponent {
         userPlatformCookieId : Long
     ) {
         screenModelScope.launch {
+            // TODO(kannumehta@): Use LaunchedEffect here.
             mutex.withLock {
-                if (!syncStarted) {
-                    syncStarted = true
-                    val httpClient = httpClientFactory.create(
-                        httpUserPlatformCookieStorageFactory.create(
-                            userId, platformId, userPlatformCookieId
-                        )
-                    )
-                    val swiggyApi = swiggyApiFactory.create(httpClient)
-//                    val menu: Menu = swiggyApi.getMenu("42076")
-                    Napier.v("brands: ${swiggyApi.getComplaints("42076", "2023-10-01", "2023-10-18")}")
+                if (syncStarted) {
+                    return@launch
                 }
+                syncStarted = true
+            }
+
+            syncService.sync(userId, platformId, userPlatformCookieId).collect {
+                syncJobsFlow.value = it
             }
         }
     }

@@ -9,4 +9,6 @@ val databaseModule = module {
     single { UserDao() }
     single { PlatformDao() }
     single { UserPlatformCookieDao() }
+    single { BrandDao() }
+    single { PlatformSyncTimestampDao() }
 }

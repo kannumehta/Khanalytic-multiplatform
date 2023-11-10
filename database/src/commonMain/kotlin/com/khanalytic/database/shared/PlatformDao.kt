@@ -34,6 +34,12 @@ class PlatformDao: KoinComponent {
         database.dbQuery.lastSycnedPlatform().executeAsOneOrNull()?.toModelPlatform()
     }
 
+    suspend fun getById(platformId: Long): ModelPlatform? = withContext(Dispatchers.IO) {
+        database.dbQuery.selectPlatformById(platformId)
+            .executeAsOneOrNull()
+            ?.let { it.toModelPlatform() }
+    }
+
     private fun upsert(platform: ModelPlatform) = database.dbQuery.upsertPlatform(
         id = platform.id,
         name = platform.name,

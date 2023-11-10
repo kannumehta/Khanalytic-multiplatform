@@ -4,12 +4,12 @@ import com.khanalytic.models.Complaint
 import com.khanalytic.models.Menu
 import com.khanalytic.models.MenuOrder
 import com.khanalytic.models.SalesSummary
-import com.khanalytic.integrations.swiggy.responses.BrandDetail
+import com.khanalytic.models.Brand
 
 interface PlatformApi {
 
     @Throws(Exception::class)
-    suspend fun getBrands(): List<BrandDetail>
+    suspend fun getBrands(platformId: Long, existingRemoteBrandIds: Set<String>): List<Brand>
 
     @Throws(Exception::class)
     suspend fun getSalesSummary(resId: String, startDate: String, endDate: String): SalesSummary

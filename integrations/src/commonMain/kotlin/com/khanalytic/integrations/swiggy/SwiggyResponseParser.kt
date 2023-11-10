@@ -1,13 +1,12 @@
 package com.khanalytic.integrations.swiggy
 
-import com.khanalytic.integrations.PlatformResponseParser
+import com.khanalytic.integrations.GeocoderApi
 import com.khanalytic.integrations.Serialization
 import com.khanalytic.models.Complaint
 import com.khanalytic.models.Menu
 import com.khanalytic.models.SalesSummary
 import com.khanalytic.integrations.responses.ComplaintIdsBatch
 import com.khanalytic.integrations.responses.MenuOrdersBatch
-import com.khanalytic.integrations.swiggy.responses.BrandDetail
 import com.khanalytic.integrations.swiggy.responses.BrandDetailResponse
 import com.khanalytic.integrations.swiggy.responses.BrandsResponse
 import com.khanalytic.integrations.swiggy.responses.ComplaintResponse
@@ -15,45 +14,53 @@ import com.khanalytic.integrations.swiggy.responses.ComplaintsIdResponse
 import com.khanalytic.integrations.swiggy.responses.MenuOrderResponse
 import com.khanalytic.integrations.swiggy.responses.MenuResponse
 import com.khanalytic.integrations.swiggy.responses.SalesSummaryResponse
+import com.khanalytic.integrations.swiggy.responses.toBrand
 import com.khanalytic.integrations.swiggy.responses.toComplaint
 import com.khanalytic.integrations.swiggy.responses.toComplaintIdsBatch
 import com.khanalytic.integrations.swiggy.responses.toMenu
 import com.khanalytic.integrations.swiggy.responses.toMenuOrdersBatch
 import com.khanalytic.integrations.swiggy.responses.toSalesSummary
-import kotlinx.serialization.json.Json
+import com.khanalytic.models.Brand
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class SwiggyResponseParser : PlatformResponseParser, KoinComponent {
-
+class SwiggyResponseParser : KoinComponent {
     private val serializer = Serialization.serializer
+    private val geocoderApi: GeocoderApi by inject()
 
-    override fun parseBrandIds(response: String): List<String> {
+    fun parseRemoteBrandIds(response: String): List<String> {
         val regex = Regex(".*globals.userInfoDataParam\\s*=\\s*(.*?);.*")
         return regex.find(response)?.groups?.get(1)?.value?.let { json: String ->
             serializer.decodeFromString<BrandsResponse>(json).outlets.map { it.resId.toString() }
         } ?: throw DataParseException("failed to extract brands list")
     }
 
-    @Throws(Exception::class) override fun parseBrand(response: String): BrandDetail =
-        serializer.decodeFromString<BrandDetailResponse>(response).data
+    @Throws(Exception::class) suspend fun parseBrand(
+        platformId: Long,
+        remoteBrandId: String,
+        response: String
+    ): Brand {
+        val brandDetail = serializer.decodeFromString<BrandDetailResponse>(response).data
+        val location = geocoderApi.gecode(brandDetail.address)
+        return brandDetail.toBrand(platformId, remoteBrandId, location)
+    }
 
-    @Throws(Exception::class) override fun parseSalesSummary(response: String): SalesSummary =
+    @Throws(Exception::class) fun parseSalesSummary(response: String): SalesSummary =
         serializer.decodeFromString<SalesSummaryResponse>(response)
             .data.orderMetricsV4.summary.toSalesSummary()
 
-    @Throws(Exception::class) override fun parseMenu(response: String): Menu =
+    @Throws(Exception::class) fun parseMenu(response: String): Menu =
         serializer.decodeFromString<MenuResponse>(response).toMenu()
 
-    @Throws(Exception::class) override fun parseOrders(
+    @Throws(Exception::class) fun parseOrders(
         response: String,
         menu: Menu
     ): MenuOrdersBatch =
         serializer.decodeFromString<MenuOrderResponse>(response).toMenuOrdersBatch(menu)
 
-    @Throws(Exception::class) override fun parseComplaintIdsBatch(response: String): ComplaintIdsBatch =
+    @Throws(Exception::class) fun parseComplaintIdsBatch(response: String): ComplaintIdsBatch =
         serializer.decodeFromString<ComplaintsIdResponse>(response).toComplaintIdsBatch()
 
-    @Throws(Exception::class) override fun parseComplaint(response: String): Complaint =
+    @Throws(Exception::class) fun parseComplaint(response: String): Complaint =
         serializer.decodeFromString<ComplaintResponse>(response).toComplaint()
 }

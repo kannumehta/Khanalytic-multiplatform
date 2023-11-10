@@ -16,5 +16,5 @@ class UserRepository: KoinComponent {
 
     suspend fun signIn(request: SignInRequest) = userDao.insert(userApi.signIn(request))
 
-    fun getLoggedInUser(): Flow<User?> = userDao.selectFirstUser()
+    fun getLoggedInUser(): Flow<User?> = userDao.getFirstUserAsFlow()
 }

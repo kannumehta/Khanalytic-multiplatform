@@ -1,0 +1,6 @@
+CREATE TABLE UserPlatformCookie (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    userId INTEGER NOT NULL,
+    platformId INTEGER NOT NULL,
+    cookiesJson TEXT NOT NULL
+);

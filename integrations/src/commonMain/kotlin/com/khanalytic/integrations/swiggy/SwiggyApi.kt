@@ -20,7 +20,7 @@ import com.khanalytic.integrations.swiggy.SwiggyConstants.vhcAccessToken
 import com.khanalytic.integrations.swiggy.requests.complaintIdsRequestBody
 import com.khanalytic.integrations.swiggy.requests.complaintRequestBody
 import com.khanalytic.integrations.swiggy.requests.sendEmailReportRequestBody
-import com.khanalytic.integrations.swiggy.responses.BrandDetail
+import com.khanalytic.models.Brand
 import io.ktor.client.*
 import io.ktor.client.plugins.cookies.cookies
 import io.ktor.client.request.*
@@ -38,14 +38,18 @@ class SwiggyApi(
     private val serializer = Serialization.serializer
 
     @Throws(Exception::class)
-    override suspend fun getBrands(): List<BrandDetail> = coroutineScope {
+    override suspend fun getBrands(
+        platformId: Long,
+        existingRemoteBrandIds: Set<String>
+    ): List<Brand> = coroutineScope {
         val brandIdsResponse = httpClient.get(SwiggyConstants.ordersUrl()) {
             commonHeaders()
             acceptHtml()
         }.bodyAsText()
 
-        responseParser.parseBrandIds(brandIdsResponse)
-            .map { brandId -> async { getBrand(brandId) } }
+        responseParser.parseRemoteBrandIds(brandIdsResponse)
+            .filterNot { remoteBrandId ->  existingRemoteBrandIds.contains(remoteBrandId) }
+            .map { remoteBrandId -> async { getBrand(platformId, remoteBrandId) } }
             .awaitAll()
     }
 
@@ -123,9 +127,11 @@ class SwiggyApi(
         }.bodyAsText()
     }
 
-    private suspend fun getBrand(resId: String): BrandDetail {
+    private suspend fun getBrand(platformId: Long, remoteBrandId: String): Brand {
         return responseParser.parseBrand(
-            httpClient.get(SwiggyConstants.restaurantDetailsUrl(resId)) {
+            platformId,
+            remoteBrandId,
+            httpClient.get(SwiggyConstants.restaurantDetailsUrl(remoteBrandId)) {
                 rmsHostHeaders()
             }.bodyAsText()
         )

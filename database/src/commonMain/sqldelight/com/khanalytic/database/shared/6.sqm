@@ -1,0 +1,6 @@
+CREATE TABLE PlatformSyncTimestamp (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    platformId INTEGER NOT NULL,
+    lastSyncedAt TEXT NOT NULL
+);
+CREATE UNIQUE INDEX platform_sync_timestamp_index ON PlatformSyncTimestamp (platformId, lastSyncedAt);

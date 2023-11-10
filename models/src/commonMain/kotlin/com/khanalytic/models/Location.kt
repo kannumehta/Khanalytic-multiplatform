@@ -1,4 +1,4 @@
-package com.khanalytic.kmm.geocoding
+package com.khanalytic.models
 
 data class Location(
     val latitude: Double,

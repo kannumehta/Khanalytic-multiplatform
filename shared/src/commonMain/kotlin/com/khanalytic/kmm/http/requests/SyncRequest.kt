@@ -10,7 +10,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class SyncRequest(
-    @Serializable(with = InstantSerializer::class)  val lastUpdatedAt: Instant,
+    @Serializable(with = InstantSerializer::class) val lastUpdatedAt: Instant,
     val idOffset: Long,
     val limit: Int = 100
 )

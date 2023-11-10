@@ -1,5 +1,7 @@
 package com.khanalytic.kmm.http
 
+import com.khanalytic.database.shared.BrandDao
+import com.khanalytic.kmm.http.api.BrandApi
 import com.khanalytic.kmm.http.api.PlatformApi
 import com.khanalytic.kmm.http.api.UserApi
 import org.koin.core.module.dsl.singleOf
@@ -10,4 +12,5 @@ val httpModule = module {
     single { HttpUserPlatformCookieStorageFactory() }
     single { UserApi() }
     single { PlatformApi() }
+    single { BrandApi() }
 }

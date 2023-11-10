@@ -24,11 +24,24 @@ class UserDao : KoinComponent {
         )
     }
 
-    fun selectFirstUser(): Flow<ModelUser?> =
+    fun getFirstUserAsFlow(): Flow<ModelUser?> =
         database.dbQuery.selectFirstUser().asFlow()
             .flowOn(Dispatchers.IO)
             .mapToList()
             .map { it.firstOrNull()?.toModelUser() }
+
+    suspend fun getFirstUser(): ModelUser? = withContext(Dispatchers.IO) {
+        database.dbQuery.selectFirstUser()
+            .executeAsOneOrNull()
+            ?.let { it.toModelUser() }
+    }
+
+    suspend fun getById(userId: Long): ModelUser? = withContext(Dispatchers.IO) {
+        database.dbQuery.selectUserById(userId)
+            .executeAsOneOrNull()
+            ?.let { it.toModelUser() }
+    }
+
 
     suspend fun deleteAllUsers(): Unit = withContext(Dispatchers.IO) {
         database.dbQuery.deleteAllUsers()

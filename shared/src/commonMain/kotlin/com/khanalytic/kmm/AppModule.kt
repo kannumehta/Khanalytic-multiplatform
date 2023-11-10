@@ -6,6 +6,7 @@ import com.khanalytic.kmm.http.httpModule
 import com.khanalytic.kmm.repositories.repositoryModule
 import com.khanalytic.kmm.ui.screens.screenModules
 import com.khanalytic.kmm.geocoding.geocodingModule
+import com.khanalytic.kmm.partnersync.partnerSyncModule
 import org.koin.core.module.Module
 
 fun appModule(): List<Module> = platformAppModules()
@@ -15,5 +16,6 @@ private val commonModules = listOf(
     databaseModule,
     httpModule,
     repositoryModule,
-    geocodingModule
+    geocodingModule,
+    partnerSyncModule,
 ).plus(screenModules).plus(integrationModules)

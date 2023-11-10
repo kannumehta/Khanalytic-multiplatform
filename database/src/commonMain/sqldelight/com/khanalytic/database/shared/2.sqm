@@ -1,0 +1,7 @@
+CREATE TABLE Platform (
+    id INTEGER NOT NULL PRIMARY KEY,
+    name TEXT NOT NULL,
+    loginUrl TEXT,
+    createdAt TEXT NOT NULL,
+    updatedAt TEXT NOT NULL
+);

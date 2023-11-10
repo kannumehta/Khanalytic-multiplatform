@@ -101,5 +101,9 @@ android {
 sqldelight {
     database("AppDatabase") {
         packageName = "com.khanalytic.database.shared"
+        schemaOutputDirectory = file("com.khanalytic.database.shared")
+        migrationOutputDirectory = file("com.khanalytic.database.shared")
+        deriveSchemaFromMigrations = true
+        verifyMigrations = true
     }
 }

@@ -1,9 +1,9 @@
 package com.khanalytic.kmm.geocoding
 
+import com.khanalytic.integrations.GeocoderApi
+import com.khanalytic.models.Location
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.copy
-import kotlinx.cinterop.interpretCPointer
-import kotlinx.cinterop.memScoped
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.coroutineScope
@@ -15,9 +15,9 @@ import platform.CoreLocation.CLGeocoder
 import platform.CoreLocation.CLPlacemark
 import platform.Foundation.NSError
 
-actual class PlacesApi actual constructor(): KoinComponent {
+actual class PlacesApi actual constructor(): KoinComponent, GeocoderApi {
     @OptIn(ExperimentalForeignApi::class)
-    actual suspend fun gecode(address: String): Location {
+    override suspend fun gecode(address: String): Location {
         val mutex = Mutex()
         var location: Location? = null
         mutex.lock()

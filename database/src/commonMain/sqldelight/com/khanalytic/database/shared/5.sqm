@@ -1,0 +1,8 @@
+CREATE TABLE PlatformBrand (
+    id INTEGER NOT NULL PRIMARY KEY,
+    brandId INTEGER NOT NULL REFERENCES Brand(id),
+    platformId INTEGER NOT NULL,
+    remoteBrandId TEXT NOT NULL,
+    userPlatformCookieId INTEGER
+);
+CREATE INDEX platform_brand_index ON PlatformBrand (platformId, brandId, userPlatformCookieId);

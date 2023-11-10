@@ -1,0 +1,9 @@
+CREATE TABLE Brand (
+    id INTEGER NOT NULL PRIMARY KEY,
+    name TEXT NOT NULL,
+    address TEXT NOT NULL,
+    latitude REAL NOT NULL,
+    longitude REAL NOT NULL,
+    createdAt TEXT NOT NULL,
+    updatedAt TEXT NOT NULL
+);
