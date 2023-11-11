@@ -40,17 +40,28 @@ class SwiggyApi(
     @Throws(Exception::class)
     override suspend fun getBrands(
         platformId: Long,
-        existingRemoteBrandIds: Set<String>
+        existingRemoteBrandIdsWithActive: Map<String, Boolean>
     ): List<Brand> = coroutineScope {
-        val brandIdsResponse = httpClient.get(SwiggyConstants.ordersUrl()) {
-            commonHeaders()
-            acceptHtml()
-        }.bodyAsText()
+        val brandsResponse = responseParser.parseBrandsResponse(
+            httpClient.get(SwiggyConstants.ordersUrl()) {
+                commonHeaders()
+                acceptHtml()
+            }.bodyAsText()
+        )
 
-        responseParser.parseRemoteBrandIds(brandIdsResponse)
-            .filterNot { remoteBrandId ->  existingRemoteBrandIds.contains(remoteBrandId) }
-            .map { remoteBrandId -> async { getBrand(platformId, remoteBrandId) } }
-            .awaitAll()
+        val existingRemoteBrandIds = existingRemoteBrandIdsWithActive.keys
+        val outlets =
+            brandsResponse.outlets.filter {
+                if (it.enabled) {
+                    !existingRemoteBrandIdsWithActive.containsKey(it.resId.toString())
+                } else {
+                    existingRemoteBrandIdsWithActive[it.resId.toString()] == true
+                }
+            }
+
+        outlets.map { outlet ->
+            async { getBrand(platformId, outlet.resId.toString(), outlet.enabled) }
+        }.awaitAll()
     }
 
     @Throws(Exception::class)
@@ -128,10 +139,11 @@ class SwiggyApi(
         }.bodyAsText()
     }
 
-    private suspend fun getBrand(platformId: Long, remoteBrandId: String): Brand {
+    private suspend fun getBrand(platformId: Long, remoteBrandId: String, active: Boolean): Brand {
         return responseParser.parseBrand(
             platformId,
             remoteBrandId,
+            active,
             httpClient.get(SwiggyConstants.restaurantDetailsUrl(remoteBrandId)) {
                 rmsHostHeaders()
             }.bodyAsText()

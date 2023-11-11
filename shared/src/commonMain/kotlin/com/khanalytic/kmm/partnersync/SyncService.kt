@@ -64,7 +64,9 @@ class SyncService: KoinComponent {
         syncBrands(node, user, platformApi, platformId, userPlatformCookieId, onJobStateUpdated)
 
         val brands = brandDao.selectAllBrandsByCookieId(userPlatformCookieId)
-        val brandsAndSyncJobs = brands.map { Pair(it, SyncJobNode.InternalNode(it.name)) }
+        val brandsAndSyncJobs = brands
+            .map { Pair(it, SyncJobNode.InternalNode(it.name)) }
+            .filter { it.first.platformBrands.any { platformBrand -> platformBrand.active } }
         node.children.addAll(brandsAndSyncJobs.map { it.second })
         brandsAndSyncJobs.forEach { brandAndSyncJob ->
             syncMenu(brandAndSyncJob.second, user, brandAndSyncJob.first, platformApi,

@@ -30,7 +30,8 @@ class BrandDao: KoinComponent {
                         platformBrand.id,
                         platformBrand.brandId,
                         platformBrand.platformId,
-                        platformBrand.remoteBrandId
+                        platformBrand.remoteBrandId,
+                        platformBrand.active
                     )
                 }
             }
@@ -50,6 +51,7 @@ class BrandDao: KoinComponent {
                             platformBrand.brandId,
                             platformBrand.platformId,
                             platformBrand.remoteBrandId,
+                            platformBrand.active,
                             userPlatformCookieId
                         )
                     }
@@ -84,9 +86,11 @@ class BrandDao: KoinComponent {
                 .map { selectAllBrands -> selectAllBrands.toModelBrand() }
             }
 
-    suspend fun getAllRemoteBrandIds(platformId: Long): List<String> = withContext(Dispatchers.IO) {
-        database.dbQuery.selectAllRemoteBrandIds(platformId).executeAsList()
-    }
+    suspend fun getAllRemoteBrandIdsByActive(platformId: Long): Map<String, Boolean> =
+        withContext(Dispatchers.IO) {
+            database.dbQuery.selectAllRemoteBrandIdsWithActive(platformId).executeAsList()
+                .associate { Pair(it.remoteBrandId, it.active) }
+        }
 
     suspend fun lastSyncedBrand(): ModelBrand? = withContext(Dispatchers.IO) {
         database.dbQuery.lastSyncedBrand().executeAsOneOrNull()?.let { it.toModelBrand() }
@@ -102,6 +106,7 @@ class BrandDao: KoinComponent {
                     brandId = it.brandId,
                     platformId = it.platformId,
                     remoteBrandId = it.remoteBrandId,
+                    active = it.active,
                     userPlatformCookieId = it.userPlatformCookieId
                 )
                 val userPlatformCookie = ModelUserPlatformCookie(
@@ -114,17 +119,19 @@ class BrandDao: KoinComponent {
             }
         }
 
-    suspend fun getPlatformBrandsByCookieId(
+    suspend fun getActivePlatformBrandsByCookieId(
         userPlatformCookieId: Long
     ): List<ModelPlatformBrand> =
         withContext(Dispatchers.IO) {
-            database.dbQuery.selectPlatformBrandsByCookieId(userPlatformCookieId).executeAsList()
+            database.dbQuery.selectActivePlatformBrandsByCookieId(userPlatformCookieId)
+                .executeAsList()
                 .map {
                     ModelPlatformBrand(
                         id = it.id,
                         brandId = it.brandId,
                         platformId = it.platformId,
                         remoteBrandId = it.remoteBrandId,
+                        active = it.active,
                         userPlatformCookieId = it.userPlatformCookieId
                     )
                 }
@@ -148,6 +155,7 @@ class BrandDao: KoinComponent {
                         brandId = selectAllBrand.brandId,
                         remoteBrandId = selectAllBrand.remoteBrandId,
                         platformId = selectAllBrand.platformId,
+                        active = selectAllBrand.active,
                         userPlatformCookieId = selectAllBrand.userPlatformCookieId
                     )
                 }
@@ -168,6 +176,7 @@ class BrandDao: KoinComponent {
                         brandId = selectAllBrand.brandId,
                         remoteBrandId = selectAllBrand.remoteBrandId,
                         platformId = selectAllBrand.platformId,
+                        active = selectAllBrand.active,
                         userPlatformCookieId = selectAllBrand.userPlatformCookieId
                     )
                 }

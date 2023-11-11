@@ -9,7 +9,10 @@ import com.khanalytic.models.Brand
 interface PlatformApi {
 
     @Throws(Exception::class)
-    suspend fun getBrands(platformId: Long, existingRemoteBrandIds: Set<String>): List<Brand>
+    suspend fun getBrands(
+        platformId: Long,
+        existingRemoteBrandIdsWithActive: Map<String, Boolean>
+    ): List<Brand>
 
     @Throws(Exception::class)
     suspend fun getSalesSummary(resId: String, startDate: String, endDate: String): SalesSummary

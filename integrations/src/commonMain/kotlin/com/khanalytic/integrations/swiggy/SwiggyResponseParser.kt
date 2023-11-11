@@ -28,21 +28,22 @@ class SwiggyResponseParser : KoinComponent {
     private val serializer = Serialization.serializer
     private val geocoderApi: GeocoderApi by inject()
 
-    fun parseRemoteBrandIds(response: String): List<String> {
+    fun parseBrandsResponse(response: String): BrandsResponse {
         val regex = Regex(".*globals.userInfoDataParam\\s*=\\s*(.*?);.*")
         return regex.find(response)?.groups?.get(1)?.value?.let { json: String ->
-            serializer.decodeFromString<BrandsResponse>(json).outlets.map { it.resId.toString() }
+            serializer.decodeFromString<BrandsResponse>(json)
         } ?: throw DataParseException("failed to extract brands list")
     }
 
     @Throws(Exception::class) suspend fun parseBrand(
         platformId: Long,
         remoteBrandId: String,
-        response: String
+        active: Boolean,
+        response: String,
     ): Brand {
         val brandDetail = serializer.decodeFromString<BrandDetailResponse>(response).data
         val location = geocoderApi.gecode(brandDetail.address)
-        return brandDetail.toBrand(platformId, remoteBrandId, location)
+        return brandDetail.toBrand(platformId, remoteBrandId, location, active)
     }
 
     @Throws(Exception::class) fun parseSalesSummary(response: String): SalesSummary =

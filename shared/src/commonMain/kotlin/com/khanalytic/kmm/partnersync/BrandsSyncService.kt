@@ -33,12 +33,14 @@ class BrandsSyncService: KoinComponent {
             Napier.v("brands synced less than 24 hours ago, skipping")
             return
         }
-        val existingRemoteBrandIds = brandDao.getAllRemoteBrandIds(platformId).toSet()
-        val brands = platformApi.getBrands(platformId, existingRemoteBrandIds)
-        val request =
-            UserApiRequest(CreateBrandsRequest(platformId, brands), user.toUserAuthRequest())
-        val createdBrands = brandApi.createBrands(request)
-        brandDao.upsetBrands(createdBrands, userPlatformCookieId)
+        val existingRemoteBrandIdsWithActive = brandDao.getAllRemoteBrandIdsByActive(platformId)
+        val brands = platformApi.getBrands(platformId, existingRemoteBrandIdsWithActive)
+        if (brands.isNotEmpty()) {
+            val request =
+                UserApiRequest(CreateBrandsRequest(platformId, brands), user.toUserAuthRequest())
+            val createdBrands = brandApi.createBrands(request)
+            brandDao.upsetBrands(createdBrands, userPlatformCookieId)
+        }
         platformSyncTimestampDao.setPlatformSyncTimeStamp(platformId, currentTimestamp)
     }
 }

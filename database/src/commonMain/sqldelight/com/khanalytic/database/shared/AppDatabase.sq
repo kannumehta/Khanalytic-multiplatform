@@ -76,26 +76,29 @@ INSERT OR REPLACE INTO PlatformBrand (
     brandId,
     platformId,
     remoteBrandId,
+    active,
     userPlatformCookieId
-) VALUES (?, ?, ?, ?, ?);
+) VALUES (?, ?, ?, ?, ?, ?);
 
 upsertPlatformBrandWithoutCookie:
 INSERT OR REPLACE INTO PlatformBrand (
     id,
     brandId,
     platformId,
-    remoteBrandId
-) VALUES (?, ?, ?, ?);
+    remoteBrandId,
+    active
+) VALUES (?, ?, ?, ?, ?);
 
 selectAllPlatformBrands:
 SELECT PlatformBrand.* FROM PlatformBrand;
 
-selectAllRemoteBrandIds:
-SELECT PlatformBrand.remoteBrandId FROM PlatformBrand WHERE platformId = :platformId;
+selectAllRemoteBrandIdsWithActive:
+SELECT PlatformBrand.remoteBrandId, PlatformBrand.active FROM PlatformBrand WHERE platformId = :platformId;
 
-selectPlatformBrandsByCookieId:
+selectActivePlatformBrandsByCookieId:
 SELECT PlatformBrand.* FROM PlatformBrand
-WHERE PlatformBrand.userPlatformCookieId = :userPlatformCookieId;
+WHERE PlatformBrand.userPlatformCookieId = :userPlatformCookieId
+AND PlatformBrand.active IS TRUE;
 
 selectPlatformBrandsWithCookies:
 SELECT PlatformBrand.*, UserPlatformCookie.* FROM PlatformBrand
