@@ -64,6 +64,15 @@ class BrandDao: KoinComponent {
             .map { it.toModelBrand() }
     }
 
+    suspend fun selectAllBrandsByCookieId(
+        userPlatformCookieId: Long
+    ): List<ModelBrand> = withContext(Dispatchers.IO) {
+        database.dbQuery.selectAllBrandsByCookieId(userPlatformCookieId).executeAsList()
+            .groupBy { it.brandId }
+            .values
+            .map { it.toCookieModelBrand() }
+    }
+
     fun selectAllBrandsAsFlow(): Flow<List<ModelBrand>> =
         database.dbQuery.selectAllBrands()
             .asFlow()
@@ -105,10 +114,46 @@ class BrandDao: KoinComponent {
             }
         }
 
+    suspend fun getPlatformBrandsByCookieId(
+        userPlatformCookieId: Long
+    ): List<ModelPlatformBrand> =
+        withContext(Dispatchers.IO) {
+            database.dbQuery.selectPlatformBrandsByCookieId(userPlatformCookieId).executeAsList()
+                .map {
+                    ModelPlatformBrand(
+                        id = it.id,
+                        brandId = it.brandId,
+                        platformId = it.platformId,
+                        remoteBrandId = it.remoteBrandId,
+                        userPlatformCookieId = it.userPlatformCookieId
+                    )
+                }
+        }
+
     companion object {
         private val serializer = Json
 
         private fun List<SelectAllBrands>.toModelBrand(): ModelBrand =
+            ModelBrand(
+                id = first().id,
+                name = first().name,
+                address = first().address,
+                latitude = first().latitude,
+                longitude = first().longitude,
+                createdAt = Instant.parse(first().createdAt),
+                updatedAt = Instant.parse(first().updatedAt),
+                platformBrands = this.map { selectAllBrand ->
+                    ModelPlatformBrand(
+                        id = selectAllBrand.id_,
+                        brandId = selectAllBrand.brandId,
+                        remoteBrandId = selectAllBrand.remoteBrandId,
+                        platformId = selectAllBrand.platformId,
+                        userPlatformCookieId = selectAllBrand.userPlatformCookieId
+                    )
+                }
+            )
+
+        private fun List<SelectAllBrandsByCookieId>.toCookieModelBrand(): ModelBrand =
             ModelBrand(
                 id = first().id,
                 name = first().name,

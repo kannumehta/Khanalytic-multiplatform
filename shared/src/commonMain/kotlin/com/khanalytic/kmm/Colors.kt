@@ -77,4 +77,14 @@ fun surfaceColor(): Color =
     if (!isSystemInDarkTheme()) { md_theme_light_surface }
     else { md_theme_dark_surface }
 
+@Composable
+fun listDividerColor(): Color =
+    if (!isSystemInDarkTheme()) { Color(0xFFf7f7f5) }
+    else { Color.LightGray }
+
+@Composable
+fun pendingIconColor(): Color =
+    if (!isSystemInDarkTheme()) { Color.Gray }
+    else { Color.LightGray }
+
 

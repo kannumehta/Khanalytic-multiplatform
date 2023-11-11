@@ -99,48 +99,72 @@ data class Addon(
     val active: Boolean
 )
 
-fun MenuResponse.toMenu(): Menu {
-    val categories = data.categories.map { it.toMenuCategory() }
-    val items = data.items.map { it.toMenuItem() }.plus(
-        data.addons.map { it.toMenuItem() }
+fun MenuResponse.toMenu(platformBrandId: Long): Menu {
+    val categories = data.categories.map { it.toMenuCategory(platformBrandId) }
+    val items = data.items.map { it.toMenuItem(platformBrandId) }.plus(
+        data.addons.map { it.toMenuItem(platformBrandId) }
     )
     val finalCategories = if (data.addons.isEmpty()) { categories }
     else {
-        val addonCategory = addOnCategory(data.addons.map { it.toMenuSubcategoryItem() })
+        val addonCategory = addOnCategory(
+            platformBrandId,
+            data.addons.map { it.toMenuSubcategoryItem(platformBrandId, ADDONS_NAME) }
+        )
         categories.plus(addonCategory)
     }
     return Menu(finalCategories, items)
 }
 
-fun CategoryData.toMenuCategory(): MenuCategory =
+fun CategoryData.toMenuCategory(platformBrandId: Long): MenuCategory =
     MenuCategory(
+        platformBrandId = platformBrandId,
         remoteCategoryId = id.toString(),
         name = name,
-        subcategories = menuSubcategories(),
+        subcategories = menuSubcategories(platformBrandId, id.toString()),
         order = 0
     )
 
-fun CategoryData.menuSubcategories(): List<MenuSubcategory> =
-    subcategories.map { it.toMenuSubcategory() }
+fun CategoryData.menuSubcategories(
+    platformBrandId: Long,
+    remoteCategoryId: String,
+): List<MenuSubcategory> =
+    subcategories.map { it.toMenuSubcategory(platformBrandId, remoteCategoryId) }
 
-fun SubcategoryData.toMenuSubcategory(): MenuSubcategory =
+fun SubcategoryData.toMenuSubcategory(
+    platformBrandId: Long,
+    remoteCategoryId: String
+): MenuSubcategory =
     MenuSubcategory(
+        platformBrandId = platformBrandId,
+        remoteCategoryId = remoteCategoryId,
         remoteSubcategoryId = id.toString(),
         name = name,
-        items = menuSubcategoryItems(),
+        items = menuSubcategoryItems(platformBrandId, id.toString()),
         order = 0
     )
 
-fun SubcategoryData.menuSubcategoryItems(): List<MenuSubcategoryItem> =
+fun SubcategoryData.menuSubcategoryItems(
+    platformBrandId: Long,
+    remoteSubcategoryId: String
+): List<MenuSubcategoryItem> =
     items.map { subcategoryItem: SubcategoryItem ->
-        subcategoryItem.toMenuSubcategoryItem()
+        subcategoryItem.toMenuSubcategoryItem(platformBrandId, remoteSubcategoryId)
     }
 
-fun SubcategoryItem.toMenuSubcategoryItem(): MenuSubcategoryItem = MenuSubcategoryItem(
-    remoteItemId = id.toString()
+fun SubcategoryItem.toMenuSubcategoryItem(
+    platformBrandId: Long,
+    remoteSubcategoryId: String
+): MenuSubcategoryItem = MenuSubcategoryItem(
+    platformBrandId = platformBrandId,
+    remoteSubcategoryId = remoteSubcategoryId,
+    remoteItemId = id.toString(),
+    order = 0,
 )
 
-fun ItemData.toMenuItem(): MenuItem = MenuItem(
+fun ItemData.toMenuItem(
+    platformBrandId: Long
+): MenuItem = MenuItem(
+    platformBrandId = platformBrandId,
     remoteItemId = item.id.toString(),
     name = item.name,
     description = item.description,
@@ -148,45 +172,53 @@ fun ItemData.toMenuItem(): MenuItem = MenuItem(
     isSpicy = item.isSpicy > 0,
     price = item.price,
     order = 0,
-    isAddOn = false,
+    isAddon = false,
     imageUrls = item.imageUrl?.let { listOf(it) } ?: listOf(),
-    variants = menuItemVariants(),
-    addons = menuItemAddons()
+    variants = menuItemVariants(platformBrandId, item.id.toString()),
+    addons = menuItemAddons(platformBrandId, item.id.toString())
 )
 
-fun Item.toMenuItem(): MenuItem = MenuItem(
-    remoteItemId = id.toString(),
-    name = name,
-    description = description,
-    isVeg = isVeg > 0,
-    isSpicy = isSpicy > 0,
-    price = price,
-    order = 0,
-    isAddOn = false,
-    imageUrls = imageUrl?.let { listOf(it) } ?: listOf(),
-    variants = listOf(),
-    addons = listOf()
-)
+fun ItemData.menuItemVariants(
+    platformBrandId: Long,
+    remoteItemId: String
+): List<MenuItemVariant> = variantGroups.flatMap { it.variants }.map {
+    it.variant.toMenuItemVariant(platformBrandId, remoteItemId)
+}
 
-fun ItemData.menuItemVariants(): List<MenuItemVariant> =
-    variantGroups.flatMap { it.variants }.map { it.variant.toMenuItemVariant() }
-
-fun Variant.toMenuItemVariant(): MenuItemVariant = MenuItemVariant(
+fun Variant.toMenuItemVariant(
+    platformBrandId: Long,
+    remoteItemId: String
+): MenuItemVariant = MenuItemVariant(
+    platformBrandId = platformBrandId,
+    remoteItemId = remoteItemId,
     remoteVariantId = id.toString(),
     name = name,
     price = price,
-    active = active
+    active = active,
+    order = 0
 )
 
-fun ItemData.menuItemAddons(): List<MenuItemAddon> =
-    addonGroups.flatMap { it.addons }.map { it.addon.toMenuItemAddon() }
+fun ItemData.menuItemAddons(
+    platformBrandId: Long,
+    remoteItemId: String
+): List<MenuItemAddon> =
+    addonGroups.flatMap { it.addons }.map { it.addon.toMenuItemAddon(platformBrandId, remoteItemId) }
 
-fun ItemAddon.toMenuItemAddon(): MenuItemAddon = MenuItemAddon(
+fun ItemAddon.toMenuItemAddon(
+    platformBrandId: Long,
+    remoteItemId: String
+): MenuItemAddon = MenuItemAddon(
+    platformBrandId = platformBrandId,
+    remoteItemId = remoteItemId,
     remoteAddonId = id.toString(),
-    active = active
+    active = active,
+    order = 0
 )
 
-fun Addon.toMenuItem(): MenuItem = MenuItem(
+fun Addon.toMenuItem(
+    platformBrandId: Long
+): MenuItem = MenuItem(
+    platformBrandId = platformBrandId,
     remoteItemId = id.toString(),
     name = name,
     description = "",
@@ -194,27 +226,42 @@ fun Addon.toMenuItem(): MenuItem = MenuItem(
     isSpicy = false,
     price = price,
     order = 0,
-    isAddOn = true,
+    isAddon = true,
     imageUrls = listOf(),
     variants = listOf(),
     addons = listOf()
 )
 
-fun Addon.toMenuSubcategoryItem(): MenuSubcategoryItem =
-    MenuSubcategoryItem(remoteItemId = id.toString())
+fun Addon.toMenuSubcategoryItem(
+    platformBrandId: Long,
+    remoteSubcategoryId: String
+): MenuSubcategoryItem =
+    MenuSubcategoryItem(
+        platformBrandId = platformBrandId,
+        remoteItemId = id.toString(),
+        remoteSubcategoryId = remoteSubcategoryId,
+        order = 0
+    )
 
-fun addOnCategory(items: List<MenuSubcategoryItem>): MenuCategory {
-    val name = "Add-ons"
+fun addOnCategory(
+    platformBrandId: Long,
+    items: List<MenuSubcategoryItem>
+): MenuCategory {
     val menuSubcategory = MenuSubcategory(
-        remoteSubcategoryId = name,
+        platformBrandId = platformBrandId,
+        remoteCategoryId = ADDONS_NAME,
+        remoteSubcategoryId = ADDONS_NAME,
         items = items,
-        name = name,
+        name = ADDONS_NAME,
         order = 0,
     )
     return MenuCategory(
-        remoteCategoryId = name,
-        name = name,
+        platformBrandId = platformBrandId,
+        remoteCategoryId = ADDONS_NAME,
+        name = ADDONS_NAME,
         order = 0,
         subcategories = listOf(menuSubcategory)
     )
 }
+
+private const val ADDONS_NAME = "Add-ons"

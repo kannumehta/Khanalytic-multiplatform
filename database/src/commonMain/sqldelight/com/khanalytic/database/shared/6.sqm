@@ -3,4 +3,4 @@ CREATE TABLE PlatformSyncTimestamp (
     platformId INTEGER NOT NULL,
     lastSyncedAt TEXT NOT NULL
 );
-CREATE UNIQUE INDEX platform_sync_timestamp_index ON PlatformSyncTimestamp (platformId, lastSyncedAt);
+CREATE UNIQUE INDEX platform_sync_timestamp_index ON PlatformSyncTimestamp (platformId);

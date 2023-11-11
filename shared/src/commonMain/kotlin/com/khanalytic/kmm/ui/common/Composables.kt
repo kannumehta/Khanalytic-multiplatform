@@ -2,17 +2,21 @@ package com.khanalytic.kmm.ui.common
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AccountCircle
+import androidx.compose.material.icons.outlined.CheckCircle
 import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material3.Button
@@ -30,6 +34,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.khanalytic.kmm.listDividerColor
 import com.khanalytic.kmm.md_theme_dark_onSurface
 import com.khanalytic.kmm.md_theme_light_onSurface
 import io.github.skeptick.libres.compose.painterResource
@@ -161,6 +166,10 @@ fun NameTextField(
         leadingIcon = nameIcon,
         supportingText = if (showSupportingText) { invalidNameErrorText } else { {} }
     )
+}
+
+@Composable fun ListDivider() {
+    Column (modifier = Modifier.height(1.dp).fillMaxWidth().background(listDividerColor())) {}
 }
 
 @Composable

@@ -61,6 +61,11 @@ selectAllBrands:
 SELECT Brand.*, PlatformBrand.* FROM Brand
 INNER JOIN PlatformBrand ON PlatformBrand.brandId = Brand.id;
 
+selectAllBrandsByCookieId:
+SELECT Brand.*, PlatformBrand.* FROM Brand
+INNER JOIN PlatformBrand ON PlatformBrand.brandId = Brand.id
+WHERE userPlatformCookieId = :userPlatformCookieId;
+
 lastSyncedBrand:
 SELECT * FROM Brand ORDER BY DATETIME(updatedAt) DESC, id DESC LIMIT 1;
 
@@ -87,6 +92,10 @@ SELECT PlatformBrand.* FROM PlatformBrand;
 
 selectAllRemoteBrandIds:
 SELECT PlatformBrand.remoteBrandId FROM PlatformBrand WHERE platformId = :platformId;
+
+selectPlatformBrandsByCookieId:
+SELECT PlatformBrand.* FROM PlatformBrand
+WHERE PlatformBrand.userPlatformCookieId = :userPlatformCookieId;
 
 selectPlatformBrandsWithCookies:
 SELECT PlatformBrand.*, UserPlatformCookie.* FROM PlatformBrand

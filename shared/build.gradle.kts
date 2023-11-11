@@ -73,6 +73,7 @@ kotlin {
             dependencies {
                 implementation("io.ktor:ktor-client-android:$ktorVersion")
                 implementation("io.insert-koin:koin-android:$koinVersion")
+                implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.2")
             }
         }
         val androidUnitTest by getting

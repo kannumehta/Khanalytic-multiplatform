@@ -71,8 +71,9 @@ class SwiggyApi(
     }
 
     @Throws(Exception::class)
-    override suspend fun getMenu(resId: String): Menu {
+    override suspend fun getMenu(platformBrandId: Long, resId: String): Menu {
         return responseParser.parseMenu(
+            platformBrandId,
             httpClient.get(SwiggyConstants.menuUrl(resId)) { rmsHostHeaders() }.bodyAsText()
         )
     }

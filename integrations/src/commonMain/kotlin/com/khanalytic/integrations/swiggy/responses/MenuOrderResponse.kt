@@ -104,8 +104,8 @@ fun MenuOrderResponse.toMenuOrdersBatch(menu: Menu): MenuOrdersBatch =
     )
 
 fun MenuOrderResponse.toOrders(menu: Menu): List<MenuOrder> {
-    val addonNameMap = menu.items.filter { it.isAddOn  }.associateBy { it.name }
-    val itemIdMap = menu.items.filterNot { it.isAddOn  }.associateBy { it.remoteItemId }
+    val addonNameMap = menu.items.filter { it.isAddon  }.associateBy { it.name }
+    val itemIdMap = menu.items.filterNot { it.isAddon  }.associateBy { it.remoteItemId }
     return outerData.innerData.orders.map {
         it.toMenuOrder(addonNameMap, itemIdMap)
     }

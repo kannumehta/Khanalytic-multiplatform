@@ -7,5 +7,5 @@ import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
 @Composable expect fun <T> StateFlow<T>.collectAsStateMultiplatform(
-    context: CoroutineContext = EmptyCoroutineContext)
-        : State<T>
+    context: CoroutineContext = EmptyCoroutineContext
+): State<T>
