@@ -26,7 +26,7 @@ class MenuOrderSyncService: KoinComponent {
         datesToSync.forEach { date ->
             val orders = platformApi.getOrders(platformBrandId, remoteBrandId, date, date, menu)
             val request = UserApiRequest(
-                UpdateMenuOrdersRequest(orders),
+                UpdateMenuOrdersRequest(orders, date),
                 user.toUserAuthRequest()
             )
             menuOrderApi.update(request)
