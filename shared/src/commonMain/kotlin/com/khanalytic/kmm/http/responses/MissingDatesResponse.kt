@@ -11,5 +11,6 @@ data class PlatformBrandsMissingDates(
 
 @Serializable
 data class MissingDates(
-    val menuOrder: List<LocalDate>
+    val menuOrder: List<LocalDate>,
+    val complaint: List<LocalDate>,
 )

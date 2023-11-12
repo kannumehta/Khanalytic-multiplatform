@@ -6,5 +6,6 @@ val partnerSyncModule = module {
     single { BrandsSyncService() }
     single { MenuSyncService() }
     single { MenuOrderSyncService() }
+    single { ComplaintSyncService() }
     single { SyncService() }
 }

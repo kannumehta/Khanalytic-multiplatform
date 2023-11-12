@@ -1,11 +1,12 @@
 package com.khanalytic.integrations.swiggy.requests
 
+import kotlinx.datetime.LocalDate
 import kotlinx.serialization.Serializable
 
 fun complaintIdsRequestBody(
     resId: String,
-    startDate: String,
-    endDate: String,
+    startDate: LocalDate,
+    endDate: LocalDate,
     nextToken: String? = null
 ): ComplaintsRequestBody = ComplaintsRequestBody(
     variables = ComplaintIdsVariables(
@@ -25,9 +26,9 @@ data class ComplaintsRequestBody(
 
 @Serializable
 data class ComplaintIdsVariables(
-    val complaintEndDate: String,
+    val complaintEndDate: LocalDate,
     val complaintResolutionStates: List<String> = ComplaintIdsConstants.resolutionStates,
-    val complaintStartDate: String,
+    val complaintStartDate: LocalDate,
     val complaintStates: List<String> = ComplaintIdsConstants.complaintStates,
     val issueTypes: List<String> = ComplaintIdsConstants.issueTypes,
     val limit: Int = 20,

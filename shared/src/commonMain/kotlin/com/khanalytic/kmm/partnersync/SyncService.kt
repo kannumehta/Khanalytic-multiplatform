@@ -17,8 +17,10 @@ import com.khanalytic.models.Menu
 import com.khanalytic.models.PlatformBrand
 import com.khanalytic.models.User
 import io.github.aakira.napier.Napier
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -26,6 +28,7 @@ class SyncService: KoinComponent {
     private val brandsSyncService: BrandsSyncService by inject()
     private val menuSyncService: MenuSyncService by inject()
     private val menuOrderSyncService: MenuOrderSyncService by inject()
+    private val complaintSyncService: ComplaintSyncService by inject()
 
     private val userDao: UserDao by inject()
     private val brandDao: BrandDao by inject()
@@ -127,13 +130,19 @@ class SyncService: KoinComponent {
         platformApi: PlatformApi,
         missingDates: MissingDates,
         onJobStateUpdated: suspend () -> Unit
-    ) {
+    ) = coroutineScope {
         val platformBrand = brand.platformBrands.first()
         if (missingDates.menuOrder.isNotEmpty()) {
             val menu = syncMenu(node, user, platformBrand, platformApi, onJobStateUpdated)
             startLeafJob("Orders", node, onJobStateUpdated) {
                 menuOrderSyncService.syncOrders(user, menu, platformApi, platformBrand.id,
                     platformBrand.remoteBrandId, missingDates.menuOrder)
+            }
+        }
+        if (missingDates.complaint.isNotEmpty()) {
+            startLeafJob("Complaints", node, onJobStateUpdated) {
+                complaintSyncService.syncComplaints(user, platformApi, platformBrand.id,
+                    platformBrand.remoteBrandId, missingDates.complaint)
             }
         }
     }

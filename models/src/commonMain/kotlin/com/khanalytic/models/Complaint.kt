@@ -4,6 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Complaint(
+    val platformBrandId: Long,
     val remoteComplaintId: String,
     val remoteOrderId: String,
     val issueType: String,
@@ -17,5 +18,8 @@ data class Complaint(
 
 @Serializable
 data class ComplaintItem(
+    val platformBrandId: Long,
+    val remoteOrderId: String,
+    val remoteComplaintId: String,
     val remoteItemId: String
 )

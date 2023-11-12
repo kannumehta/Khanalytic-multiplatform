@@ -64,6 +64,9 @@ class SwiggyResponseParser : KoinComponent {
     @Throws(Exception::class) fun parseComplaintIdsBatch(response: String): ComplaintIdsBatch =
         serializer.decodeFromString<ComplaintsIdResponse>(response).toComplaintIdsBatch()
 
-    @Throws(Exception::class) fun parseComplaint(response: String): Complaint =
-        serializer.decodeFromString<ComplaintResponse>(response).toComplaint()
+    @Throws(Exception::class) fun parseComplaint(
+        platformBrandId: Long,
+        response: String
+    ): Complaint =
+        serializer.decodeFromString<ComplaintResponse>(response).toComplaint(platformBrandId)
 }

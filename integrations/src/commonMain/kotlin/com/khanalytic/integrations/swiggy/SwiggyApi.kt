@@ -114,9 +114,10 @@ class SwiggyApi(
 
     @Throws(Exception::class)
     override suspend fun getComplaints(
+        platformBrandId: Long,
         resId: String,
-        startDate: String,
-        endDate: String
+        startDate: LocalDate,
+        endDate: LocalDate
     ): List<Complaint> = withContext(Dispatchers.Default) {
         var nextToken: String? = null
         val complaintIds = mutableListOf<String>()
@@ -126,7 +127,7 @@ class SwiggyApi(
             nextToken = batch.nextRequestData
             if (nextToken == null) { break }
         }
-        complaintIds.map { async { getComplaint(it) } }.awaitAll()
+        complaintIds.map { async { getComplaint(platformBrandId, it) } }.awaitAll()
     }
 
     @Throws(Exception::class)
@@ -170,8 +171,8 @@ class SwiggyApi(
 
     private suspend fun complaintsBatch(
         resId: String,
-        startDate: String,
-        endDate: String,
+        startDate: LocalDate,
+        endDate: LocalDate,
         nextToken: String?,
     ): ComplaintIdsBatch {
         val requestBody = complaintIdsRequestBody(resId, startDate, endDate, nextToken)
@@ -183,9 +184,10 @@ class SwiggyApi(
         )
     }
 
-    private suspend fun getComplaint(complaintId: String): Complaint {
+    private suspend fun getComplaint(platformBrandId: Long, complaintId: String): Complaint {
         val requestBody = complaintRequestBody(complaintId)
         return responseParser.parseComplaint(
+            platformBrandId,
             httpClient.post(SwiggyConstants.complaintUrl()) {
                 vhcHostHeaders()
                 setBody(serializer.encodeToString(requestBody))

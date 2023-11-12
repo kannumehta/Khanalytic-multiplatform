@@ -31,7 +31,12 @@ interface PlatformApi {
     ): List<MenuOrder>
 
     @Throws(Exception::class)
-    suspend fun getComplaints(resId: String, startDate: String, endDate: String): List<Complaint>
+    suspend fun getComplaints(
+        platformBrandId: Long,
+        resId: String,
+        startDate: LocalDate,
+        endDate: LocalDate
+    ): List<Complaint>
 
     @Throws(Exception::class)
     suspend fun sendEmailReport(resId: String, startDate: String, endDate: String, email: String)

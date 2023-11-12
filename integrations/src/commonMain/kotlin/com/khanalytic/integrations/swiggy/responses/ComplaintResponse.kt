@@ -38,17 +38,28 @@ data class ComplaintResolution(
     val resolutionStatus: String,
 )
 
-fun ComplaintResponse.toComplaint(): Complaint = data.complaint.toComplaint()
-fun ComplaintData.toComplaint(): Complaint = Complaint(
+fun ComplaintResponse.toComplaint(platformBrandId: Long): Complaint =
+    data.complaint.toComplaint(platformBrandId)
+fun ComplaintData.toComplaint(platformBrandId: Long): Complaint = Complaint(
+    platformBrandId = platformBrandId,
     remoteComplaintId = complaintId,
     remoteOrderId = orderId,
     issueType = issueType,
     complaintState = complaintState,
     complaintStatus = complaintStatus,
     resolutionStatus = resolution.resolutionStatus,
-    items = items.map { it.toComplaintItem() },
+    items = items.map { it.toComplaintItem(platformBrandId, orderId, complaintId) },
     customerComments = customerComments,
     amountRefunded = resolution.amountRefunded
 )
 
-fun ComplaintDataItem.toComplaintItem(): ComplaintItem = ComplaintItem(remoteItemId = itemId)
+fun ComplaintDataItem.toComplaintItem(
+    platformBrandId: Long,
+    remoteOrderId: String,
+    remoteComplaintId: String,
+): ComplaintItem = ComplaintItem(
+    platformBrandId = platformBrandId,
+    remoteOrderId = remoteOrderId,
+    remoteComplaintId = remoteComplaintId,
+    remoteItemId = itemId
+)
