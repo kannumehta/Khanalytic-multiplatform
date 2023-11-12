@@ -17,10 +17,17 @@ import com.khanalytic.models.Menu
 import com.khanalytic.models.PlatformBrand
 import com.khanalytic.models.User
 import io.github.aakira.napier.Napier
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.channels.ReceiveChannel
+import kotlinx.coroutines.channels.produce
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -39,20 +46,24 @@ class SyncService: KoinComponent {
     private val swiggyApiFactory: SwiggyApiFactory by inject()
 
     @Throws(Exception::class)
-    fun sync(userId: Long, platformId: Long, userPlatformCookieId : Long): Flow<SyncJobNode> =
-        flow {
-            // TODO(kannumehta@): Throw exceptions here so that they are logged to a backend.
-            val user = userDao.getById(userId)
-            if (user != null) {
-                val platformApi = getPlatformApi(userId, platformId, userPlatformCookieId)
-                val node = SyncJobNode.InternalNode("Syncing Data")
-                startJob(node, user, platformApi, platformId, userPlatformCookieId) {
-                    emit(node.clone())
-                }
-            } else {
-                Napier.v("no logged in user, cannot sync data")
+    suspend fun sync(
+        channel: Channel<SyncJobNode>,
+        userId: Long,
+        platformId: Long,
+        userPlatformCookieId : Long
+    ): Unit = coroutineScope {
+        // TODO(kannumehta@): Throw exceptions here so that they are logged to a backend.
+        val user = userDao.getById(userId)
+        if (user != null) {
+            val platformApi = getPlatformApi(userId, platformId, userPlatformCookieId)
+            val node = SyncJobNode.InternalNode("Syncing Data")
+            startJob(node, user, platformApi, platformId, userPlatformCookieId) {
+                channel.send(node.clone())
             }
+        } else {
+            Napier.v("no logged in user, cannot sync data")
         }
+    }
 
     private fun getPlatformApi(
         userId: Long,
@@ -132,17 +143,22 @@ class SyncService: KoinComponent {
         onJobStateUpdated: suspend () -> Unit
     ) = coroutineScope {
         val platformBrand = brand.platformBrands.first()
-        if (missingDates.menuOrder.isNotEmpty()) {
-            val menu = syncMenu(node, user, platformBrand, platformApi, onJobStateUpdated)
-            startLeafJob("Orders", node, onJobStateUpdated) {
-                menuOrderSyncService.syncOrders(user, menu, platformApi, platformBrand.id,
-                    platformBrand.remoteBrandId, missingDates.menuOrder)
+        launch {
+            if (missingDates.menuOrder.isNotEmpty()) {
+                val menu = syncMenu(node, user, platformBrand, platformApi, onJobStateUpdated)
+                startLeafJob("Orders", node, onJobStateUpdated) {
+                    menuOrderSyncService.syncOrders(user, menu, platformApi, platformBrand.id,
+                        platformBrand.remoteBrandId, missingDates.menuOrder)
+                }
             }
         }
-        if (missingDates.complaint.isNotEmpty()) {
-            startLeafJob("Complaints", node, onJobStateUpdated) {
-                complaintSyncService.syncComplaints(user, platformApi, platformBrand.id,
-                    platformBrand.remoteBrandId, missingDates.complaint)
+
+        launch {
+            if (missingDates.complaint.isNotEmpty()) {
+                startLeafJob("Complaints", node, onJobStateUpdated) {
+                    complaintSyncService.syncComplaints(user, platformApi, platformBrand.id,
+                        platformBrand.remoteBrandId, missingDates.complaint)
+                }
             }
         }
     }

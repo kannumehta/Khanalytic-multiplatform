@@ -4,7 +4,10 @@ import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
 import com.khanalytic.kmm.partnersync.SyncJobNode
 import com.khanalytic.kmm.partnersync.SyncService
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.channels.consumeEach
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -20,9 +23,11 @@ class SyncPlatformDataScreenModel(
 
     init {
         screenModelScope.launch {
-            syncService.sync(userId, platformId, userPlatformCookieId).collect {
-                syncJobsFlow.value = it
+            val channel = Channel<SyncJobNode>()
+            launch {
+                syncService.sync(channel, userId, platformId, userPlatformCookieId)
             }
+            channel.consumeEach { syncJobsFlow.value = it }
         }
     }
 }
