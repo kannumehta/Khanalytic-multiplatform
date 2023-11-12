@@ -4,6 +4,4 @@ import com.khanalytic.models.Menu
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class CreateMenuRequest(
-    val menu: Menu
-)
+data class UpdateMenuRequest(val menu: Menu)

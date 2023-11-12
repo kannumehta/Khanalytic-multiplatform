@@ -8,20 +8,24 @@ import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 class UserApi: KoinComponent {
     private val httpClient: HttpClient by inject()
 
-    suspend fun signUp(request: SignUpRequest): User {
-        return httpClient.post(Utils.appUrl("user/sign_up")) {
+    @Throws(Exception::class)
+    suspend fun signUp(request: SignUpRequest): User = withContext(Dispatchers.Default) {
+        httpClient.post(Utils.appUrl("user/sign_up")) {
             setBody(request)
         }.body<UserResponse>().user
     }
 
-    suspend fun signIn(request: SignInRequest): User {
-        return httpClient.post(Utils.appUrl("user/login")) {
+    @Throws(Exception::class)
+    suspend fun signIn(request: SignInRequest): User = withContext(Dispatchers.Default)  {
+        httpClient.post(Utils.appUrl("user/login")) {
             setBody(request)
         }.body<UserResponse>().user
     }

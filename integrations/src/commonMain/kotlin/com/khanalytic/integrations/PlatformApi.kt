@@ -5,6 +5,7 @@ import com.khanalytic.models.Menu
 import com.khanalytic.models.MenuOrder
 import com.khanalytic.models.SalesSummary
 import com.khanalytic.models.Brand
+import kotlinx.datetime.LocalDate
 
 interface PlatformApi {
 
@@ -22,9 +23,10 @@ interface PlatformApi {
 
     @Throws(Exception::class)
     suspend fun getOrders(
+        platformBrandId: Long,
         resId: String,
-        startDate: String,
-        endDate: String,
+        startDate: LocalDate,
+        endDate: LocalDate,
         menu: Menu
     ): List<MenuOrder>
 

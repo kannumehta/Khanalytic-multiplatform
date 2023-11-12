@@ -8,15 +8,23 @@ import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 class BrandApi: KoinComponent {
     private val httpClient: HttpClient by inject()
 
+    @Throws(Exception::class)
     suspend fun getBrands(request: UserApiRequest<SyncRequest>): List<Brand> =
-        httpClient.post(Utils.appUrl("brand/list")) { setBody(request) }.body()
+        withContext(Dispatchers.Default) {
+            httpClient.post(Utils.appUrl("brand/list")) { setBody(request) }.body()
+        }
 
+    @Throws(Exception::class)
     suspend fun createBrands(request: UserApiRequest<CreateBrandsRequest>): List<Brand> =
-        httpClient.post(Utils.appUrl("brand/create")) { setBody(request) }.body()
+        withContext(Dispatchers.Default) {
+            httpClient.post(Utils.appUrl("brand/create")) { setBody(request) }.body()
+        }
 }

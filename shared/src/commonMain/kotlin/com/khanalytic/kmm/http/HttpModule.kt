@@ -3,6 +3,8 @@ package com.khanalytic.kmm.http
 import com.khanalytic.database.shared.BrandDao
 import com.khanalytic.kmm.http.api.BrandApi
 import com.khanalytic.kmm.http.api.MenuApi
+import com.khanalytic.kmm.http.api.MenuOrderApi
+import com.khanalytic.kmm.http.api.MissingDatesApi
 import com.khanalytic.kmm.http.api.PlatformApi
 import com.khanalytic.kmm.http.api.UserApi
 import org.koin.core.module.dsl.singleOf
@@ -15,4 +17,6 @@ val httpModule = module {
     single { PlatformApi() }
     single { BrandApi() }
     single { MenuApi() }
+    single { MissingDatesApi() }
+    single { MenuOrderApi() }
 }

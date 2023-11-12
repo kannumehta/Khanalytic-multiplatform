@@ -26,9 +26,12 @@ import io.ktor.client.plugins.cookies.cookies
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.withContext
+import kotlinx.datetime.LocalDate
 import kotlinx.serialization.encodeToString
 
 class SwiggyApi(
@@ -41,7 +44,7 @@ class SwiggyApi(
     override suspend fun getBrands(
         platformId: Long,
         existingRemoteBrandIdsWithActive: Map<String, Boolean>
-    ): List<Brand> = coroutineScope {
+    ): List<Brand> = withContext(Dispatchers.Default) {
         val brandsResponse = responseParser.parseBrandsResponse(
             httpClient.get(SwiggyConstants.ordersUrl()) {
                 commonHeaders()
@@ -49,7 +52,6 @@ class SwiggyApi(
             }.bodyAsText()
         )
 
-        val existingRemoteBrandIds = existingRemoteBrandIdsWithActive.keys
         val outlets =
             brandsResponse.outlets.filter {
                 if (it.enabled) {
@@ -69,8 +71,8 @@ class SwiggyApi(
         resId: String,
         startDate: String,
         endDate: String
-    ): SalesSummary {
-        return responseParser.parseSalesSummary(
+    ): SalesSummary = withContext(Dispatchers.Default) {
+        responseParser.parseSalesSummary(
             httpClient.get(SwiggyConstants.salesSummaryUrl(resId, startDate, endDate)) {
                 commonHeaders()
                 accept(ContentType.Application.Json)
@@ -82,30 +84,32 @@ class SwiggyApi(
     }
 
     @Throws(Exception::class)
-    override suspend fun getMenu(platformBrandId: Long, resId: String): Menu {
-        return responseParser.parseMenu(
-            platformBrandId,
-            httpClient.get(SwiggyConstants.menuUrl(resId)) { rmsHostHeaders() }.bodyAsText()
-        )
-    }
+    override suspend fun getMenu(platformBrandId: Long, resId: String): Menu =
+        withContext(Dispatchers.Default) {
+            responseParser.parseMenu(
+                platformBrandId,
+                httpClient.get(SwiggyConstants.menuUrl(resId)) { rmsHostHeaders() }.bodyAsText()
+            )
+        }
 
     @Throws(Exception::class)
     override suspend fun getOrders(
+        platformBrandId: Long,
         resId: String,
-        startDate: String,
-        endDate: String,
+        startDate: LocalDate,
+        endDate: LocalDate,
         menu: Menu
-    ): List<MenuOrder> {
+    ): List<MenuOrder> = withContext(Dispatchers.Default) {
         var page = Page(0, 20)
         val orders = mutableListOf<MenuOrder>()
         while (true) {
-            val ordersBatch = ordersBatch(resId, startDate, endDate, menu, page)
+            val ordersBatch = ordersBatch(platformBrandId, resId, startDate, endDate, menu, page)
             orders.addAll(ordersBatch.batch)
             if (ordersBatch.nextRequestData == null) { break }
             val newOffset = page.offset + minOf(ordersBatch.batch.size, page.limit)
             page = Page(newOffset, page.limit)
         }
-        return orders
+        orders
     }
 
     @Throws(Exception::class)
@@ -113,7 +117,7 @@ class SwiggyApi(
         resId: String,
         startDate: String,
         endDate: String
-    ): List<Complaint> = coroutineScope {
+    ): List<Complaint> = withContext(Dispatchers.Default) {
         var nextToken: String? = null
         val complaintIds = mutableListOf<String>()
         while (true) {
@@ -131,7 +135,7 @@ class SwiggyApi(
         startDate: String,
         endDate: String,
         email: String
-    ) {
+    ) = withContext(Dispatchers.Default) {
         val requestBody = sendEmailReportRequestBody(resId, startDate, endDate, email)
         val unused = httpClient.post(SwiggyConstants.sendEmailReportUrl()) {
             vhcHostHeaders()
@@ -151,16 +155,17 @@ class SwiggyApi(
     }
 
     private suspend fun ordersBatch(
+        platformBrandId: Long,
         resId: String,
-        startDate: String,
-        endDate: String,
+        startDate: LocalDate,
+        endDate: LocalDate,
         menu: Menu,
         page: Page,
     ): MenuOrdersBatch {
         val url = SwiggyConstants.pastOrdersUrl(resId, startDate, endDate, page)
         return responseParser.parseOrders(httpClient.get(url) {
             rmsHostHeaders()
-        }.bodyAsText(), menu)
+        }.bodyAsText(), platformBrandId, menu)
     }
 
     private suspend fun complaintsBatch(

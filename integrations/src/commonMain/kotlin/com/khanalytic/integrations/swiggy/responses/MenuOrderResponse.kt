@@ -61,7 +61,7 @@ data class Order(
 data class OrderStatus(
     @SerialName("order_status") val status: String,
     @SerialName("ordered_time") val orderedTime: String,
-    @SerialName("delivered_time") val deliveredTime: String,
+    @SerialName("delivered_time") val deliveredTime: String?,
 )
 
 @Serializable
@@ -97,17 +97,17 @@ data class CartItemVariant(
     val name: String
 )
 
-fun MenuOrderResponse.toMenuOrdersBatch(menu: Menu): MenuOrdersBatch =
+fun MenuOrderResponse.toMenuOrdersBatch(platformBrandId: Long, menu: Menu): MenuOrdersBatch =
     MenuOrdersBatch(
-        toOrders(menu),
+        toOrders(platformBrandId, menu),
         outerData.innerData.meta.next
     )
 
-fun MenuOrderResponse.toOrders(menu: Menu): List<MenuOrder> {
+fun MenuOrderResponse.toOrders(platformBrandId: Long, menu: Menu): List<MenuOrder> {
     val addonNameMap = menu.items.filter { it.isAddon  }.associateBy { it.name }
     val itemIdMap = menu.items.filterNot { it.isAddon  }.associateBy { it.remoteItemId }
     return outerData.innerData.orders.map {
-        it.toMenuOrder(addonNameMap, itemIdMap)
+        it.toMenuOrder(platformBrandId, addonNameMap, itemIdMap)
     }
 }
 
@@ -129,9 +129,11 @@ private class MenuResponseDeSerializer: KSerializer<MenuOrderResponse> {
 }
 
 private fun Order.toMenuOrder(
+    platformBrandId: Long,
     addonNameMap: Map<String, MenuItem>,
     itemIdMap: Map<String, MenuItem>,
 ): MenuOrder = MenuOrder(
+    platformBrandId = platformBrandId,
     remoteOrderId = id,
     isDelivered = status.status.toLowerCasePreservingASCIIRules() == "delivered",
     restaurantDiscount = restaurantDiscount,
@@ -140,40 +142,63 @@ private fun Order.toMenuOrder(
     gst = gst,
     orderedTimestamp = status.orderedTime,
     deliveredTimestamp = status.deliveredTime,
-    packingCharges = cart.charges.packingCharge,
+    packagingCharges = cart.charges.packingCharge,
     deliveryCharges = cart.charges.deliveryCharge,
-    items = cart.items.map { it.toMenuOrderItem(addonNameMap, itemIdMap) }
+    items = cart.items.map { it.toMenuOrderItem(platformBrandId, id, addonNameMap, itemIdMap) }
 )
 
 private fun CartItem.toMenuOrderItem(
+    platformBrandId: Long,
+    remoteOrderId: String,
     addonNameMap: Map<String, MenuItem>,
     itemIdMap: Map<String, MenuItem>
 ) : MenuOrderItem {
     val variantNameMap = itemIdMap[id.toString()]?.variants?.associateBy { it.name } ?: mapOf()
-    val filteredAddons = addons.map { it.toMenuOrderItemAddon(addonNameMap) }.let {
-        it.filter { addon -> addon.remoteAddonId != null || !variantNameMap.contains(addon.name) }
-    }
+    val filteredAddons =
+        addons.map {
+            it.toMenuOrderItemAddon(platformBrandId, remoteOrderId, id.toString(), addonNameMap)
+        }.let {
+            it.filter { addon ->
+                addon.remoteAddonId != null || !variantNameMap.contains(addon.name)
+            }
+        }
     return MenuOrderItem(
+        platformBrandId = platformBrandId,
+        remoteOrderId = remoteOrderId,
         remoteItemId = id.toString(),
         packagingCharges = packagingCharges,
-        subTotal = subTotal,
+        subtotal = subTotal,
         total = total,
         quantity = quantity,
         addons = filteredAddons,
-        variants = variants.map { it.toMenuOrderItemVariant(variantNameMap) }
+        variants = variants.map {
+            it.toMenuOrderItemVariant(platformBrandId, remoteOrderId, id.toString(), variantNameMap)
+        }
     )
 }
 
 private fun CartItemAddon.toMenuOrderItemAddon(
+    platformBrandId: Long,
+    remoteOrderId: String,
+    remoteItemId: String,
     addonNameMap: Map<String, MenuItem>
 ): MenuOrderItemAddon = MenuOrderItemAddon(
+    platformBrandId = platformBrandId,
+    remoteOrderId = remoteOrderId,
+    remoteItemId = remoteItemId,
     remoteAddonId = addonNameMap[name]?.remoteItemId,
     name = name
 )
 
 private fun CartItemVariant.toMenuOrderItemVariant(
+    platformBrandId: Long,
+    remoteOrderId: String,
+    remoteItemId: String,
     variantNameMap: Map<String, MenuItemVariant>
 ): MenuOrderItemVariant = MenuOrderItemVariant(
+    platformBrandId = platformBrandId,
+    remoteOrderId = remoteOrderId,
+    remoteItemId = remoteItemId,
     remoteVariantId = variantNameMap[name]?.remoteVariantId,
     name = name
 )

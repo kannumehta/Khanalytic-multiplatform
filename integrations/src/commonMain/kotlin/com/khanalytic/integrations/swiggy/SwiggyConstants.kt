@@ -2,6 +2,7 @@ package com.khanalytic.integrations.swiggy
 
 import com.khanalytic.integrations.Page
 import io.ktor.client.request.*
+import kotlinx.datetime.LocalDate
 
 object SwiggyConstants {
     const val API_HOST = "https://partner.swiggy.com"
@@ -21,7 +22,7 @@ object SwiggyConstants {
         "$RMS_HOST/api/cms/menu-revision/v1/restaurantDetails/$resId?"
     fun menuUrl(resId: String): String =
         "$RMS_HOST/api/cms/menu-revision/v1/restaurant-menu/$resId?disabled=true&item_holiday_slots=true&type=REGULAR_MENU"
-    fun pastOrdersUrl( resId: String, startDate: String, endDate: String, page: Page) =
+    fun pastOrdersUrl( resId: String, startDate: LocalDate, endDate: LocalDate, page: Page) =
         "$RMS_HOST/orders/v1/history?limit=${page.limit}&offset=${page.offset}" +
                 "&ordered_time__gte=$startDate&ordered_time__lte=$endDate&restaurant_id=$resId"
 

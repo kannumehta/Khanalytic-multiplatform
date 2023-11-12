@@ -6,7 +6,15 @@ import com.khanalytic.integrations.PlatformApi
 import com.khanalytic.integrations.http.HttpClientFactory
 import com.khanalytic.integrations.swiggy.SwiggyApiFactory
 import com.khanalytic.kmm.http.HttpUserPlatformCookieStorageFactory
+import com.khanalytic.kmm.http.api.MissingDatesApi
+import com.khanalytic.kmm.http.requests.MissingDatesRequest
+import com.khanalytic.kmm.http.requests.UserApiRequest
+import com.khanalytic.kmm.http.requests.toUserAuthRequest
+import com.khanalytic.kmm.http.responses.MissingDates
+import com.khanalytic.kmm.http.responses.PlatformBrandsMissingDates
 import com.khanalytic.models.Brand
+import com.khanalytic.models.Menu
+import com.khanalytic.models.PlatformBrand
 import com.khanalytic.models.User
 import io.github.aakira.napier.Napier
 import kotlinx.coroutines.flow.Flow
@@ -17,8 +25,11 @@ import org.koin.core.component.inject
 class SyncService: KoinComponent {
     private val brandsSyncService: BrandsSyncService by inject()
     private val menuSyncService: MenuSyncService by inject()
+    private val menuOrderSyncService: MenuOrderSyncService by inject()
+
     private val userDao: UserDao by inject()
     private val brandDao: BrandDao by inject()
+    private val missingDatesApi: MissingDatesApi by inject()
 
     private val httpUserPlatformCookieStorageFactory: HttpUserPlatformCookieStorageFactory by inject()
     private val httpClientFactory: HttpClientFactory by inject()
@@ -67,10 +78,17 @@ class SyncService: KoinComponent {
         val brandsAndSyncJobs = brands
             .map { Pair(it, SyncJobNode.InternalNode(it.name)) }
             .filter { it.first.platformBrands.any { platformBrand -> platformBrand.active } }
+
+        val platformBrandMissingDates = getMissingDates(user, brandsAndSyncJobs.map { it.first })
+
         node.children.addAll(brandsAndSyncJobs.map { it.second })
         brandsAndSyncJobs.forEach { brandAndSyncJob ->
-            syncMenu(brandAndSyncJob.second, user, brandAndSyncJob.first, platformApi,
-                onJobStateUpdated)
+            val platformBrandId = brandAndSyncJob.first.platformBrands.first().id
+            val missingDates = platformBrandMissingDates.find { it.platformBrandId == platformBrandId }
+            if (missingDates != null) {
+                syncAllDataForBrand(brandAndSyncJob.second, user, brandAndSyncJob.first,
+                    platformApi, missingDates.missingDates, onJobStateUpdated)
+            }
         }
     }
 
@@ -88,34 +106,59 @@ class SyncService: KoinComponent {
         onJobStateUpdated()
     }
 
-    private suspend fun syncMenu(
+    private suspend fun syncAllDataForBrand(
         node: SyncJobNode.InternalNode,
         user: User,
         brand: Brand,
         platformApi: PlatformApi,
+        missingDates: MissingDates,
         onJobStateUpdated: suspend () -> Unit
     ) {
-        startLeafJob("Menu", node, onJobStateUpdated) {
-            brand.platformBrands.forEach { platformBrand ->
-                menuSyncService.syncMenu(user, platformApi, platformBrand.id,
-                    platformBrand.remoteBrandId)
+        val platformBrand = brand.platformBrands.first()
+        if (missingDates.menuOrder.isNotEmpty()) {
+            val menu = syncMenu(node, user, platformBrand, platformApi, onJobStateUpdated)
+            startLeafJob("Orders", node, onJobStateUpdated) {
+                menuOrderSyncService.syncOrders(user, menu, platformApi, platformBrand.id,
+                    platformBrand.remoteBrandId, missingDates.menuOrder)
             }
         }
-        onJobStateUpdated()
     }
 
-    private suspend fun startLeafJob(
+    private suspend fun syncMenu(
+        node: SyncJobNode.InternalNode,
+        user: User,
+        platformBrand: PlatformBrand,
+        platformApi: PlatformApi,
+        onJobStateUpdated: suspend () -> Unit
+    ): Menu =
+        startLeafJob("Menu", node, onJobStateUpdated) {
+            menuSyncService.syncMenu(user, platformApi, platformBrand.id,
+                platformBrand.remoteBrandId)
+        }
+
+    private suspend fun <T>startLeafJob(
         title: String,
         node: SyncJobNode.InternalNode,
         onJobStateUpdated: suspend () -> Unit,
-        leafJob: suspend () -> Unit
-    ) {
+        leafJob: suspend () -> T
+    ): T {
         val syncJob = SyncJobNode.LeafNode(title, SyncJobStatus.Processing)
         node.children.add(syncJob)
         onJobStateUpdated()
-        leafJob()
+        val result = leafJob()
         syncJob.status = SyncJobStatus.Processed
         onJobStateUpdated()
+        return result
     }
 
+    private suspend fun getMissingDates(
+        user: User,
+        brands: List<Brand>
+    ): List<PlatformBrandsMissingDates> {
+        val platformBrandIds =
+            brands.flatMap { it.platformBrands.map { platformBrand -> platformBrand.id } }
+        val request =
+            UserApiRequest(MissingDatesRequest(platformBrandIds), user.toUserAuthRequest())
+        return missingDatesApi.getMissingDates(request)
+    }
 }
