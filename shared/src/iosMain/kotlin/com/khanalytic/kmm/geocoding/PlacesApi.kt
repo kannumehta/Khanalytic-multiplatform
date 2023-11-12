@@ -2,6 +2,7 @@ package com.khanalytic.kmm.geocoding
 
 import com.khanalytic.integrations.GeocoderApi
 import com.khanalytic.models.Location
+import io.github.aakira.napier.Napier
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.copy
 import kotlinx.coroutines.Dispatchers
@@ -17,7 +18,7 @@ import platform.Foundation.NSError
 
 actual class PlacesApi actual constructor(): KoinComponent, GeocoderApi {
     @OptIn(ExperimentalForeignApi::class)
-    override suspend fun gecode(address: String): Location {
+    override suspend fun gecode(address: String): Location? {
         val mutex = Mutex()
         var location: Location? = null
         mutex.lock()
@@ -43,10 +44,6 @@ actual class PlacesApi actual constructor(): KoinComponent, GeocoderApi {
 
         mutex.lock()
         mutex.unlock()
-        if (location != null) {
-            return location as Location
-        } else {
-            throw Exception("could not geocode : $address")
-        }
+        return location
     }
 }

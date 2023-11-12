@@ -22,7 +22,7 @@ data class BrandDetail(
 fun BrandDetail.toBrand(
     platformId: Long,
     remoteBrandId: String,
-    location: Location,
+    location: Location?,
     active: Boolean
 ): Brand =
     // id, createdAt, updatedAt don't matter when creating or updating the brands on the server.
@@ -30,8 +30,8 @@ fun BrandDetail.toBrand(
         id = 0,
         name = name,
         address = address,
-        latitude = location.latitude,
-        longitude = location.longitude,
+        latitude = location?.latitude,
+        longitude = location?.longitude,
         createdAt = Instant.fromEpochSeconds(0),
         updatedAt = Instant.fromEpochSeconds(0),
         platformBrands = listOf(

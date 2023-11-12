@@ -111,7 +111,7 @@ fun MenuOrderResponse.toOrders(platformBrandId: Long, menu: Menu): List<MenuOrde
     }
 }
 
-private class MenuResponseDeSerializer: KSerializer<MenuOrderResponse> {
+object MenuResponseDeSerializer: KSerializer<MenuOrderResponse> {
     private val serializer = Serialization.serializer
     override val descriptor: SerialDescriptor = MenuOrderResponseData.serializer().descriptor
     override fun serialize(encoder: Encoder, value: MenuOrderResponse) {

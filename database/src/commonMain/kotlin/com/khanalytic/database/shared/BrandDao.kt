@@ -22,7 +22,7 @@ class BrandDao: KoinComponent {
     suspend fun upsetBrands(brands: List<ModelBrand>) = withContext(Dispatchers.IO) {
         database.dbQuery.transaction {
             brands.forEach {
-                database.dbQuery.upsetBrand(it.id, it.name, it.address, it.latitude, it.longitude,
+                database.dbQuery.upsetBrand(it.id, it.name, it.address, it.latitude(), it.longitude(),
                     it.createdAt.toString(), it.updatedAt.toString())
 
                 it.platformBrands.forEach { platformBrand ->
@@ -42,8 +42,8 @@ class BrandDao: KoinComponent {
         withContext(Dispatchers.IO) {
             database.dbQuery.transaction {
                 brands.forEach {
-                    database.dbQuery.upsetBrand(it.id, it.name, it.address, it.latitude,
-                        it.longitude, it.createdAt.toString(), it.updatedAt.toString())
+                    database.dbQuery.upsetBrand(it.id, it.name, it.address, it.latitude(),
+                        it.longitude(), it.createdAt.toString(), it.updatedAt.toString())
 
                     it.platformBrands.forEach { platformBrand ->
                         database.dbQuery.upsertPlatformBrand(

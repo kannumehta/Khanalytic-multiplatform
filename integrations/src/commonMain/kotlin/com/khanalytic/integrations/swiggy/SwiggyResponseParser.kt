@@ -42,7 +42,8 @@ class SwiggyResponseParser : KoinComponent {
         response: String,
     ): Brand {
         val brandDetail = serializer.decodeFromString<BrandDetailResponse>(response).data
-        val location = geocoderApi.gecode(brandDetail.address)
+        val location = geocoderApi.
+        gecode(brandDetail.address)
         return brandDetail.toBrand(platformId, remoteBrandId, location, active)
     }
 
