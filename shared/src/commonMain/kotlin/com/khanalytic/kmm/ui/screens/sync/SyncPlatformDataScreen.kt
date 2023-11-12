@@ -41,7 +41,6 @@ data class SyncPlatformDataScreen(
             SyncPlatformDataScreenModel(userId, platformId, userPlatformCookieId)
         }
         val node = model.syncJobsFlow.collectAsStateMultiplatform().value
-        Napier.v("new flow rendering content")
         Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
             if (node != null) {
                 LazyColumn(modifier = Modifier.fillMaxSize()) {

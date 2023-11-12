@@ -79,15 +79,25 @@ class SyncService: KoinComponent {
             .map { Pair(it, SyncJobNode.InternalNode(it.name)) }
             .filter { it.first.platformBrands.any { platformBrand -> platformBrand.active } }
 
-        val platformBrandMissingDates = getMissingDates(user, brandsAndSyncJobs.map { it.first })
-
         node.children.addAll(brandsAndSyncJobs.map { it.second })
+        onJobStateUpdated()
+
+        val platformBrandMissingDates = getMissingDates(user, brandsAndSyncJobs.map { it.first })
         brandsAndSyncJobs.forEach { brandAndSyncJob ->
             val platformBrandId = brandAndSyncJob.first.platformBrands.first().id
-            val missingDates = platformBrandMissingDates.find { it.platformBrandId == platformBrandId }
+            val missingDates = platformBrandMissingDates.find {
+                it.platformBrandId == platformBrandId
+            }
             if (missingDates != null) {
                 syncAllDataForBrand(brandAndSyncJob.second, user, brandAndSyncJob.first,
                     platformApi, missingDates.missingDates, onJobStateUpdated)
+            }
+            if (brandAndSyncJob.second.children.isEmpty()) {
+                // Add a dummy node as processed that it can be shown on the UI as processed.
+                brandAndSyncJob.second.children.add(
+                    SyncJobNode.LeafNode("Dummy", SyncJobStatus.Processed)
+                )
+                onJobStateUpdated()
             }
         }
     }
