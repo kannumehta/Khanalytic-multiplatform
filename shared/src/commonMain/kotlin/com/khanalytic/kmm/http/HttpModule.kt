@@ -7,6 +7,7 @@ import com.khanalytic.kmm.http.api.MenuApi
 import com.khanalytic.kmm.http.api.MenuOrderApi
 import com.khanalytic.kmm.http.api.MissingDatesApi
 import com.khanalytic.kmm.http.api.PlatformApi
+import com.khanalytic.kmm.http.api.SalesSummaryApi
 import com.khanalytic.kmm.http.api.UserApi
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
@@ -20,5 +21,6 @@ val httpModule = module {
     single { MenuApi() }
     single { MissingDatesApi() }
     single { ComplaintApi() }
+    single { SalesSummaryApi() }
     single { MenuOrderApi() }
 }

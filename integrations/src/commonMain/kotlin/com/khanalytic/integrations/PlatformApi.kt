@@ -16,7 +16,12 @@ interface PlatformApi {
     ): List<Brand>
 
     @Throws(Exception::class)
-    suspend fun getSalesSummary(resId: String, startDate: String, endDate: String): SalesSummary
+    suspend fun getSalesSummary(
+        platformBrandId: Long,
+        resId: String,
+        startDate: LocalDate,
+        endDate: LocalDate
+    ): SalesSummary
 
     @Throws(Exception::class)
     suspend fun getMenu(platformBrandId: Long, resId: String): Menu

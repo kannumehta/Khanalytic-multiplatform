@@ -12,8 +12,8 @@ object SwiggyConstants {
 
     fun salesSummaryUrl(
         resId: String,
-        startDate: String,
-        endDate: String
+        startDate: LocalDate,
+        endDate: LocalDate
     ): String = "$API_HOST/insights/v1/revenue/?endDate=$endDate&groupBy=day" +
             "&restaurantId=$resId&startDate=$startDate"
 

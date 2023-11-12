@@ -1,8 +1,9 @@
 package com.khanalytic.kmm.partnersync
 
 import com.khanalytic.integrations.PlatformApi
-import com.khanalytic.kmm.http.api.ComplaintApi
+import com.khanalytic.kmm.http.api.SalesSummaryApi
 import com.khanalytic.kmm.http.requests.UpdateComplaintsRequest
+import com.khanalytic.kmm.http.requests.UpdateSalesSummariesRequest
 import com.khanalytic.kmm.http.requests.UserApiRequest
 import com.khanalytic.kmm.http.requests.toUserAuthRequest
 import com.khanalytic.models.User
@@ -13,24 +14,24 @@ import kotlinx.datetime.LocalDate
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class ComplaintSyncService: KoinComponent {
-    private val complaintApi: ComplaintApi by inject()
+class SalesSummarySyncService: KoinComponent {
+    private val salesSummaryApi: SalesSummaryApi by inject()
 
     @Throws(Exception::class)
-    suspend fun syncComplaints(
+    suspend fun syncSalesSummaries(
         user: User,
         platformApi: PlatformApi,
         platformBrandId: Long,
         remoteBrandId: String,
         datesToSync: List<LocalDate>
     ) = coroutineScope {
-        val complaints = datesToSync.map { date ->
-            async { platformApi.getComplaints(platformBrandId, remoteBrandId, date, date) }
-        }.awaitAll().flatten()
+        val summaries = datesToSync.map { date ->
+            async { platformApi.getSalesSummary(platformBrandId, remoteBrandId, date, date) }
+        }.awaitAll()
         val request = UserApiRequest(
-            UpdateComplaintsRequest(complaints, datesToSync, platformBrandId),
+            UpdateSalesSummariesRequest(summaries, datesToSync, platformBrandId),
             user.toUserAuthRequest()
         )
-        complaintApi.update(request)
+        salesSummaryApi.update(request)
     }
 }

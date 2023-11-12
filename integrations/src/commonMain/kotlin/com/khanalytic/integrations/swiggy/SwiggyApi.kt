@@ -29,7 +29,6 @@ import io.ktor.http.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.withContext
 import kotlinx.datetime.LocalDate
 import kotlinx.serialization.encodeToString
@@ -68,11 +67,14 @@ class SwiggyApi(
 
     @Throws(Exception::class)
     override suspend fun getSalesSummary(
+        platformBrandId: Long,
         resId: String,
-        startDate: String,
-        endDate: String
+        startDate: LocalDate,
+        endDate: LocalDate
     ): SalesSummary = withContext(Dispatchers.Default) {
         responseParser.parseSalesSummary(
+            platformBrandId,
+            startDate,
             httpClient.get(SwiggyConstants.salesSummaryUrl(resId, startDate, endDate)) {
                 commonHeaders()
                 accept(ContentType.Application.Json)

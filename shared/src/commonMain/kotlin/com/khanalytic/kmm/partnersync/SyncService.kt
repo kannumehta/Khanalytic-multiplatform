@@ -36,6 +36,7 @@ class SyncService: KoinComponent {
     private val menuSyncService: MenuSyncService by inject()
     private val menuOrderSyncService: MenuOrderSyncService by inject()
     private val complaintSyncService: ComplaintSyncService by inject()
+    private val salesSummarySyncService: SalesSummarySyncService by inject()
 
     private val userDao: UserDao by inject()
     private val brandDao: BrandDao by inject()
@@ -158,6 +159,15 @@ class SyncService: KoinComponent {
                 startLeafJob("Complaints", node, onJobStateUpdated) {
                     complaintSyncService.syncComplaints(user, platformApi, platformBrand.id,
                         platformBrand.remoteBrandId, missingDates.complaint)
+                }
+            }
+        }
+
+        launch {
+            if (missingDates.salesSummary.isNotEmpty()) {
+                startLeafJob("Sales Summary", node, onJobStateUpdated) {
+                    salesSummarySyncService.syncSalesSummaries(user, platformApi, platformBrand.id,
+                        platformBrand.remoteBrandId, missingDates.salesSummary)
                 }
             }
         }

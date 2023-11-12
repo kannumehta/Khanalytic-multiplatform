@@ -13,4 +13,5 @@ data class PlatformBrandsMissingDates(
 data class MissingDates(
     val menuOrder: List<LocalDate>,
     val complaint: List<LocalDate>,
+    val salesSummary: List<LocalDate>,
 )

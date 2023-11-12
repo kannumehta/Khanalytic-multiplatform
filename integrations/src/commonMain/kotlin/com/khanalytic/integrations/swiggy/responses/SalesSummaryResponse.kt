@@ -1,6 +1,7 @@
 package com.khanalytic.integrations.swiggy.responses
 
 import com.khanalytic.models.SalesSummary
+import kotlinx.datetime.LocalDate
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -26,5 +27,10 @@ data class Summary(
     val totalRevenue: Float,
 )
 
-fun Summary.toSalesSummary(): SalesSummary =
-    SalesSummary(deliveredOrders = deliveredOrders, aov = averageOrderValue, sales = totalRevenue)
+fun Summary.toSalesSummary(platformBrandId: Long, date: LocalDate): SalesSummary = SalesSummary(
+    platformBrandId = platformBrandId,
+    deliveredOrders = deliveredOrders,
+    date = date,
+    aov = averageOrderValue,
+    sales = totalRevenue
+)

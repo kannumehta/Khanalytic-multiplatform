@@ -21,6 +21,7 @@ import com.khanalytic.integrations.swiggy.responses.toMenu
 import com.khanalytic.integrations.swiggy.responses.toMenuOrdersBatch
 import com.khanalytic.integrations.swiggy.responses.toSalesSummary
 import com.khanalytic.models.Brand
+import kotlinx.datetime.LocalDate
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -47,9 +48,13 @@ class SwiggyResponseParser : KoinComponent {
         return brandDetail.toBrand(platformId, remoteBrandId, location, active)
     }
 
-    @Throws(Exception::class) fun parseSalesSummary(response: String): SalesSummary =
+    @Throws(Exception::class) fun parseSalesSummary(
+        platformBrandId: Long,
+        date: LocalDate,
+        response: String
+    ): SalesSummary =
         serializer.decodeFromString<SalesSummaryResponse>(response)
-            .data.orderMetricsV4.summary.toSalesSummary()
+            .data.orderMetricsV4.summary.toSalesSummary(platformBrandId, date)
 
     @Throws(Exception::class) fun parseMenu(platformBrandId: Long, response: String): Menu =
         serializer.decodeFromString<MenuResponse>(response).toMenu(platformBrandId)
