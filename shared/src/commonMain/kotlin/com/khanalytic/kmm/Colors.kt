@@ -73,6 +73,11 @@ fun primaryColor(): Color =
     else { md_theme_dark_primary }
 
 @Composable
+fun primaryContainerColor(): Color =
+    if (!isSystemInDarkTheme()) { md_theme_light_primaryContainer }
+    else { md_theme_dark_primaryContainer }
+
+@Composable
 fun surfaceColor(): Color =
     if (!isSystemInDarkTheme()) { md_theme_light_surface }
     else { md_theme_dark_surface }
@@ -80,7 +85,7 @@ fun surfaceColor(): Color =
 @Composable
 fun listDividerColor(): Color =
     if (!isSystemInDarkTheme()) { Color(0xFFf7f7f5) }
-    else { Color.LightGray }
+    else { Color.DarkGray }
 
 @Composable
 fun pendingIconColor(): Color =

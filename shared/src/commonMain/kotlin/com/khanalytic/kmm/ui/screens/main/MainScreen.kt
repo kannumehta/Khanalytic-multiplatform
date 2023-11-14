@@ -10,9 +10,11 @@ import cafe.adriel.voyager.koin.getScreenModel
 import cafe.adriel.voyager.navigator.Navigator
 import com.khanalytic.kmm.primaryColor
 import com.khanalytic.kmm.ui.common.collectAsStateMultiplatform
+import com.khanalytic.kmm.ui.screens.filter.FilterScreen
 import com.khanalytic.kmm.ui.screens.login.RegisterScreen
 import com.khanalytic.kmm.ui.screens.platformaccounts.AddPlatformAccountScreen
 import com.khanalytic.kmm.ui.screens.sync.SyncPlatformDataScreen
+import com.khanalytic.kmm.ui.screens.user.UserScreen
 
 object MainScreen : Screen {
     @Composable
@@ -31,12 +33,14 @@ object MainScreen : Screen {
                     val userPlatformCookies =
                         model.userPlatformCookiesFlow.collectAsStateMultiplatform().value
                     if (userPlatformCookies.isNotEmpty()) {
-                        val userPlatformCookie = userPlatformCookies.first()
-                        Navigator(SyncPlatformDataScreen(
-                            userPlatformCookie.userId,
-                            userPlatformCookie.platformId,
-                            userPlatformCookie.id
-                        ))
+//                        val userPlatformCookie = userPlatformCookies.first()
+//                        Navigator(SyncPlatformDataScreen(
+//                            userPlatformCookie.userId,
+//                            userPlatformCookie.platformId,
+//                            userPlatformCookie.id
+//                        ))
+                        Navigator(UserScreen())
+
                     } else {
                         Navigator(AddPlatformAccountScreen(state.user.id))
                     }
