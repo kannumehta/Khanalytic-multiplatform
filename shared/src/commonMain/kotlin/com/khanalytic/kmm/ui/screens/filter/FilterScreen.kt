@@ -61,9 +61,9 @@ abstract class FilterScreen: Screen {
             items(items = items, itemContent = { item ->
                 when(item) {
                     is ListItem.Header -> Header(item.name)
-                    is ListItem.PlatformItem -> Platform(item.platform)
-                    is ListItem.BrandItem -> Brand(item.brand)
-                    is ListItem.ReportTypeItem -> ReportType()
+                    is ListItem.PlatformItem -> Platform(item.platform, model)
+                    is ListItem.BrandItem -> Brand(item.brand, model)
+                    is ListItem.ReportTypeItem -> ReportType(model)
                 }
             })
         }
@@ -80,10 +80,11 @@ abstract class FilterScreen: Screen {
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
-    fun ReportType() {
+    fun ReportType(model: FilterScreenModel) {
         var expanded = remember { mutableStateOf(false) }
-        val types = arrayOf("Daily", "Weekly", "Monthly", "Yearly")
-        var selectedText = remember { mutableStateOf(types[0]) }
+        val types = ReportType.values()
+        var selectedText =
+            model.filterFlow().collectAsStateMultiplatform().value.reportType.toString()
 
         Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
             DefaultText("Report Type")
@@ -95,7 +96,7 @@ abstract class FilterScreen: Screen {
                 }
             ) {
                 TextField(
-                    value = selectedText.value,
+                    value = selectedText,
                     onValueChange = {},
                     readOnly = true,
                     trailingIcon = {
@@ -110,9 +111,9 @@ abstract class FilterScreen: Screen {
                 ) {
                     types.forEach { item ->
                         DropdownMenuItem(
-                            text = { Text(text = item) },
+                            text = { Text(text = item.toString()) },
                             onClick = {
-                                selectedText.value = item
+                                model.setReportType(item)
                                 expanded.value = false
                             }
                         )
@@ -124,28 +125,30 @@ abstract class FilterScreen: Screen {
     }
 
     @Composable
-    private fun Platform(platform: Platform) {
+    private fun Platform(platform: Platform, model: FilterScreenModel) {
+        val checkPlatformIds = model.filterFlow().collectAsStateMultiplatform().value.platformIds
+        val isChecked = checkPlatformIds.isEmpty() || checkPlatformIds.contains(platform.id)
         Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-            FilterCheckBox()
+            Checkbox(
+                checked = isChecked,
+                onCheckedChange = { model.updatePlatformSelection(!isChecked, platform.id) }
+            )
             DefaultSpacer()
             DefaultText(platform.name, modifier = Modifier.fillMaxWidth())
         }
     }
 
     @Composable
-    private fun Brand(brand: Brand) {
+    private fun Brand(brand: Brand, model: FilterScreenModel) {
+        val checkBrandIds = model.filterFlow().collectAsStateMultiplatform().value.brandIds
+        val isChecked = checkBrandIds.isEmpty() || checkBrandIds.contains(brand.id)
         Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-            FilterCheckBox()
+            Checkbox(
+                checked = isChecked,
+                onCheckedChange = { model.updateBrandSelection(!isChecked, brand.id) }
+            )
             DefaultSpacer()
             DefaultText(brand.name, modifier = Modifier.fillMaxWidth())
         }
-    }
-
-    @Composable fun FilterCheckBox() {
-        val checkedState = remember { mutableStateOf(true) }
-        Checkbox(
-            checked = checkedState.value,
-            onCheckedChange = { checkedState.value = it }
-        )
     }
 }

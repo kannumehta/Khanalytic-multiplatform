@@ -7,6 +7,7 @@ import com.khanalytic.database.shared.PlatformDao
 import com.khanalytic.models.Brand
 import com.khanalytic.models.Platform
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -14,6 +15,7 @@ import org.koin.core.component.inject
 class FilterScreenModel: ScreenModel, KoinComponent {
     private val brandDao: BrandDao by inject()
     private val platformDao: PlatformDao by inject()
+    private val analyticsFilterManager: AnalyticsFilterManager by inject()
 
     val brandsStateFlow = MutableStateFlow(listOf<Brand>())
     val platformsStateFlow = MutableStateFlow(listOf<Platform>())
@@ -37,6 +39,44 @@ class FilterScreenModel: ScreenModel, KoinComponent {
                 }
             }
         }
+    }
+
+    fun filterFlow(): StateFlow<AnalyticsFilter> = analyticsFilterManager.filterFlow()
+
+    fun updateBrandSelection(checked: Boolean, brandId: Long) {
+        if (checked) {
+            analyticsFilterManager.addBrandId(brandId)
+            val checkedBrandIds = analyticsFilterManager.filterFlow().value.brandIds
+            if (brandsStateFlow.value.map { checkedBrandIds.contains(it.id) }.all { it }) {
+                brandsStateFlow.value.forEach { analyticsFilterManager.removeBrandId(it.id) }
+            }
+        } else {
+            val checkedBrandIds = analyticsFilterManager.filterFlow().value.brandIds
+            if (checkedBrandIds.isEmpty()) {
+                brandsStateFlow.value.forEach { analyticsFilterManager.addBrandId(it.id) }
+            }
+            analyticsFilterManager.removeBrandId(brandId)
+        }
+    }
+
+    fun updatePlatformSelection(checked: Boolean, platformId: Long) {
+        if (checked) {
+            val checkedPlatformIds = analyticsFilterManager.filterFlow().value.platformIds
+            if (platformsStateFlow.value.map { checkedPlatformIds.contains(it.id) }.all { it }) {
+                platformsStateFlow.value.forEach { analyticsFilterManager.removePlatformId(it.id) }
+            }
+            analyticsFilterManager.addPlatformId(platformId)
+        } else {
+            val checkedPlatformIds = analyticsFilterManager.filterFlow().value.platformIds
+            if (checkedPlatformIds.isEmpty()) {
+                platformsStateFlow.value.forEach { analyticsFilterManager.addPlatformId(it.id) }
+            }
+            analyticsFilterManager.removePlatformId(platformId)
+        }
+    }
+
+    fun setReportType(reportType: ReportType) {
+        analyticsFilterManager.setReportType(reportType)
     }
 
     fun setFilterScreenVisibility(visible: Boolean) {

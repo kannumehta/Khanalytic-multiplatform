@@ -7,6 +7,7 @@ import com.khanalytic.kmm.repositories.repositoryModule
 import com.khanalytic.kmm.ui.screens.screenModules
 import com.khanalytic.kmm.geocoding.geocodingModule
 import com.khanalytic.kmm.partnersync.partnerSyncModule
+import com.khanalytic.kmm.ui.screens.filter.filterScreenModule
 import org.koin.core.module.Module
 
 fun appModule(): List<Module> = platformAppModules()
@@ -18,4 +19,5 @@ private val commonModules = listOf(
     repositoryModule,
     geocodingModule,
     partnerSyncModule,
+    filterScreenModule,
 ).plus(screenModules).plus(integrationModules)
