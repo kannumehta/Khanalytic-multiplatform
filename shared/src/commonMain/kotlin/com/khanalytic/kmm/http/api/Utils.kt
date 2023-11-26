@@ -5,7 +5,7 @@ import com.khanalytic.kmm.http.requests.appendSyncRequest
 import io.ktor.http.URLBuilder
 
 object Utils {
-    private const val BASE_URL = "https://a332-2601-641-500-af0-dd00-2593-15d7-85e1.ngrok-free.app"
+    private const val BASE_URL = "https://f33f-2601-641-500-af0-e0a9-fe6e-e9e0-5adc.ngrok-free.app"
 
     fun appUrl(path: String): String = "$BASE_URL/$path"
 }

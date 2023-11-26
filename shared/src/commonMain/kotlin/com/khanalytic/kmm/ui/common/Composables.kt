@@ -16,7 +16,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AccountCircle
-import androidx.compose.material.icons.outlined.CheckCircle
 import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material3.Button
@@ -37,6 +36,7 @@ import androidx.compose.ui.unit.sp
 import com.khanalytic.kmm.listDividerColor
 import com.khanalytic.kmm.md_theme_dark_onSurface
 import com.khanalytic.kmm.md_theme_light_onSurface
+import com.khanalytic.kmm.subtitleTextColor
 import io.github.skeptick.libres.compose.painterResource
 import io.github.skeptick.libres.images.Image as LibreImage
 
@@ -105,9 +105,25 @@ fun DefaultText(text: String, modifier: Modifier = Modifier) {
 }
 
 @Composable
+fun SingleLineSubtitleText(text: String, modifier: Modifier = Modifier) {
+    Text(modifier = modifier, text = text, color = subtitleTextColor(),  maxLines = 1,
+        fontSize = 14.sp)
+}
+
+@Composable
 fun DefaultHeading(text: String, modifier: Modifier = Modifier) {
     Text(modifier = modifier, text = text, color = textColor(), fontSize = 18.sp,
         textAlign = TextAlign.Center)
+}
+
+@Composable
+fun DefaultListHeader(text: String, modifier: Modifier = Modifier) {
+    Text(modifier = modifier.background(listDividerColor()).padding(vertical = 12.dp),
+        text = text,
+        color = textColor(),
+        fontSize = 18.sp,
+        textAlign = TextAlign.Center
+    )
 }
 
 @Composable

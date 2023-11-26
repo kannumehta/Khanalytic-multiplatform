@@ -92,4 +92,7 @@ fun pendingIconColor(): Color =
     if (!isSystemInDarkTheme()) { Color.Gray }
     else { Color.LightGray }
 
-
+@Composable
+fun subtitleTextColor(): Color =
+    if (!isSystemInDarkTheme()) { Color.Gray }
+    else { Color.LightGray }

@@ -6,4 +6,6 @@ import kotlinx.datetime.toLocalDateTime
 
 object InstantUtils {
     fun Instant.toLocalDateTimeUtc() = this.toLocalDateTime(TimeZone.UTC)
+
+    fun Instant.toLocateDateUtc() = this.toLocalDateTimeUtc().date
 }

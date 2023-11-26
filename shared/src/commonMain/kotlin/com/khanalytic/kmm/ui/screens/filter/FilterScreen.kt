@@ -25,6 +25,7 @@ import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.core.screen.Screen
 import com.khanalytic.kmm.listDividerColor
 import com.khanalytic.kmm.ui.common.DefaultHeading
+import com.khanalytic.kmm.ui.common.DefaultListHeader
 import com.khanalytic.kmm.ui.common.DefaultSpacer
 import com.khanalytic.kmm.ui.common.DefaultText
 import com.khanalytic.kmm.ui.common.ListDivider
@@ -71,11 +72,7 @@ abstract class FilterScreen: Screen {
 
     @Composable
     private fun Header(name: String) {
-        DefaultHeading(
-            name,
-            modifier = Modifier.fillMaxWidth().background(listDividerColor())
-                .padding(vertical = 12.dp)
-        )
+        DefaultListHeader(name, modifier = Modifier.fillMaxWidth())
     }
 
     @OptIn(ExperimentalMaterial3Api::class)
