@@ -10,7 +10,7 @@ data class AnalyticsReportRequest(
     val endDate: LocalDate,
     val brandIds: List<Long>,
     val platformIds: List<Long>,
-    val limit: Int = 5
+    val limit: Int = 10
 )
 
 fun AnalyticsFilter.toRequest(date: LocalDate) = AnalyticsReportRequest(

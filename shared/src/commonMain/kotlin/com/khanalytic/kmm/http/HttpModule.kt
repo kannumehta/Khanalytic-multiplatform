@@ -2,6 +2,7 @@ package com.khanalytic.kmm.http
 
 import com.khanalytic.database.shared.BrandDao
 import com.khanalytic.kmm.http.api.BrandApi
+import com.khanalytic.kmm.http.api.BusinessReportApi
 import com.khanalytic.kmm.http.api.ComplaintApi
 import com.khanalytic.kmm.http.api.MenuApi
 import com.khanalytic.kmm.http.api.MenuOrderApi
@@ -23,4 +24,5 @@ val httpModule = module {
     single { ComplaintApi() }
     single { SalesSummaryApi() }
     single { MenuOrderApi() }
+    single { BusinessReportApi() }
 }

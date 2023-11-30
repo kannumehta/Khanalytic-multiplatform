@@ -189,7 +189,7 @@ fun NameTextField(
 }
 
 @Composable
-private fun textColor(): Color =
+fun textColor(): Color =
     if (isSystemInDarkTheme()) {
         md_theme_dark_onSurface
     } else {

@@ -60,6 +60,8 @@ kotlin {
                 implementation("cafe.adriel.voyager:voyager-transitions:$voyagerVersion")
                 implementation("cafe.adriel.voyager:voyager-koin:$voyagerVersion")
                 implementation("io.github.skeptick.libres:libres-compose:1.2.0")
+                implementation("io.github.thechance101:chart:Beta-0.0.5")
+                implementation("io.github.koalaplot:koalaplot-core:0.4.0")
 
                 implementation(compose.runtime)
                 implementation(compose.foundation)
@@ -108,7 +110,7 @@ android {
     namespace = "com.khanalytic.kmm"
     compileSdk = 34
     defaultConfig {
-        minSdk = 24
+        minSdk = 26
         targetSdk = 34
     }
 }
