@@ -144,7 +144,7 @@ class BusinessReportScreen : AnalyticsPagerScreen<List<SaleReport>>(), KoinCompo
                     if (deliveryType == selectedDeliveryType) {
                         primaryColor()
                     } else { Color(0x00000000) }
-                    OutlinedButton(
+                OutlinedButton(
                     modifier = Modifier.weight(1f),
                     shape = RoundedCornerShape(0.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = backgroundColor),
@@ -232,7 +232,7 @@ class BusinessReportScreen : AnalyticsPagerScreen<List<SaleReport>>(), KoinCompo
                 DefaultSpacer()
                 previousReport?.let {
                     val percentage = MathUtils.percentage(
-                        pair.first.itemType.value(saleReport),
+                        pair.first.itemType.value(saleReport) - pair.first.itemType.value(it),
                         pair.first.itemType.value(it)
                     )
                     val diffColor = if (percentage > 0) {
@@ -272,7 +272,7 @@ class BusinessReportScreen : AnalyticsPagerScreen<List<SaleReport>>(), KoinCompo
                         DefaultSpacer()
                         previousReport?.let {
                             val percentage = MathUtils.percentage(
-                                subItem.itemType.value(saleReport),
+                                subItem.itemType.value(saleReport) - subItem.itemType.value(it),
                                 subItem.itemType.value(it)
                             )
                             val diffColor = if (percentage > 0) {
