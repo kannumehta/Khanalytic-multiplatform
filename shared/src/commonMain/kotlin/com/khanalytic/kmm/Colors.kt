@@ -67,6 +67,8 @@ val md_theme_dark_scrim = Color(0xFF000000)
 val zomato_color = Color(0xFFE33442)
 val swiggy_color = Color(0xFFFC791A)
 
+fun darkGreenColor(): Color = Color(0xFF0a8a2c)
+
 @Composable
 fun primaryColor(): Color =
     if (!isSystemInDarkTheme()) { md_theme_light_primary }

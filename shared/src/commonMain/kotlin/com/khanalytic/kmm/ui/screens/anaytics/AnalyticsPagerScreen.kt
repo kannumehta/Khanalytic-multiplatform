@@ -28,8 +28,6 @@ import androidx.compose.ui.unit.dp
 import com.khanalytic.kmm.http.responses.AnalyticsReport
 import com.khanalytic.kmm.primaryColor
 import com.khanalytic.kmm.subtitleTextColor
-import com.khanalytic.kmm.ui.common.DefaultHeading
-import com.khanalytic.kmm.ui.common.DefaultSpacer
 import com.khanalytic.kmm.ui.common.DefaultText
 import com.khanalytic.kmm.ui.common.collectAsStateMultiplatform
 import com.khanalytic.kmm.ui.screens.filter.FilterScreen

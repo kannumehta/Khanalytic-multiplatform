@@ -13,7 +13,9 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.dp
+import com.khanalytic.kmm.ui.common.MathUtils.percentage
 import com.khanalytic.kmm.ui.common.MathUtils.round
+import com.khanalytic.kmm.ui.common.MathUtils.toPercentageString
 
 data class PieChartEntry(val partName: String, val data: Float, val color: Color)
 
@@ -72,8 +74,7 @@ fun PieChart(
                 style = TextStyle.Default.copy(color = textColor)
             )
 
-            val value = ((entry.data / totalValue) * 100f).round(2)
-            val valueLabel = "$value%"
+            val valueLabel = percentage(entry.data, totalValue).toPercentageString()
             val valueLabelSize = textMeasurer.measure(valueLabel, TextStyle.Default).size
             val valueLabelX = (radius + (startX/1.3)).dp.toPx() - valueLabelSize.width/2
             val valueLabelY = labelY + labelSize.height

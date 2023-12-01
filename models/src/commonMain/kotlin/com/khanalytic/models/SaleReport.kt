@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class SaleReport(
-    val platformId: Int,
+    val platformId: Long,
     val orders: Int,
     val isDelivered: Boolean,
     val subtotal: Float,

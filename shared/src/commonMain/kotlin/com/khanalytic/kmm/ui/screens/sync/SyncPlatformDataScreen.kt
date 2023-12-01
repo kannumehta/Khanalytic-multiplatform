@@ -18,6 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.core.screen.Screen
+import com.khanalytic.kmm.darkGreenColor
 import com.khanalytic.kmm.partnersync.SyncJobNode
 import com.khanalytic.kmm.partnersync.SyncJobStatus
 import com.khanalytic.kmm.partnersync.status
@@ -76,7 +77,7 @@ data class SyncPlatformDataScreen(
             modifier = modifier,
             imageVector = Icons.Outlined.CheckCircle,
             contentDescription = null,
-            tint = Color.Green
+            tint = darkGreenColor()
         )
     }
 
