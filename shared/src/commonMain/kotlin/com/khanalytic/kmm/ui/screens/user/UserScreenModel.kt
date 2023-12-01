@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import org.koin.core.component.KoinComponent
 
 class UserScreenModel: ScreenModel, KoinComponent {
-    val selectedScreenTypeFlow = MutableStateFlow(UserScreenType.BusinessReport)
+    val selectedScreenTypeFlow = MutableStateFlow(UserScreenType.Discounts)
     val filterScreenVisibleFlow = MutableStateFlow(false)
 
     fun onScreenSelected(screenType: UserScreenType) {

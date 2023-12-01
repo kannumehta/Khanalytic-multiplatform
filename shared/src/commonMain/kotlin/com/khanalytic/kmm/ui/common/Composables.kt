@@ -42,6 +42,8 @@ import io.github.skeptick.libres.images.Image as LibreImage
 
 @Composable fun DefaultSpacer() { Spacer(modifier = Modifier.size(16.dp)) }
 
+@Composable fun SmallSpacer() { Spacer(modifier = Modifier.size(4.dp)) }
+
 @Composable
 fun DefaultButton(text: String, modifier: Modifier, onClick: () -> Unit) {
     Button(
@@ -105,9 +107,12 @@ fun DefaultText(text: String, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun SingleLineSubtitleText(text: String, modifier: Modifier = Modifier) {
+fun SingleLineSubtitleText(
+    text: String,
+    modifier: Modifier = Modifier,
+    textAlign: TextAlign = TextAlign.Left) {
     Text(modifier = modifier, text = text, color = subtitleTextColor(),  maxLines = 1,
-        fontSize = 14.sp)
+        fontSize = 14.sp, textAlign = textAlign)
 }
 
 @Composable
